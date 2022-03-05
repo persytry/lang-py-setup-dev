@@ -1,0 +1,40 @@
+os:
+  editCommand: ''
+  editCommandTemplate: '{{editor}} {{filename}}'
+gui:
+  mouseEvents: false
+  expandFocusedSidePanel: true
+  skipStashWarning: false
+  scrollHeight: 4
+  theme:
+    lightTheme: false
+    selectedLineBgColor:
+      - reverse
+git:
+  paging:
+    colorArg: always
+    #useConfig: true
+    pager: delta --paging=never --diff-highlight
+notARepository: 'prompt'
+confirmOnQuit: false
+customCommands:
+  - key: '<c-d>'
+    command: 'git difftool {{.SelectedFile.Name}}'
+    context: 'files'
+    subprocess: true
+    description: 'compare diff use git difftool'
+  - key: '<c-d>'
+    command: 'git difftool {{.SelectedLocalCommit.Sha}}~ {{.SelectedLocalCommit.Sha}} {{.SelectedCommitFile.Name}}'
+    context: 'commitFiles'
+    subprocess: true
+    description: 'compare diff with parent commit use git difftool'
+  - key: '<c-f>'
+    command: 'git diff {{.SelectedFile.Name}}'
+    context: 'files'
+    subprocess: true
+    description: 'compare diff use git diff'
+  - key: '<c-f>'
+    command: 'git diff {{.SelectedLocalCommit.Sha}}~ {{.SelectedLocalCommit.Sha}} {{.SelectedCommitFile.Name}}'
+    context: 'commitFiles'
+    subprocess: true
+    description: 'compare diff with parent commit use git diff'

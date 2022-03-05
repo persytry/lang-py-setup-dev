@@ -1,0 +1,54 @@
+
+let mapleader = "\<Space>"
+let localmapleader = "\<Bslash>"
+
+set backspace=indent,eol,start
+set clipboard=unnamed
+set ignorecase
+
+
+nnoremap <leader>fn :vsc VAssistX.ListMethodsInCurrentFile<cr>
+nnoremap <leader>fs :vsc VAssistX.FindReferencesinFile<CR>
+nnoremap gr :vsc VAssistX.FindReferences<CR>
+nnoremap K :vsc Edit.QuickInfo<CR>
+nnoremap gy :vsc VAssistX.OpenCorrespondingFile<CR>
+nnoremap gi :vsc VAssistX.GotoImplementation<CR>
+nnoremap <leader>ac :vsc VAssistX.RefactorContextMenu<CR>
+nnoremap <leader>rn :vsc VAssistX.RefactorRename<CR>
+nnoremap <leader>ps :vsc VAssistX.FindSymbolDialog<CR>
+nnoremap <leader>ff :vsc VAssistX.OpenFileInSolutionDialog<CR>
+nnoremap <leader>wo :vsc VAssistX.VAOutline<CR>
+nnoremap <C-j> :vsc VAssistX.FindNextbyContext<CR>
+vnoremap <C-j> :vsc VAssistX.FindNextbyContext<CR>
+" C-k是一种组合键,已经被vs的不知道什么功能给占用了,所以对于这个的改键,只能用vs改键的方式了:
+" Tools->Options->Environment->Keyboard->VAssistX.FindPreviousbyContext->然后改成全局快捷键<C-k>
+nnoremap <C-k> :vsc VAssistX.FindPreviousbyContext<CR>
+vnoremap <C-k> :vsc VAssistX.FindPreviousbyContext<CR>
+
+nnoremap <C-o> :vsc View.NavigateBackward<CR>  
+nnoremap <C-i> :vsc View.NavigateForward<CR>
+
+nnoremap <leader>wf :vsc View.SolutionExplorer<CR>
+
+nnoremap <leader>fS :vsc Edit.FindinFiles<CR>
+
+noremap gs :w<CR>
+
+nnoremap <leader>c<leader> :vsc Edit.ToggleLineComment<CR>
+
+
+"""""insert mode as Emacs key-mapping begin
+" 删除下一个字符
+inoremap <C-d> <Del>
+" 移到行尾
+inoremap <C-e> <End>
+" 删除到行尾
+inoremap <C-k> <C-o>C
+" 前进一行
+inoremap <C-n> <Down>
+" 后退一行
+inoremap <C-p> <Up>
+" 当前行居中
+inoremap <C-l> <Esc><Esc>zza
+"""""insert mode as Emacs key-mapping end
+

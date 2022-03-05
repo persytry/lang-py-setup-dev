@@ -1,0 +1,41 @@
+" vim: filetype=vifm :
+
+set vicmd=nvim
+set number
+set relativenumber
+set dotdirs={"nonrootparent"}
+
+let $VIFM_VICMD=&vicmd
+if $VIFM_VICMD == "nvim"
+    let $VIFM_VICMD_OTHER = "vim"
+else
+    let $VIFM_VICMD_OTHER = "nvim"
+endif
+
+colorscheme Default
+nnoremap cs :<C-u>colorscheme = solarized-light<CR>
+nnoremap cS :<C-u>colorscheme = Default<CR>
+
+nnoremap <C-w>q ZQ
+nnoremap <C-w><C-q> ZQ
+
+command! m %m %a
+command! g %m grep -rn --exclude-dir='.git' --exclude='*.pdf' '%a' .
+command! G !!grep -rn --exclude-dir='.git' --exclude='*.pdf' '%a' .
+command! f %m find -L . -path './.git' -prune -o -type f -name '%a' -print
+command! F !!find -L . -path './.git' -prune -o -type f -name '%a' -print
+command! vi $VIFM_VICMD %a
+command! py %m python %f %a
+command! lg lazygit -ucd ~/Library/Application\ Support/jesseduffield/lazygit %a
+nnoremap <space>lg :lg<cr>
+" 没必要再做个快捷键了,因为下面的s快捷就表示启动一个shell
+"nnoremap <space>sh :shell<cr>
+nnoremap <space> :<esc><esc>
+nnoremap o :!$VIFM_VICMD %f<cr>
+nnoremap O :!$VIFM_VICMD_OTHER %f<cr>
+
+command! g %m rg --follow --no-text --smart-case -n %a
+command! G !!rg --follow --no-text --smart-case -n %a
+command! f %m fd --type f --follow --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build,.vim,__pycache__} %a
+command! F !!fd --type f --follow --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build,.vim,__pycache__} %a
+

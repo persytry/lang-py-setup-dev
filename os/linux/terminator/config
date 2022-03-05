@@ -1,0 +1,77 @@
+[global_config]
+  geometry_hinting = True
+  title_transmit_bg_color = "#33d17a"
+  title_use_system_font = False
+  title_font = Monospace 15
+[keybindings]
+  zoom_in = ""
+  zoom_out = ""
+  zoom_normal = ""
+  new_tab = ""
+  cycle_next = ""
+  cycle_prev = ""
+  go_next = ""
+  go_prev = ""
+  go_up = ""
+  go_down = ""
+  go_left = ""
+  go_right = ""
+  rotate_cw = ""
+  rotate_ccw = ""
+  split_horiz = ""
+  split_vert = ""
+  close_term = <Super>q
+  copy = <Super>c
+  paste = <Super>v
+  toggle_scrollbar = ""
+  search = ""
+  close_window = <Super>w
+  resize_up = ""
+  resize_down = ""
+  resize_left = ""
+  resize_right = ""
+  move_tab_right = ""
+  move_tab_left = ""
+  toggle_zoom = ""
+  scaled_zoom = ""
+  next_tab = ""
+  prev_tab = ""
+  full_screen = <Super>F11
+  reset = ""
+  reset_clear = ""
+  hide_window = ""
+  group_all = ""
+  ungroup_all = ""
+  group_tab = ""
+  ungroup_tab = ""
+  new_window = ""
+  new_terminator = ""
+  insert_number = ""
+  insert_padded = ""
+  edit_window_title = ""
+  edit_tab_title = ""
+  edit_terminal_title = ""
+  layout_launcher = ""
+  help = ""
+[profiles]
+  [[default]]
+    visible_bell = True
+    background_color = "#fbf1c7"
+    cursor_color = "#aaaaaa"
+    font = Monospace 15
+    foreground_color = "#3c3836"
+    show_titlebar = False
+    disable_mousewheel_zoom = True
+    palette = "#fbf1c7:#cc241d:#98971a:#d79921:#458588:#b16286:#689d6a:#7c6f64:#928374:#9d0006:#79740e:#b57614:#076678:#8f3f71:#427b58:#3c3836"
+    use_system_font = False
+    copy_on_selection = True
+[layouts]
+  [[default]]
+    [[[window0]]]
+      type = Window
+      parent = ""
+    [[[child1]]]
+      type = Terminal
+      parent = window0
+      profile = default
+[plugins]

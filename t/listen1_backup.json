@@ -1,0 +1,404 @@
+{
+    "enable_stop_when_close": false,
+    "neplaylist_2097801896": {
+        "info": {
+            "id": "neplaylist_2097801896",
+            "cover_img_url": "https://p1.music.126.net/XuAhJpKQ_BVGokm97sZupg==/109951165383452714.jpg",
+            "title": "轻音乐 刷题 学习 安静 ‖ 壹",
+            "source_url": "https://music.163.com/#/playlist?id=2097801896"
+        },
+        "is_fav": 1
+    },
+    "enable_nowplaying_bitrate": true,
+    "theme": "black",
+    "neplaylist_2054205543": {
+        "info": {
+            "id": "neplaylist_2054205543",
+            "cover_img_url": "https://p1.music.126.net/H0DL-H7PyiF4mxgwzEtD1g==/855420046460208.jpg",
+            "title": "那些百听不厌经典的轻音乐钢琴曲",
+            "source_url": "https://music.163.com/#/playlist?id=2054205543"
+        },
+        "is_fav": 1
+    },
+    "neplaylist_2829733864": {
+        "info": {
+            "id": "neplaylist_2829733864",
+            "cover_img_url": "https://p1.music.126.net/CmbQ14DMvVKmUTR4UejdAw==/109951166035763769.jpg",
+            "title": "[睡眠伴侣]  选首最合适你的 然后单曲循环 ",
+            "source_url": "https://music.163.com/#/playlist?id=2829733864"
+        },
+        "is_fav": 1
+    },
+    "myplaylist_13ec59cd-b370-c730-bf8f-2c80db4c10db": {
+        "is_mine": 1,
+        "info": {
+            "cover_img_url": "images/mycover.jpg",
+            "title": "乡村音乐",
+            "id": "myplaylist_13ec59cd-b370-c730-bf8f-2c80db4c10db",
+            "source_url": ""
+        },
+        "tracks": [
+            {
+                "id": "netrack_21027049",
+                "title": "Heartbeats Accelerating",
+                "artist": "Linda Ronstadt",
+                "artist_id": "neartist_64185",
+                "album": "Winter Light",
+                "album_id": "nealbum_1946185",
+                "source": "netease",
+                "source_url": "https://music.163.com/#/song?id=21027049",
+                "img_url": "https://p1.music.126.net/WNhgzpus3kZYjUjOU6jvyQ==/109951164015877556.jpg",
+                "index": 7,
+                "playNow": true,
+                "url": "http://ip.h5.rc01.sycdn.kuwo.cn/4c38aa85c1b520bbd30b5889b77d3e54/61472fca/resource/n2/69/20/2715692251.mp3",
+                "platform": "kuwo",
+                "platformText": "酷我"
+            },
+            {
+                "id": "netrack_17406299",
+                "title": "Islands In The Stream",
+                "artist": "Dolly Parton",
+                "artist_id": "neartist_53258",
+                "album": "16 Biggest Hits",
+                "album_id": "nealbum_1603709",
+                "source": "netease",
+                "source_url": "https://music.163.com/#/song?id=17406299",
+                "img_url": "https://p1.music.126.net/3EqCXvZmiunKT6rnKe36EQ==/692692325507022.jpg",
+                "index": 5,
+                "playNow": true,
+                "url": "http://m8.music.126.net/20210919205852/43e22c8884d0c6551022f2de6d2eeb95/ymusic/3753/808c/0bf7/2a4009894d0a19999d291b66c162ec81.mp3",
+                "bitrate": "128kbps",
+                "platform": "netease",
+                "platformText": "网易"
+            },
+            {
+                "id": "netrack_5212450",
+                "title": "Child",
+                "artist": "frddie aghuilar",
+                "artist_id": "neartist_30032008",
+                "album": "Country music from America",
+                "album_id": "nealbum_509321",
+                "source": "netease",
+                "source_url": "https://music.163.com/#/song?id=5212450",
+                "img_url": "https://p1.music.126.net/EUbksXXleIjE_9DRWbkknA==/1718536674228889.jpg",
+                "index": 17,
+                "playNow": true,
+                "url": "http://m7.music.126.net/20210919202235/64d69beff4b2606951c4a2a044ec458f/ymusic/481a/cf3a/6c40/e5d55294262decaa31ab205958d76a9a.mp3",
+                "bitrate": "320kbps",
+                "platform": "netease",
+                "platformText": "网易"
+            },
+            {
+                "id": "netrack_1477670",
+                "title": "Take Me Home Country Roads",
+                "artist": "John Denver",
+                "artist_id": "neartist_35341",
+                "album": "Take Me Home: The John Denver Story",
+                "album_id": "nealbum_151118",
+                "source": "netease",
+                "source_url": "https://music.163.com/#/song?id=1477670",
+                "img_url": "https://p1.music.126.net/AE0wCDxusSZj3MAGn0upZw==/870813209249684.jpg",
+                "index": 0,
+                "playNow": true,
+                "url": "http://m8.music.126.net/20210919190440/ca569ed26038a66d29ba8861573d933c/ymusic/97e2/39e9/07a8/6895b3c3000192a6e216e4d49166b53f.mp3",
+                "bitrate": "128kbps",
+                "platform": "netease",
+                "platformText": "网易"
+            },
+            {
+                "id": "netrack_16439857",
+                "title": "When You Say Nothing At All",
+                "artist": "Alison Krauss",
+                "artist_id": "neartist_46486",
+                "album": "Now That I've Found You - A Collection",
+                "album_id": "nealbum_1515891",
+                "source": "netease",
+                "source_url": "https://music.163.com/#/song?id=16439857",
+                "img_url": "https://p2.music.126.net/D3v4F1kFDxStu6w5JzA1jg==/2589349883439701.jpg",
+                "platform": "kuwo",
+                "disabled": false,
+                "platformText": "酷我"
+            }
+        ]
+    },
+    "neplaylist_21401617": {
+        "info": {
+            "id": "neplaylist_21401617",
+            "cover_img_url": "https://p1.music.126.net/3QY7lPNjtq2oNysWqK0f0Q==/8934631487406566.jpg",
+            "title": "美国乡村音乐44首经典冠军曲(上)",
+            "source_url": "https://music.163.com/#/playlist?id=21401617"
+        },
+        "is_fav": 1
+    },
+    "enable_nowplaying_platform": true,
+    "neplaylist_5199155506": {
+        "info": {
+            "id": "neplaylist_5199155506",
+            "cover_img_url": "https://p1.music.126.net/eAPGIbFhczxnJrkRhdnUUg==/109951165545374216.jpg",
+            "title": "[怀旧点唱机] 珍藏和聆听 属于记忆里的70.80年代",
+            "source_url": "https://music.163.com/#/playlist?id=5199155506"
+        },
+        "is_fav": 1
+    },
+    "auto_choose_source_list": [
+        "kuwo",
+        "qq",
+        "migu",
+        "kugou",
+        "netease",
+        "taihe"
+    ],
+    "myplaylist_231418a3-2261-1ac5-c68a-0d1d91012d01": {
+        "is_mine": 1,
+        "info": {
+            "cover_img_url": "images/mycover.jpg",
+            "title": "经典老歌-幼时记忆",
+            "id": "myplaylist_231418a3-2261-1ac5-c68a-0d1d91012d01",
+            "source_url": ""
+        },
+        "tracks": [
+            {
+                "id": "netrack_157288",
+                "title": "挪威的森林",
+                "artist": "伍佰 & China Blue",
+                "artist_id": "neartist_222871",
+                "album": "爱情的尽头",
+                "album_id": "nealbum_15823",
+                "source": "netease",
+                "source_url": "https://music.163.com/#/song?id=157288",
+                "img_url": "https://p2.music.126.net/HDdQFXVIlRvR96s0mQyu9g==/109951164170257125.jpg",
+                "index": 23,
+                "playNow": true,
+                "url": "http://m7.music.126.net/20210923193600/502017b19df3e4d99f9493dc1d3b136d/ymusic/525b/525e/0e58/e14ac6b79fe4436c5b4192b58cc720bc.mp3",
+                "bitrate": "128kbps",
+                "platform": "netease",
+                "platformText": "网易"
+            }
+        ]
+    },
+    "neplaylist_310372396": {
+        "info": {
+            "id": "neplaylist_310372396",
+            "cover_img_url": "https://p1.music.126.net/D4XA8oMKa8bHYz4HTC-iHw==/1366692955540180.jpg",
+            "title": "蓝草选集 I 触碰三月暖阳，哼唱轻快小调",
+            "source_url": "https://music.163.com/#/playlist?id=310372396"
+        },
+        "is_fav": 1
+    },
+    "enable_nowplaying_cover_background": true,
+    "githubOauthAccessKey": "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",
+    "player-settings": {
+        "playmode": 1,
+        "nowplaying_track_id": "netrack_21027049",
+        "volume": 90
+    },
+    "neplaylist_6686195786": {
+        "info": {
+            "id": "neplaylist_6686195786",
+            "cover_img_url": "https://p1.music.126.net/XrOxgqPwsk2LwvhdeUiUCQ==/109951165498448441.jpg",
+            "title": "轻音乐精选|从《いつも何度でも》听起",
+            "source_url": "https://music.163.com/#/playlist?id=6686195786"
+        },
+        "is_fav": 1
+    },
+    "myplaylist_4772f10c-2f42-4141-f900-82e6ec89b7e5": {
+        "is_mine": 1,
+        "info": {
+            "cover_img_url": "images/mycover.jpg",
+            "title": "触动心灵的轻音乐",
+            "id": "myplaylist_4772f10c-2f42-4141-f900-82e6ec89b7e5",
+            "source_url": ""
+        },
+        "tracks": [
+            {
+                "id": "netrack_34341361",
+                "title": "思乡曲",
+                "artist": "Richard Clayderman",
+                "artist_id": "neartist_41937",
+                "album": "Richard Clayderman",
+                "album_id": "nealbum_3280326",
+                "source": "netease",
+                "source_url": "https://music.163.com/#/song?id=34341361",
+                "img_url": "https://p1.music.126.net/dMUS79TnNOnzd4p6MV_CGw==/7993449536056577.jpg",
+                "index": 3,
+                "playNow": true,
+                "url": "http://m8.music.126.net/20211008194840/51042b18119675e91214c59e0aa0ab59/ymusic/c0c4/9701/a8a6/67af774b07a8812bfa0feab072cd965e.mp3",
+                "bitrate": "320kbps",
+                "platform": "netease",
+                "platformText": "网易"
+            },
+            {
+                "id": "netrack_1812055066",
+                "title": "沉 静 的 海 面 上 藏 着 波 涛 汹 涌 的 浪 漫",
+                "artist": "拿花负荷",
+                "artist_id": "neartist_33428842",
+                "album": "漂 浮 的 风 筝 在 天 晴 的 那 天 断 了 线",
+                "album_id": "nealbum_121482073",
+                "source": "netease",
+                "source_url": "https://music.163.com/#/song?id=1812055066",
+                "img_url": "https://p2.music.126.net/eAQ-86t19lM_M1qRsNQK0A==/109951165627959323.jpg",
+                "index": 47,
+                "playNow": true,
+                "url": "http://m701.music.126.net/20210923152445/28946dab1068b8d91bbfd9a7445c00ee/jdymusic/obj/wo3DlMOGwrbDjj7DisKw/5764729958/77d2/412f/c45e/49ca9dc82dfe5dc6ca46588384ebec30.mp3",
+                "bitrate": "128kbps",
+                "platform": "netease",
+                "platformText": "网易"
+            },
+            {
+                "id": "netrack_16846088",
+                "title": "Journey",
+                "artist": "Capo Productions",
+                "artist_id": "neartist_90097",
+                "album": "Serenity",
+                "album_id": "nealbum_1552283",
+                "source": "netease",
+                "source_url": "https://music.163.com/#/song?id=16846088",
+                "img_url": "https://p2.music.126.net/x-LVbj4tX6oEDH3qkqJP2g==/663005511556827.jpg",
+                "index": 13,
+                "playNow": true,
+                "url": "http://m801.music.126.net/20210923122933/d2e9780e43cce44f014c2bbebb4c1283/jdymusic/obj/w5zDlMODwrDDiGjCn8Ky/2143362881/17dd/bb6c/dc92/8a75ba54c564bd89e9bdd4d1bdda939a.mp3",
+                "bitrate": "128kbps",
+                "platform": "netease",
+                "platformText": "网易"
+            }
+        ]
+    },
+    "playerlists": [
+        "myplaylist_13ec59cd-b370-c730-bf8f-2c80db4c10db",
+        "myplaylist_4772f10c-2f42-4141-f900-82e6ec89b7e5",
+        "myplaylist_231418a3-2261-1ac5-c68a-0d1d91012d01"
+    ],
+    "neplaylist_2301697552": {
+        "info": {
+            "id": "neplaylist_2301697552",
+            "cover_img_url": "https://p1.music.126.net/4fQywKkpXPf6dgjtC8ajxg==/19069929672280165.jpg",
+            "title": "《治愈催眠系》可以让人心情平静的歌",
+            "source_url": "https://music.163.com/#/playlist?id=2301697552"
+        },
+        "is_fav": 1
+    },
+    "neplaylist_2919023249": {
+        "info": {
+            "id": "neplaylist_2919023249",
+            "cover_img_url": "https://p1.music.126.net/zuCsw2OgrNwPGHQrhrhd-A==/109951166035702632.jpg",
+            "title": "[大自然纯音] 纯净自然音乐伴你放松身心",
+            "source_url": "https://music.163.com/#/playlist?id=2919023249"
+        },
+        "is_fav": 1
+    },
+    "neplaylist_98384522": {
+        "info": {
+            "id": "neplaylist_98384522",
+            "cover_img_url": "https://p1.music.126.net/cKCnsbDZrVbOI2uNI81w9Q==/19089720881872634.jpg",
+            "title": "美国乡村经典冠军曲",
+            "source_url": "https://music.163.com/#/playlist?id=98384522"
+        },
+        "is_fav": 1
+    },
+    "favoriteplayerlists": [
+        "neplaylist_98384522",
+        "neplaylist_5199155506",
+        "neplaylist_6686195786",
+        "neplaylist_2097801896",
+        "neplaylist_310372396",
+        "neplaylist_21401617",
+        "neplaylist_2301697552",
+        "neplaylist_2919023249",
+        "neplaylist_2829733864",
+        "neplaylist_911070563",
+        "neplaylist_2054205543"
+    ],
+    "language": "zh-CN",
+    "neplaylist_911070563": {
+        "info": {
+            "id": "neplaylist_911070563",
+            "cover_img_url": "https://p1.music.126.net/huGMm22RB9t-PlWoSledvw==/18541064581394687.jpg",
+            "title": "「闽南歌曲」不知不觉就跟着哼起来了",
+            "source_url": "https://music.163.com/#/playlist?id=911070563"
+        },
+        "is_fav": 1
+    },
+    "current-playing": [
+        {
+            "id": "netrack_21027049",
+            "title": "Heartbeats Accelerating",
+            "artist": "Linda Ronstadt",
+            "artist_id": "neartist_64185",
+            "album": "Winter Light",
+            "album_id": "nealbum_1946185",
+            "source": "netease",
+            "source_url": "https://music.163.com/#/song?id=21027049",
+            "img_url": "https://p1.music.126.net/WNhgzpus3kZYjUjOU6jvyQ==/109951164015877556.jpg",
+            "index": 7,
+            "playNow": true,
+            "platform": "kuwo",
+            "platformText": "酷我",
+            "disabled": false
+        },
+        {
+            "id": "netrack_17406299",
+            "title": "Islands In The Stream",
+            "artist": "Dolly Parton",
+            "artist_id": "neartist_53258",
+            "album": "16 Biggest Hits",
+            "album_id": "nealbum_1603709",
+            "source": "netease",
+            "source_url": "https://music.163.com/#/song?id=17406299",
+            "img_url": "https://p1.music.126.net/3EqCXvZmiunKT6rnKe36EQ==/692692325507022.jpg",
+            "index": 5,
+            "playNow": true,
+            "bitrate": "128kbps",
+            "platform": "netease",
+            "platformText": "网易",
+            "disabled": false
+        },
+        {
+            "id": "netrack_5212450",
+            "title": "Child",
+            "artist": "frddie aghuilar",
+            "artist_id": "neartist_30032008",
+            "album": "Country music from America",
+            "album_id": "nealbum_509321",
+            "source": "netease",
+            "source_url": "https://music.163.com/#/song?id=5212450",
+            "img_url": "https://p1.music.126.net/EUbksXXleIjE_9DRWbkknA==/1718536674228889.jpg",
+            "index": 17,
+            "playNow": true,
+            "bitrate": "320kbps",
+            "platform": "netease",
+            "platformText": "网易",
+            "disabled": false
+        },
+        {
+            "id": "netrack_1477670",
+            "title": "Take Me Home Country Roads",
+            "artist": "John Denver",
+            "artist_id": "neartist_35341",
+            "album": "Take Me Home: The John Denver Story",
+            "album_id": "nealbum_151118",
+            "source": "netease",
+            "source_url": "https://music.163.com/#/song?id=1477670",
+            "img_url": "https://p1.music.126.net/AE0wCDxusSZj3MAGn0upZw==/870813209249684.jpg",
+            "index": 0,
+            "playNow": true,
+            "bitrate": "128kbps",
+            "platform": "netease",
+            "platformText": "网易",
+            "disabled": false
+        },
+        {
+            "id": "netrack_16439857",
+            "title": "When You Say Nothing At All",
+            "artist": "Alison Krauss",
+            "artist_id": "neartist_46486",
+            "album": "Now That I've Found You - A Collection",
+            "album_id": "nealbum_1515891",
+            "source": "netease",
+            "source_url": "https://music.163.com/#/song?id=16439857",
+            "img_url": "https://p2.music.126.net/D3v4F1kFDxStu6w5JzA1jg==/2589349883439701.jpg",
+            "platform": "kuwo",
+            "disabled": false,
+            "platformText": "酷我"
+        }
+    ]
+}

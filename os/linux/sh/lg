@@ -1,0 +1,3 @@
+#!/bin/bash
+
+lazygit -ucd ~/Library/Application\ Support/jesseduffield/lazygit

@@ -1,0 +1,52 @@
+{
+    "configurations": {
+        "python_cfg": {
+            "adapter": "debugpy",
+            "configuration": {
+                "default": true,
+                "autoselect": true,
+                "name": "python_lauch",
+                "type": "python",
+                "request": "launch",
+                "python": "python",
+                "stopOnEntry": true,
+                "console": "externalTerminal",
+                "debugOptions": [],
+                "cwd": "${workspaceRoot}",
+                "program": "${script:${file\\}}",
+                "args":[],
+                "breakpointers":{
+                    "exception":{
+                        "cpp_throw": "Y",
+                        "cpp_catch": "N"
+                    }
+                },
+                "environment":[
+                    {}
+                ],
+                "logging": {
+                    "engineLogging": false
+                }
+            }
+        },
+        "rust_cfg": {
+            "adapter": "CodeLLDB",
+            "configuration": {
+                "request": "launch",
+                "program": "~/a/git/lang/rust/t/wsl_pathable/target/debug/wsl_pathable",
+                "args":[]
+            }
+        },
+        "golang": {
+            "adapter": "vscode-go",
+            "configuration": {
+                "request": "launch",
+                "program": "${fileDirname}",
+                "args":["run","-c","~/a/git/lang/go/net/v2ray-core/debug/config.json"],
+                "mode": "debug",
+                "dlvToolPath": "/usr/local/bin/dlv"
+            }
+        }
+    }
+}
+

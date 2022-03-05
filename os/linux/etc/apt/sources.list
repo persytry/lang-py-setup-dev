@@ -1,0 +1,16 @@
+# 替换成国内镜像源的时候,如果`apt update`出错了,那么就得把错误的源给删掉,再添加新的正确的apt源. 
+# 如果是debian10的话, 得在网上找专门的debian10的镜像源,不能用下面ali的(它们好像不是专门针对debian10的,所以apt update与apt upgrade会出错), 建议用腾讯云或163镜像站的.
+
+deb http://mirrors.cloud.aliyuncs.com/debian stable main contrib non-free
+deb http://mirrors.cloud.aliyuncs.com/debian stable-proposed-updates main contrib non-free
+deb http://mirrors.cloud.aliyuncs.com/debian stable-updates main contrib non-free
+deb-src http://mirrors.cloud.aliyuncs.com/debian stable main contrib non-free
+deb-src http://mirrors.cloud.aliyuncs.com/debian stable-proposed-updates main contrib non-free
+deb-src http://mirrors.cloud.aliyuncs.com/debian stable-updates main contrib non-free
+
+deb http://mirrors.aliyun.com/debian stable main contrib non-free
+deb http://mirrors.aliyun.com/debian stable-proposed-updates main contrib non-free
+deb http://mirrors.aliyun.com/debian stable-updates main contrib non-free
+deb-src http://mirrors.aliyun.com/debian stable main contrib non-free
+deb-src http://mirrors.aliyun.com/debian stable-proposed-updates main contrib non-free
+deb-src http://mirrors.aliyun.com/debian stable-updates main contrib non-free
