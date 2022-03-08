@@ -1,0 +1,25 @@
+{
+    "editor.lineNumbers": "relative",
+    "editor.renderWhitespace": "boundary",
+    "editor.fontSize": 14,
+    "editor.tabSize": 4,
+    "files.exclude": {
+        "**/.git": true,
+        "**/.svn": true,
+        "**/.hg": true,
+        "**/CVS": true,
+        "**/.DS_Store": true
+    },
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    "vim.leader": "<space>",
+    "vim.easymotion": true,
+    "vim.hlsearch": true,
+    "vscode-neovim.useWSL": true,
+    "vscode-neovim.neovimExecutablePaths.win32": "C:\\tool\\Neovim\\bin\\nvim.exe",
+    "vscode-neovim.neovimExecutablePaths.linux": "/usr/local/bin/nvim",
+    "vscode-neovim.neovimExecutablePaths.darwin": "/usr/local/bin/nvim"
+}

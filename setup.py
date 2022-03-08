@@ -40,7 +40,9 @@ _os_file_list = [
     ['os/linux/i3/config', None, None, '~/.config/i3/config'],
     ['t/delta-themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig'],
     ['t/ctags_mac','~/.ctags','~/.ctags',None],
-    ['t/ctags_linux',None,None,'~/.ctags']
+    ['t/ctags_linux',None,None,'~/.ctags'],
+    ['t/vscode/settings.json','~/AppData/Roaming/Code/User/settings.json','~/Library/Application Support/Code/User/settings.json',None],
+    ['t/vscode/keybindings.json','~/AppData/Roaming/Code/User/keybindings.json','~/Library/Application Support/Code/User/keybindings.json',None]
 ]
 _os_file_map = {}
 if len(_os_file_map) != len(_os_file_list):
@@ -212,6 +214,8 @@ def copyToolCfg(toSystem: bool, vimName: str) -> int:
     cnt += _copyFileItemByName(toSystem, 't/tmux.conf')
     cnt += _copyFileItemByName(toSystem, 't/ctags_mac')
     cnt += _copyFileItemByName(toSystem, 't/ctags_linux')
+    cnt += _copyFileItemByName(toSystem, 't/vscode/settings.json')
+    cnt += _copyFileItemByName(toSystem, 't/vscode/keybindings.json')
     cnt += copyGitCfg(toSystem, vimName)
     print(f'copy tool config {cnt} files or items')
     return cnt
