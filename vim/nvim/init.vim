@@ -480,6 +480,7 @@ Plug 'persytry/ZFVimIM_wubi_base'
 " must after easymotion plugin, 支持搜索中文.not work for <Plug>(easymotion-s2)
 Plug 'ZSaberLv0/vim-easymotion-chs'
 Plug 'persytry/t-vim-git_batch', { 'dir': '~/.git_batch' }
+Plug 'jeroenbourgois/vim-actionscript'
 call plug#end()
 
 """""common plug set begin
