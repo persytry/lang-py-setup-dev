@@ -20,6 +20,21 @@ set magic
 " 2. <C-o>p 或 <C-o>P ps. 感觉还是这种方法最高效
 " 3. <esc> p i
 set clipboard^=unnamed,unnamedplus
+if filereadable('/mnt/c/Windows/explorer.exe') " 判断是否是wsl
+    " win32yank.exe在nvim所在目录,需要把它拷贝到wsl中: mv /mnt/c/tool/Neovim/bin/win32yank.exe /usr/local/bin/win32yank
+    let g:clipboard = {
+            \'name' : 'win32yank-wsl',
+            \'copy' : {
+            \     '+' : 'win32yank -i --crlf',
+            \     '*' : 'win32yank -i --crlf'
+            \},
+            \'paste' : {
+            \    '+' : 'win32yank -o --lf',
+            \    '*' : 'win32yank -o --lf'
+            \},
+            \'cache_enabled' : 1
+            \}
+endif
 
 " 滚动屏幕,滚屏
 " 自动回绕
