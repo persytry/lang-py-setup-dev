@@ -347,6 +347,7 @@ let g:fzf_action = {
 let g:fzf_buffers_jump = 1
 " - Popup window (anchored to the bottom of the current window)
 "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 } }
+noremap <leader>fz :<C-u>FZRg<CR>
 
 " LeaderF setting
 " [Leaderf gtags之作者写的一篇文章](https://zhuanlan.zhihu.com/p/64842373)
