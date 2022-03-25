@@ -996,7 +996,10 @@ noremap <leader>fH :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <leader>fw :<C-U><C-R>=printf("Leaderf window %s", "")<CR><CR>
 noremap <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 
-" 在当前文件中查找
+" -e就是--regexp,就是正则表达式(并不是vim的正则表达式语法)
+" 在当前文件中查找. 如果想要搜某个单词,就这样: Leaderf! rg --current-buffer -e '\bword\b'
+" 如果搜索内容有空格或特殊字符的话, 也得加单引号或双引号
+" 默认开启了--smart-case选项
 noremap <leader>fs :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
 " 在工作目录下查找, 即全局查找
 noremap <leader>fS :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
