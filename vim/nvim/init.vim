@@ -20,21 +20,6 @@ set magic
 " 2. <C-o>p 或 <C-o>P ps. 感觉还是这种方法最高效
 " 3. <esc> p i
 set clipboard^=unnamed,unnamedplus
-if filereadable('/mnt/c/Windows/explorer.exe') " 判断是否是wsl
-    " win32yank.exe在nvim所在目录,需要把它拷贝到wsl中: mv /mnt/c/tool/Neovim/bin/win32yank.exe /usr/local/bin/win32yank
-    let g:clipboard = {
-            \'name' : 'win32yank-wsl',
-            \'copy' : {
-            \     '+' : 'win32yank -i --crlf',
-            \     '*' : 'win32yank -i --crlf'
-            \},
-            \'paste' : {
-            \    '+' : 'win32yank -o --lf',
-            \    '*' : 'win32yank -o --lf'
-            \},
-            \'cache_enabled' : 1
-            \}
-endif
 
 " 滚动屏幕,滚屏
 " 自动回绕
@@ -93,12 +78,16 @@ set foldenable
 let g:python3_host_prog = 'python'
 let g:iswindows = 0
 let g:ismac = 0
+let g:iswsl = 0
 let g:islinux = 0
 if(has("win32") || has("win64") || has("win95") || has("win16"))
     let g:iswindows = 1
 elseif has('mac')
     let g:ismac = 1
 else
+    if filereadable('/mnt/c/Windows/explorer.exe') && stridx(expand('$path'), "/mnt/c/windows") >= 0
+        let g:iswsl = 1
+    endif
 	let g:islinux = 1
 endif
 "得到当前脚本所在目录
@@ -113,6 +102,22 @@ else
     else
         let s:path = resolve(expand('~/.vim'))
     endif
+endif
+
+if g:iswsl
+    " win32yank.exe在nvim所在目录,需要把它拷贝到wsl中: copy /mnt/c/tool/Neovim/bin/win32yank.exe /usr/local/bin/win32yank
+    let g:clipboard = {
+            \'name' : 'win32yank-wsl',
+            \'copy' : {
+            \     '+' : 'win32yank -i --crlf',
+            \     '*' : 'win32yank -i --crlf'
+            \},
+            \'paste' : {
+            \    '+' : 'win32yank -o --lf',
+            \    '*' : 'win32yank -o --lf'
+            \},
+            \'cache_enabled' : 1
+            \}
 endif
 
 " Don't pass messages to |ins-completion-menu|.
@@ -468,6 +473,7 @@ Plug 'easymotion/vim-easymotion'	" 快速跳转
 " 打开函数与变量列表,类似tagbar,<leader>wo打开或关闭outline
 " zm,zr,zc,zo,za之类的折叠功能是可以用的,如此一来便方便多了
 Plug 'liuchengxu/vista.vim'
+" m<space> 去除所有标记
 Plug 'kshenoy/vim-signature'	" 书签
 Plug 'brooth/far.vim'	" 查找与替换,在多个文件里搜索与替换
 Plug 'airblade/vim-gitgutter'	" git侧边栏插件
