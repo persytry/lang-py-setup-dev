@@ -1033,7 +1033,7 @@ noremap <leader>gr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand
 "Show reference to a symbol which has no definition. 不知道这个功能是干嘛的
 noremap <leader>gs :<C-U><C-R>=printf("Leaderf gtags -s %s --auto-jump", expand("<cword>"))<CR><CR>
 "Show all lines which match to the <PATTERN>. -g功能已被Leaderf rg包含
-noremap <leader>gg :<C-U><C-R>=printf("Leaderf gtags -g %s --auto-jump", expand("<cword>"))<CR><CR>
+"noremap <leader>gg :<C-U><C-R>=printf("Leaderf gtags -g %s --auto-jump", expand("<cword>"))<CR><CR>
 "Decide tag type by context at cursor position. If the context is a definition of the pattern then use -r, else if there is at least one definition of the pattern then use -d, else use -s. Regular expression is not allowed for pattern.
 noremap <leader>gc :<C-U><C-R>=printf("Leaderf gtags --by-context %s --auto-jump", "")<CR><CR>
 "跳转到下一个位置
