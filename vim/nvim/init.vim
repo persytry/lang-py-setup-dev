@@ -1024,7 +1024,7 @@ xnoremap <leader>rV :<C-U><C-R>=printf("Leaderf! rg -F -w %s ", leaderf#Rg#visua
 noremap <leader>ra :<C-U>Leaderf! rg --recall<CR>
 
 "--auto-jump [<TYPE>] 意思是如果只有一个结果直接跳过去
-"更新
+"更新. 必须得在根目录下创建.vim文件夹作为根目录,否则更新会失败的
 noremap <leader>gu :<C-u><C-r>=printf("Leaderf! gtags --update %s", "")<CR>
 "Show locations of definitions. 跳转到定义
 noremap <leader>gd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
