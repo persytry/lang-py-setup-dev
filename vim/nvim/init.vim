@@ -997,7 +997,7 @@ noremap <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 
 " FZRg用的是fzf的功能,与Leaderf rg功能差不多,但是leaderf的界面更友好一些
 " noremap <leader>fz :<C-u>FZRg<CR>
-noremap <leader>fz :<C-U><C-R>=printf("Leaderf rg %s", "")<CR><CR>
+noremap <leader>fz :<C-U><C-R>=printf("Leaderf rg --match-path %s", "")<CR><CR>
 " -e就是--regexp,就是正则表达式(并不是vim的正则表达式语法),当Leaderf! rg后面有更多的参数的时候,默认是正则表达式搜索
 " 在当前文件中查找. 如果想要搜某个单词,就这样: Leaderf! rg --current-buffer -e '\bword\b'
 " 也可以用-w(-e选项必须放在最后)选项,表示全字匹配(就是匹配单词边界)
@@ -1005,8 +1005,10 @@ noremap <leader>fz :<C-U><C-R>=printf("Leaderf rg %s", "")<CR><CR>
 " 默认开启了--smart-case选项
 " 输入Leaderf rg -h可查看帮助
 "-e <PATTERN> 正则表达式搜索
-"-F 搜索字符串而不是正则表达式
+"-F,--fixed-strings 搜索字符串而不是正则表达式
 "-w 搜索只匹配有边界的词
+"-t <TYPE>..., --type <TYPE>... Only search files matching TYPE. Multiple type flags may be provided. 比如只在python 文件中搜索的话,就输入-t py
+"--match-path          Match the file path when fuzzy searching.
 noremap <leader>fs :<C-U><C-R>=printf("Leaderf! rg --current-buffer %s ", expand("<cword>"))<CR>
 " 在工作目录下查找, 即全局查找
 noremap <leader>fS :<C-U><C-R>=printf("Leaderf! rg %s ", expand("<cword>"))<CR>
