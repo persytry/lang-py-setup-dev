@@ -39,7 +39,7 @@ _os_file_list = [
     ['vim/gtags.conf','~/.globalrc','~/.globalrc','~/.globalrc'],
     ['os/linux/i3/config', None, None, '~/.config/i3/config'],
     ['t/delta-themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig'],
-    ['t/ctags_mac','~/.ctags','~/.ctags',None],
+    ['t/ctags_mac','~/.ctags','~/.ctags',None], # linux版ctags支持go,而mac版不支持,所以会有此区分
     ['t/ctags_linux',None,None,'~/.ctags'],
     ['t/vscode/settings.json','~/AppData/Roaming/Code/User/settings.json','~/Library/Application Support/Code/User/settings.json',None],
     ['t/vscode/keybindings.json','~/AppData/Roaming/Code/User/keybindings.json','~/Library/Application Support/Code/User/keybindings.json',None]
