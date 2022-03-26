@@ -383,6 +383,7 @@ let g:Lf_PreviewInPopup = 1
 let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu Sans Mono for Powerline" }
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 "pip install pygments
+"[查看支持的语言](https://pygments.org/languages/)
 let g:Lf_Gtagslabel = 'native-pygments'
 let $GTAGSLABEL = g:Lf_Gtagslabel
 "需要手动更新gtags数据库:`Leaderf gtags --update`. 当代码有更改并且已经有 gtags 数据库生成时，更改的代码会自动同步到 gtags 数据库（即使g:Lf_GtagsAutoGenerate是0）
