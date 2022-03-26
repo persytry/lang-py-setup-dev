@@ -372,6 +372,7 @@ let g:fzf_buffers_jump = 1
 " [Leaderf gtags之作者写的一篇文章](https://zhuanlan.zhihu.com/p/64842373)
 " [作者写的一篇文章,里面有关于rg相关的介绍](https://segmentfault.com/a/1190000017896650)
 " don't show the help in normal mode
+" leaderf弹出的窗口若一开始无法输入字符的话,那么按tab或i键可进入到可输入状态
 let g:Lf_HideHelp = 1
 let g:Lf_UseCache = 0
 let g:Lf_UseVersionControlTool = 0
@@ -384,7 +385,7 @@ let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 "pip install pygments
 let g:Lf_Gtagslabel = 'native-pygments'
 let $GTAGSLABEL = g:Lf_Gtagslabel
-"需要手动更新gtags数据库:`Leaderf gtags --update`
+"需要手动更新gtags数据库:`Leaderf gtags --update`. 当代码有更改并且已经有 gtags 数据库生成时，更改的代码会自动同步到 gtags 数据库（即使g:Lf_GtagsAutoGenerate是0）
 let g:Lf_GtagsAutoGenerate = 0
 " https://github.com/ludovicchabant/vim-gutentags
 let g:Lf_GtagsGutentags = 0
@@ -765,6 +766,7 @@ command! -nargs=0 CocOrganize   :call     CocAction('runCommand', 'editor.action
 set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
+" -N, --number-select: Type a line number to select an item and invoke the default action on insert mode. Type `0` to select the 10th line.
 " Show all diagnostics. p是pop式窗口的简称
 nnoremap <silent><nowait> <leader>pd  :<C-u>CocList -N diagnostics<cr>
 " Manage extensions.
@@ -781,8 +783,8 @@ nnoremap <silent><nowait> <leader>pS  :<C-u>CocList -I symbols<cr>
 nnoremap <nowait> <leader>cj  :<C-u>CocNext<CR>
 " Do default action for previous item. 当前已执行过一个coc命令,现在执行CocList中的上一个
 nnoremap <nowait> <leader>ck  :<C-u>CocPrev<CR>
-" Resume latest coc list.
-nnoremap <silent><nowait> <leader>pr  :<C-u>CocListResume<CR>
+" Resume latest coc list. a->awake之意
+nnoremap <silent><nowait> <leader>pa  :<C-u>CocListResume<CR>
 " by persy below
 " jump to next symbol
 nnoremap <silent><nowait> <C-j> :<C-u>CocCommand document.jumpToNextSymbol<CR>
@@ -996,11 +998,12 @@ noremap <leader>fw :<C-U><C-R>=printf("Leaderf window %s", "")<CR><CR>
 noremap <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 
 " FZRg用的是fzf的功能,与Leaderf rg功能差不多,但是leaderf的界面更友好一些
-" noremap <leader>fz :<C-u>FZRg<CR>
-noremap <leader>fz :<C-U><C-R>=printf("Leaderf rg --match-path %s", "")<CR><CR>
-" -e就是--regexp,就是正则表达式(并不是vim的正则表达式语法),当Leaderf! rg后面有更多的参数的时候,默认是正则表达式搜索
+" noremap <leader>rg :<C-u>FZRg<CR>
+noremap <leader>rg :<C-U><C-R>=printf("Leaderf rg --match-path %s", "")<CR><CR>
+" Leaderf和Leaderf!的区别是,不加!则弹框可输入,加!则弹框不可输入
+" -e就是--regexp,就是正则表达式(并不是vim的正则表达式语法),当Leaderf! rg后面有更多的参数的时候,默认是正则表达式搜索. -e选项必须放在最后,否则会出错
 " 在当前文件中查找. 如果想要搜某个单词,就这样: Leaderf! rg --current-buffer -e '\bword\b'
-" 也可以用-w(-e选项必须放在最后)选项,表示全字匹配(就是匹配单词边界)
+" 也可以用-w选项,表示全字匹配(就是匹配单词边界)
 " 如果搜索内容有空格或特殊字符的话, 也得加单引号或双引号
 " 默认开启了--smart-case选项
 " 输入Leaderf rg -h可查看帮助
@@ -1009,22 +1012,35 @@ noremap <leader>fz :<C-U><C-R>=printf("Leaderf rg --match-path %s", "")<CR><CR>
 "-w 搜索只匹配有边界的词
 "-t <TYPE>..., --type <TYPE>... Only search files matching TYPE. Multiple type flags may be provided. 比如只在python 文件中搜索的话,就输入-t py
 "--match-path          Match the file path when fuzzy searching.
-noremap <leader>fs :<C-U><C-R>=printf("Leaderf! rg --current-buffer %s ", expand("<cword>"))<CR>
+noremap <leader>rs :<C-U><C-R>=printf("Leaderf! rg --current-buffer %s ", expand("<cword>"))<CR>
 " 在工作目录下查找, 即全局查找
-noremap <leader>fS :<C-U><C-R>=printf("Leaderf! rg %s ", expand("<cword>"))<CR>
+noremap <leader>rS :<C-U><C-R>=printf("Leaderf! rg %s ", expand("<cword>"))<CR>
 " 在本文件中搜索可视模式下选择的文本
-xnoremap <leader>fv :<C-U><C-R>=printf("Leaderf! rg --current-buffer -F -w %s ", leaderf#Rg#visual())<CR>
+xnoremap <leader>rv :<C-U><C-R>=printf("Leaderf! rg --current-buffer -F -w %s ", leaderf#Rg#visual())<CR>
 " search visually selected text literally, 全局搜索可视模式下选择的文本
-xnoremap <leader>fV :<C-U><C-R>=printf("Leaderf! rg -F -w %s ", leaderf#Rg#visual())<CR>
+xnoremap <leader>rV :<C-U><C-R>=printf("Leaderf! rg -F -w %s ", leaderf#Rg#visual())<CR>
 " 这个命令是在LeaderF窗口关闭的情况下,召回最后的搜索结果. a->awake之意
-noremap <leader>fa :<C-U>Leaderf! rg --recall<CR>
+noremap <leader>ra :<C-U>Leaderf! rg --recall<CR>
 
-noremap <leader>fu :<C-u><C-r>=printf("Leaderf! gtags --update %s", "")<CR>
-noremap <leader>fr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>fd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
-noremap <leader>fg :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
-noremap <leader>fj :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
-noremap <leader>fk :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+"--auto-jump [<TYPE>] 意思是如果只有一个结果直接跳过去
+"更新
+noremap <leader>gu :<C-u><C-r>=printf("Leaderf! gtags --update %s", "")<CR>
+"Show locations of definitions. 跳转到定义
+noremap <leader>gd :<C-U><C-R>=printf("Leaderf! gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
+"Show reference to a symbol which has definitions. 查找引用
+noremap <leader>gr :<C-U><C-R>=printf("Leaderf! gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
+"Show reference to a symbol which has no definition. 不知道这个功能是干嘛的
+noremap <leader>gs :<C-U><C-R>=printf("Leaderf gtags -s %s --auto-jump", expand("<cword>"))<CR><CR>
+"Show all lines which match to the <PATTERN>. -g功能已被Leaderf rg包含
+noremap <leader>gg :<C-U><C-R>=printf("Leaderf gtags -g %s --auto-jump", expand("<cword>"))<CR><CR>
+"Decide tag type by context at cursor position. If the context is a definition of the pattern then use -r, else if there is at least one definition of the pattern then use -d, else use -s. Regular expression is not allowed for pattern.
+noremap <leader>gc :<C-U><C-R>=printf("Leaderf gtags --by-context %s --auto-jump", "")<CR><CR>
+"跳转到下一个位置
+noremap <leader>gj :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
+"跳转到上一个位置
+noremap <leader>gk :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
+"恢复窗口,a->awake
+noremap <leader>ga :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
 """""""""""LeaderF end
 
 """""""""""open-url begin
