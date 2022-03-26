@@ -367,7 +367,6 @@ let g:fzf_action = {
 let g:fzf_buffers_jump = 1
 " - Popup window (anchored to the bottom of the current window)
 "let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6, 'relative': v:true, 'yoffset': 1.0 } }
-noremap <leader>fz :<C-u>FZRg<CR>
 
 " LeaderF setting
 " [Leaderf gtags之作者写的一篇文章](https://zhuanlan.zhihu.com/p/64842373)
@@ -996,17 +995,25 @@ noremap <leader>fH :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <leader>fw :<C-U><C-R>=printf("Leaderf window %s", "")<CR><CR>
 noremap <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 
-" -e就是--regexp,就是正则表达式(并不是vim的正则表达式语法)
+" FZRg用的是fzf的功能,与Leaderf rg功能差不多,但是leaderf的界面更友好一些
+" noremap <leader>fz :<C-u>FZRg<CR>
+noremap <leader>fz :<C-U><C-R>=printf("Leaderf rg %s", "")<CR><CR>
+" -e就是--regexp,就是正则表达式(并不是vim的正则表达式语法),当Leaderf! rg后面有更多的参数的时候,默认是正则表达式搜索
 " 在当前文件中查找. 如果想要搜某个单词,就这样: Leaderf! rg --current-buffer -e '\bword\b'
+" 也可以用-w(-e选项必须放在最后)选项,表示全字匹配(就是匹配单词边界)
 " 如果搜索内容有空格或特殊字符的话, 也得加单引号或双引号
 " 默认开启了--smart-case选项
-noremap <leader>fs :<C-U><C-R>=printf("Leaderf! rg --current-buffer -e %s ", expand("<cword>"))<CR>
+" 输入Leaderf rg -h可查看帮助
+"-e <PATTERN> 正则表达式搜索
+"-F 搜索字符串而不是正则表达式
+"-w 搜索只匹配有边界的词
+noremap <leader>fs :<C-U><C-R>=printf("Leaderf! rg --current-buffer %s ", expand("<cword>"))<CR>
 " 在工作目录下查找, 即全局查找
-noremap <leader>fS :<C-U><C-R>=printf("Leaderf! rg -e %s ", expand("<cword>"))<CR>
+noremap <leader>fS :<C-U><C-R>=printf("Leaderf! rg %s ", expand("<cword>"))<CR>
 " 在本文件中搜索可视模式下选择的文本
-xnoremap <leader>fv :<C-U><C-R>=printf("Leaderf! rg --current-buffer -F -e %s ", leaderf#Rg#visual())<CR>
+xnoremap <leader>fv :<C-U><C-R>=printf("Leaderf! rg --current-buffer -F -w %s ", leaderf#Rg#visual())<CR>
 " search visually selected text literally, 全局搜索可视模式下选择的文本
-xnoremap <leader>fV :<C-U><C-R>=printf("Leaderf! rg -F -e %s ", leaderf#Rg#visual())<CR>
+xnoremap <leader>fV :<C-U><C-R>=printf("Leaderf! rg -F -w %s ", leaderf#Rg#visual())<CR>
 " 这个命令是在LeaderF窗口关闭的情况下,召回最后的搜索结果. a->awake之意
 noremap <leader>fa :<C-U>Leaderf! rg --recall<CR>
 
