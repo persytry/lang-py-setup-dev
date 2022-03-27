@@ -37,7 +37,7 @@ _os_file_list = [
     ['net/w3m-config-linux.conf',None,None,'~/.w3m/config'],
     ['os/linux/cmn_profile.sh',None,'~/.cmn_profile.sh','~/.cmn_profile.sh'],
     # mac和linux下不需要拷贝这个文件了,因为已经在环境变量和init.vim中配置过了
-    ['vim/gtags.conf','~/.globalrc',None,None],
+    ['vim/gtags.conf','~/.globalrc','~/.globalrc','~/.globalrc'],
     ['os/linux/i3/config', None, None, '~/.config/i3/config'],
     ['t/delta-themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig'],
     ['t/ctags_mac','~/.ctags','~/.ctags',None], # linux版ctags支持go,而mac版不支持,所以会有此区分

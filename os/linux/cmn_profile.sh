@@ -45,7 +45,8 @@ export FZF_COMPLETION_OPTS='--border --info=inline'
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT='80%'
 export GTAGSLABEL='native-pygments'
-export GTAGSCONF='/usr/local/share/gtags/gtags.conf'
+# 用~/.globalrc比较好,因为可以改配置
+#export GTAGSCONF='/usr/local/share/gtags/gtags.conf'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
