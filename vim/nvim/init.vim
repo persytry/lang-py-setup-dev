@@ -403,12 +403,13 @@ let g:Lf_RgConfig = [
     \ "--glob=!{.git/,.svn/,/stage/,__pycache__/}"
 \ ]
 let g:Lf_WildIgnore = {
-    \ 'dir': ['/stage','__pycache__'],
+    \ 'dir': ['/stage','__pycache__','.git','.svn'],
     \ 'file': []
     \}
 let g:Lf_ShortcutF = "<leader>ff"
 let g:Lf_ShortcutB = "<leader>fb"
 let g:Lf_GtagsAcceptDotfiles = 0
+let g:Lf_FollowLinks = 1
 let g:Lf_GtagsSkipSymlink = 'f'
 " C-x就是粘贴的意思了
 let g:Lf_CommandMap = {'<C-X>': ['<C-S>'], '<C-]>': ['<C-V>'], '<C-V>': ['<C-X>']}
