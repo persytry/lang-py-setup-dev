@@ -384,6 +384,7 @@ let g:Lf_StlSeparator = { 'left': "\ue0b0", 'right': "\ue0b2", 'font': "DejaVu S
 let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 "pip install pygments
 "[查看支持的语言](https://pygments.org/languages/)
+"[global/gtags官方下载地址](https://ftp.gnu.org/pub/gnu/global/)
 let g:Lf_Gtagslabel = 'native-pygments'
 let $GTAGSLABEL = g:Lf_Gtagslabel
 " 这项配置已经没有必要了,因为已经把文件拷贝到~/.globalrc了

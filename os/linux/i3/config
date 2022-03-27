@@ -46,8 +46,9 @@ floating_modifier $mod
 
 # start a terminal
 bindsym $mod+Return exec i3-sensible-terminal
-# start google-chrome
-bindsym $mod+g exec google-chrome --proxy-server=http://proxy.izds.top:63000
+# start google-chrome. 不需要设置代理了,因为已经有代理插件了
+#bindsym $mod+g exec google-chrome --proxy-server=http://proxy.izds.top:63000
+bindsym $mod+g exec google-chrome
 
 # kill focused window
 bindsym $mod+Shift+q kill
