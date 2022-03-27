@@ -36,6 +36,6 @@ nnoremap O :!$VIFM_VICMD_OTHER %f<cr>
 
 command! g %m rg --follow --no-text --smart-case -n %a
 command! G !!rg --follow --no-text --smart-case -n %a
-command! f %m fd --type f --follow --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build,.vim,__pycache__} %a
-command! F !!fd --type f --follow --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build,.vim,__pycache__} %a
+command! f %m fd --type f --follow --exclude={.git,.svn,.idea,.vscode,.sass-cache,node_modules,build,.vimroot,__pycache__} %a
+command! F !!fd --type f --follow --exclude={.git,.svn,.idea,.vscode,.sass-cache,node_modules,build,.vimroot,__pycache__} %a
 

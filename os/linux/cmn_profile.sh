@@ -50,12 +50,12 @@ export FZF_TMUX_HEIGHT='80%'
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
+  fd --hidden --follow --exclude={.git,.svn,.idea,.vscode,.sass-cache,node_modules,build,.vimroot,__pycache__} . "$1"
 }
 
 # Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
+  fd --type d --hidden --follow --exclude={.git,.svn,.idea,.vscode,.sass-cache,node_modules,build,.vimroot,__pycache__} . "$1"
 }
 
 # (EXPERIMENTAL) Advanced customization of fzf options via _fzf_comprun function
@@ -100,7 +100,7 @@ _fzf_complete_foo_post() {
 
 [ -n "$BASH" ] && complete -F _fzf_complete_foo -o default -o bashdefault foo
 
-export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude={.git,.idea,.vscode,.sass-cache,node_modules,build,.vim,__pycache__}'
+export FZF_DEFAULT_COMMAND='fd --type f --follow --exclude={.git,.svn,.idea,.vscode,.sass-cache,node_modules,build,.vimroot,__pycache__}'
 
 export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O ansi {} || cat {}) 2> /dev/null | head -500'"
 

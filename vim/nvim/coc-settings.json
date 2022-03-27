@@ -1,6 +1,6 @@
 {
 	"python.analysis.extraPaths": ["./"],
-	"coc.preferences.rootPatterns": [".vim"],
+	"coc.preferences.rootPatterns": [".vimroot"],
 	"coc.preferences.extensionUpdateCheck":"weekly",
 	"coc.preferences.colorSupport": true,
     "coc.preferences.jumpCommand": "drop",
@@ -14,7 +14,7 @@
 	"languageserver": {
 		"python": {
 			"enable": false,
-			"rootPatterns": [".vim"],
+			"rootPatterns": [".vimroot"],
 			"command": "python",
 			"args": [ "-mpyls", "-vv", "--log-file", "/tmp/lsp_python.log" ],
 			"trace.server": "verbose",
@@ -87,7 +87,7 @@
 		//"ccls": {
 		//	"command": "ccls",
 		//	"filetypes": [ "c", "cc", "cpp", "c++", "objc", "objcpp" ],
-		//	"rootPatterns": [ ".ccls", "compile_commands.json", ".git/", ".hg/"],
+		//	"rootPatterns": [ ".ccls", "compile_commands.json", ".git/", ".svn/", ".hg/"],
 		//	"initializationOptions": {
 		//		"cache": {
 		//			"directory": "/tmp/ccls"
@@ -119,7 +119,7 @@
 		"java": {
 			"command": "jdtls",
 			"filetypes": [ "java", "class" ],
-			"rootPatterns": [ "maven", ".git", ".vim" ]
+			"rootPatterns": [ "maven", ".git", ".svn", ".vimroot" ]
 		},
 		"lua": {
 			"command": "lua-lsp",

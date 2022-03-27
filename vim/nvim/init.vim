@@ -348,8 +348,8 @@ let g:coc_global_extensions = [
 " Use command `:CocList folders` to open list of workspace folders
 " Use command `:echo coc#util#root_patterns()` to get patterns used for resolve workspace folder of current buffer
 " `:echo g:WorkspaceFolders`,去查看workspace folders
-let b:coc_root_patterns = ['.vim']
-autocmd FileType python let b:coc_root_patterns = ['.vim'] "这里不能注释,否则workspace folders会有问题,从而导致`Pyright reportMissingImports`之类的错误. 由此可猜想,workspace folders最好只有一个,否则可能会有莫名其妙的问题
+let b:coc_root_patterns = ['.vimroot']
+autocmd FileType python let b:coc_root_patterns = ['.vimroot'] "这里不能注释,否则workspace folders会有问题,从而导致`Pyright reportMissingImports`之类的错误. 由此可猜想,workspace folders最好只有一个,否则可能会有莫名其妙的问题
 "如果需要为某些语言指定特殊的根目录的话,比如可以像下面这样(.idea是pycharm为工作目录生成的)
 "autocmd FileType python let b:coc_root_patterns = ['.idea']
 
@@ -400,7 +400,7 @@ let g:Lf_CacheDirectory = $HOME
 let g:Lf_DelimiterChar = ';'
 let g:Lf_RgConfig = [
     \ "--max-columns=150",
-    \ "--glob=!{.git/,/stage/,__pycache__/}"
+    \ "--glob=!{.git/,.svn/,/stage/,__pycache__/}"
 \ ]
 let g:Lf_WildIgnore = {
     \ 'dir': ['/stage','__pycache__'],
