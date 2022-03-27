@@ -85,7 +85,7 @@ if(has("win32") || has("win64") || has("win95") || has("win16"))
 elseif has('mac')
     let g:ismac = 1
 else
-    if filereadable('/mnt/c/Windows/explorer.exe') && stridx(expand('$path'), "/mnt/c/windows") >= 0
+    if filereadable('/mnt/c/Windows/explorer.exe') && stridx(tolower(expand('$path')), "/mnt/c/windows") >= 0
         let g:iswsl = 1
     endif
 	let g:islinux = 1
