@@ -14,6 +14,7 @@ addToPath(){
 addToPath "$HOME/bin"
 addToPath "$HOME/.local/bin"
 addToPath "$HOME/a/git/lang/py/setup/dev/os/linux/sh"
+addToPath "/opt/anaconda3/bin"
 
 if [[ `uname` == "Linux" ]]; then
     if [ -n "$BASH_VERSION" ]; then
