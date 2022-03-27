@@ -387,8 +387,8 @@ let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 "[global/gtags官方下载地址](https://ftp.gnu.org/pub/gnu/global/)
 let g:Lf_Gtagslabel = 'native-pygments'
 let $GTAGSLABEL = g:Lf_Gtagslabel
-" 这项配置已经没有必要了,因为已经把文件拷贝到~/.globalrc了
-"let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
+let g:Lf_Gtagsconf = '/usr/local/share/gtags/gtags.conf'
+let $GTAGSCONF = g:Lf_Gtagsconf
 "需要手动更新gtags数据库:`Leaderf gtags --update`. 当代码有更改并且已经有 gtags 数据库生成时，更改的代码会自动同步到 gtags 数据库（即使g:Lf_GtagsAutoGenerate是0）
 let g:Lf_GtagsAutoGenerate = 0
 " https://github.com/ludovicchabant/vim-gutentags

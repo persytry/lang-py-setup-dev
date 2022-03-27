@@ -44,6 +44,8 @@ export FZF_COMPLETION_TRIGGER='\'
 export FZF_COMPLETION_OPTS='--border --info=inline'
 export FZF_TMUX=1
 export FZF_TMUX_HEIGHT='80%'
+export GTAGSLABEL='native-pygments'
+export GTAGSCONF='/usr/local/share/gtags/gtags.conf'
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
@@ -107,7 +109,6 @@ export FZF_DEFAULT_OPTS="--height 40% --layout=reverse --preview '(highlight -O 
 if [ -n "$ZSH_VERSION" ]; then
     DISABLE_AUTO_UPDATE="true"
 fi
-export GTAGSLABEL='native-pygments'
 export EDITOR="nvim"
 export PAGER=less
 export LESS=-R
