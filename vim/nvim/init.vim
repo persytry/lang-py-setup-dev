@@ -386,6 +386,8 @@ let g:Lf_PreviewResult = {'Function': 0, 'BufTag': 0 }
 "[查看支持的语言](https://pygments.org/languages/)
 let g:Lf_Gtagslabel = 'native-pygments'
 let $GTAGSLABEL = g:Lf_Gtagslabel
+" 这项配置已经没有必要了,因为已经把文件拷贝到~/.globalrc了
+"let $GTAGSCONF = '/usr/local/share/gtags/gtags.conf'
 "需要手动更新gtags数据库:`Leaderf gtags --update`. 当代码有更改并且已经有 gtags 数据库生成时，更改的代码会自动同步到 gtags 数据库（即使g:Lf_GtagsAutoGenerate是0）
 let g:Lf_GtagsAutoGenerate = 0
 " https://github.com/ludovicchabant/vim-gutentags
@@ -1002,7 +1004,7 @@ noremap <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 " noremap <leader>rg :<C-u>FZRg<CR>
 noremap <leader>rg :<C-U><C-R>=printf("Leaderf rg --match-path %s", "")<CR><CR>
 " Leaderf和Leaderf!的区别是,不加!则弹框可输入,加!则弹框不可输入
-" -e就是--regexp,就是正则表达式(并不是vim的正则表达式语法),当Leaderf! rg后面有更多的参数的时候,默认是正则表达式搜索. -e选项必须放在最后,否则会出错
+" -e就是--regexp,就是正则表达式(The input string is the same as the Vim's regexp),当Leaderf! rg后面有更多的参数的时候,默认是正则表达式搜索. -e选项必须放在最后,否则会出错
 " 在当前文件中查找. 如果想要搜某个单词,就这样: Leaderf! rg --current-buffer -e '\bword\b'
 " 也可以用-w选项,表示全字匹配(就是匹配单词边界)
 " 如果搜索内容有空格或特殊字符的话, 也得加单引号或双引号
