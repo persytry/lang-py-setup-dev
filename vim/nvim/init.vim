@@ -260,6 +260,8 @@ function! s:getExpl2()
 		return s:path . '/mycmd/expl2.bat'
     elseif g:ismac
         return 'bash ' . s:path . '/mycmd/expl2_mac.sh'
+    elseif g:iswsl
+        return 'wsl-open '
     endif
 	return 'bash ' . s:path . '/mycmd/expl2_linux.sh'
 endfunction
