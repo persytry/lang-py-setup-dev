@@ -224,6 +224,7 @@ def copyToolCfg(toSystem: bool, vimName: str) -> int:
 def main() -> None:
     parser = argparse.ArgumentParser(description='this is not only the configuration of vim, also have other software configuration')
     parser.add_argument('-t', '--toSystem', default=False, help='if True then copy config files from git to system path', action='store_true')
+    parser.add_argument('-a', '--all', default=False, help='enable all option', action='store_true')
     parser.add_argument('--nvim', default=False, action='store_true')
     parser.add_argument('--vim', default=False, action='store_true')
     parser.add_argument('--dbg', default=False, action='store_true')
@@ -241,13 +242,14 @@ def main() -> None:
 
     cnt = 0
     toSystem = args.toSystem
+    all = args.all
     vimName = 'nvim'
     vimCnt = 0
-    if args.vim:
+    if all or args.vim:
         cnt += copyVimCfg(toSystem, False)
         vimName = 'vim'
         vimCnt += 1
-    if args.nvim:
+    if all or args.nvim:
         cnt += copyVimCfg(toSystem, True)
         vimName = 'nvim'
         vimCnt += 1
@@ -255,28 +257,28 @@ def main() -> None:
         vifm_vicmd = os.environ.get('VIFM_VICMD')
         if vifm_vicmd is not None:
             vimName = vifm_vicmd
-    if args.dbg:
+    if all or args.dbg:
         cnt += _copyFileItemByName(toSystem, 'vim/vimspector.json')
-    if args.te:
+    if all or args.te:
         cnt += copyTerminalCfg(toSystem)
-    if args.vifm:
+    if all or args.vifm:
         cnt += copyVifmCfg(toSystem)
-    if args.sshd:
+    if all or args.sshd:
         cnt += copySshdCfg(toSystem)
-    if args.git:
+    if all or args.git:
         cnt += copyGitCfg(toSystem, vimName)
-    if args.tool:
+    if all or args.tool:
         cnt += copyToolCfg(toSystem, vimName)
-    if args.tmux:
+    if all or args.tmux:
         cnt += _copyFileItemByName(toSystem, 't/tmux.conf')
-    if args.fbterm:
+    if all or args.fbterm:
         cnt += _copyFileItemByName(toSystem, 't/fbtermrc')
-    if args.w3m:
+    if all or args.w3m:
         cnt += _copyFileItemByName(toSystem, 'net/w3m-config-mac.conf')
         cnt += _copyFileItemByName(toSystem, 'net/w3m-config-linux.conf')
-    if args.profile:
+    if all or args.profile:
         cnt += _copyFileItemByName(toSystem, 'os/linux/cmn_profile.sh')
-    if args.i3:
+    if all or args.i3:
         cnt += _copyFileItemByName(toSystem, 'os/linux/i3/config')
     print(f'copy total {cnt} file done')
 
