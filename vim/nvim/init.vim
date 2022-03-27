@@ -415,8 +415,8 @@ let g:Lf_ShortcutB = "<leader>fb"
 let g:Lf_GtagsAcceptDotfiles = 0
 let g:Lf_FollowLinks = 1
 let g:Lf_GtagsSkipSymlink = 'f'
-" C-x就是粘贴的意思了
-let g:Lf_CommandMap = {'<C-X>': ['<C-S>'], '<C-]>': ['<C-V>'], '<C-V>': ['<C-X>']}
+" C-r: 粘贴, C-x: 切换搜索模式(正则表达式或FullPath
+let g:Lf_CommandMap = {'<C-X>': ['<C-S>'], '<C-]>': ['<C-V>'], '<C-V>': ['<C-R>'], '<C-R>': ['<C-X>']}
 
 "vimspector setting
 "Run :VimspectorInstall and the 4 adapters should be installed
