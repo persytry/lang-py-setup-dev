@@ -1020,13 +1020,13 @@ noremap <leader>rg :<C-U><C-R>=printf("Leaderf rg --match-path %s", "")<CR><CR>
 "-w 搜索只匹配有边界的词
 "-t <TYPE>..., --type <TYPE>... Only search files matching TYPE. Multiple type flags may be provided. 比如只在python 文件中搜索的话,就输入-t py
 "--match-path          Match the file path when fuzzy searching.
-noremap <leader>rs :<C-U><C-R>=printf("Leaderf! rg --current-buffer %s ", expand("<cword>"))<CR>
+noremap <leader>rS :<C-U><C-R>=printf("Leaderf! rg --current-buffer %s ", expand("<cword>"))<CR>
 " 在工作目录下查找, 即全局查找
-noremap <leader>rS :<C-U><C-R>=printf("Leaderf! rg %s ", expand("<cword>"))<CR>
+noremap <leader>rs :<C-U><C-R>=printf("Leaderf! rg %s ", expand("<cword>"))<CR>
 " 在本文件中搜索可视模式下选择的文本
-xnoremap <leader>rv :<C-U><C-R>=printf("Leaderf! rg --current-buffer -F -w %s ", leaderf#Rg#visual())<CR>
+xnoremap <leader>rV :<C-U><C-R>=printf("Leaderf! rg --current-buffer -F -w %s ", leaderf#Rg#visual())<CR>
 " search visually selected text literally, 全局搜索可视模式下选择的文本
-xnoremap <leader>rV :<C-U><C-R>=printf("Leaderf! rg -F -w %s ", leaderf#Rg#visual())<CR>
+xnoremap <leader>rv :<C-U><C-R>=printf("Leaderf! rg -F -w %s ", leaderf#Rg#visual())<CR>
 " 这个命令是在LeaderF窗口关闭的情况下,召回最后的搜索结果. a->awake之意
 noremap <leader>ra :<C-U>Leaderf! rg --recall<CR>
 
