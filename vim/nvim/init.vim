@@ -341,10 +341,12 @@ let g:open_url_default_mappings = 0
 
 " coc setting
 " rust-analyzer安装步骤: 1. :CocInstall coc-rust-analyzer; 2. rustup component add rust-src; 3. 安装针对 Rust 的 LSP（rust-analyzer）. [参考](https://www.starky.ltd/2021/05/30/vim-configuration-with-coc-support-rust-c-python-complete/)
+" 输入:CocList后,选择marketplace,可以查看所有插件
 let g:coc_global_extensions = [
 	\ 'coc-highlight', 'coc-vimlsp', 'coc-sh',
     \ 'coc-json', 'coc-marketplace', 'coc-clangd', 'coc-cmake',
-    \ 'coc-pyright', 'coc-rust-analyzer', 'coc-go']
+    \ 'coc-pyright', 'coc-rust-analyzer', 'coc-go',
+    \ 'coc-protobuf', 'coc-html-css-support']
 " 也是为了解决: python.analysis.extraPaths, 会报这样的错误: [Pyright reportMissingImports] [E] Import "xxx" could not be resolved
 " [Using workspaceFolders](https://github.com/neoclide/coc.nvim/wiki/Using-workspaceFolders#resolve-workspace-folder)
 " Use command `:CocList folders` to open list of workspace folders
