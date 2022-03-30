@@ -417,8 +417,11 @@ let g:Lf_ShortcutB = "<leader>fb"
 let g:Lf_GtagsAcceptDotfiles = 0
 let g:Lf_FollowLinks = 1
 let g:Lf_GtagsSkipSymlink = 'f'
-" C-r: 粘贴, C-x: 切换搜索模式(正则表达式或FullPath
-let g:Lf_CommandMap = {'<C-X>': ['<C-S>'], '<C-]>': ['<C-V>'], '<C-V>': ['<C-R>'], '<C-R>': ['<C-X>']}
+let g:Lf_JumpToExistingWindow = 1
+" C-R: 粘贴, C-X: 切换搜索模式(正则表达式或FullPath),C-S: 水平分割,C-V:垂直分割
+" C-A: 行首
+let g:Lf_CommandMap = {'<C-X>': ['<C-S>'], '<C-]>': ['<C-V>'], '<C-V>': ['<C-R>'], '<C-R>': ['<C-X>'],
+    \ '<C-B>': ['<C-A>']}
 
 "vimspector setting
 "Run :VimspectorInstall and the 4 adapters should be installed
@@ -998,10 +1001,13 @@ nnoremap <silent><nowait> <leader>wo :<C-u>Vista!!<cr>
 """""""""""vista end
 
 """""""""""LeaderF begin
-noremap <leader>fm :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
+noremap <leader>fm :<C-U>LeaderfMruCwd<CR>
+noremap <leader>fM :<C-U><C-R>=printf("Leaderf mru %s", "")<CR><CR>
 noremap <leader>ft :<C-U><C-R>=printf("Leaderf bufTag %s", "")<CR><CR>
+noremap <leader>fT :<C-U>LeaderfBufTagAll<CR>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 noremap <leader>fn :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
+noremap <leader>fN :<C-U>LeaderfFunctionAll<CR>
 noremap <leader>fh :<C-U><C-R>=printf("Leaderf help %s", "")<CR><CR>
 noremap <leader>fH :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <leader>fw :<C-U><C-R>=printf("Leaderf window %s", "")<CR><CR>
