@@ -420,6 +420,7 @@ let g:Lf_GtagsSkipSymlink = 'f'
 let g:Lf_JumpToExistingWindow = 1
 " C-R: 粘贴, C-X: 切换搜索模式(正则表达式或FullPath),C-S: 水平分割,C-V:垂直分割
 " C-A: 行首
+" C-P: 预览,这个很不错
 let g:Lf_CommandMap = {'<C-X>': ['<C-S>'], '<C-]>': ['<C-V>'], '<C-V>': ['<C-R>'], '<C-R>': ['<C-X>'],
     \ '<C-B>': ['<C-A>']}
 
