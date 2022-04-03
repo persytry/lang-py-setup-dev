@@ -190,23 +190,35 @@ inoremap <silent><nowait> <C-v> <C-o><C-d>
 " 向上翻页
 inoremap <silent><nowait> <M-v> <C-o><C-u>
 " 粘贴至光标后
-inoremap <silent><expr> <C-y> <SID>insertModePaste()
+"inoremap <silent><expr> <C-y> <SID>insertModePaste()
+inoremap <silent><nowait> <C-y> <C-r>+
 " save
 inoremap <silent><nowait> <C-x><C-s> <Esc><Esc>:<C-u>w<CR>a
 " 撤销,快捷键不支持,那就算了,无所谓.
 "inoremap <silent><nowait> <C-/> <C-o>u
 
-function! s:insertModePaste()
-    let l:c = col('$')
-    if l:c == 1
-        return "\<Esc>\<Esc>gPa"
-    elseif col('.') == l:c
-        return "\<Esc>\<Esc>gpa"
-    else
-        return "\<Esc>\<Esc>gpi"
-    endif
-endfunction
+"function! s:insertModePaste()
+    "let l:c = col('$')
+    "if l:c == 1
+        "return "\<Esc>\<Esc>gPa"
+    "elseif col('.') == l:c
+        "return "\<Esc>\<Esc>gpa"
+    "else
+        "return "\<Esc>\<Esc>gpi"
+    "endif
+"endfunction
 """""insert mode as Emacs key-mapping end
+
+"""""Command-line editing begin
+cnoremap <C-a> <Home>
+cnoremap <C-f> <Right>
+cnoremap <C-b> <Left>
+cnoremap <M-f> <S-Right>
+cnoremap <M-b> <S-Left>
+cnoremap <C-d> <Del>
+"<C-r>=  可以计算一个表达式,比如输入`<C-r>=1+2`然后按回车,就会得到数字3
+cnoremap <C-y> <C-r>+
+"""""Command-line editing end
 
 " C-i不是vim自带的,而是terminal自带的,就是说在按下tab和C-i时,terminal发给vim的数值是一样的
 " [参考:Conflict Ctrl-I with TAB in normal
@@ -418,10 +430,10 @@ let g:Lf_GtagsAcceptDotfiles = 0
 let g:Lf_FollowLinks = 1
 let g:Lf_GtagsSkipSymlink = 'f'
 let g:Lf_JumpToExistingWindow = 1
-" C-R: 粘贴, C-X: 切换搜索模式(正则表达式或FullPath),C-S: 水平分割,C-V:垂直分割
+" C-Y: 粘贴, C-X: 切换搜索模式(正则表达式或FullPath),C-S: 水平分割,C-V:垂直分割
 " C-A: 行首
 " C-P: 预览,这个很不错
-let g:Lf_CommandMap = {'<C-X>': ['<C-S>'], '<C-]>': ['<C-V>'], '<C-V>': ['<C-R>'], '<C-R>': ['<C-X>'],
+let g:Lf_CommandMap = {'<C-X>': ['<C-S>'], '<C-]>': ['<C-V>'], '<C-V>': ['<C-Y>'], '<C-R>': ['<C-X>'],
     \ '<C-B>': ['<C-A>']}
 
 "vimspector setting
