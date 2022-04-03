@@ -1013,6 +1013,8 @@ noremap <leader>fh :<C-U><C-R>=printf("Leaderf help %s", "")<CR><CR>
 noremap <leader>fH :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <leader>fw :<C-U><C-R>=printf("Leaderf window %s", "")<CR><CR>
 noremap <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
+"a->awake之意
+noremap <leader>fa :<C-U><C-R>=printf("Leaderf! --recall %s", "")<CR><CR>
 
 " FZRg用的是fzf的功能,与Leaderf rg功能差不多,但是leaderf的界面更友好一些
 " noremap <leader>rg :<C-u>FZRg<CR>
@@ -1036,7 +1038,7 @@ noremap <leader>rs :<C-U><C-R>=printf("Leaderf rg %s ", expand("<cword>"))<CR>
 xnoremap <leader>rV :<C-U><C-R>=printf("Leaderf rg --current-buffer -F -w %s ", leaderf#Rg#visual())<CR>
 " search visually selected text literally, 全局搜索可视模式下选择的文本
 xnoremap <leader>rv :<C-U><C-R>=printf("Leaderf rg -F -w %s ", leaderf#Rg#visual())<CR>
-" 这个命令是在LeaderF窗口关闭的情况下,召回最后的搜索结果. a->awake之意
+" 这个命令是在LeaderF窗口关闭的情况下,召回最后的搜索结果. a->awake之意.
 noremap <leader>ra :<C-U>Leaderf! rg --recall<CR>
 
 "--auto-jump [<TYPE>] 意思是如果只有一个结果直接跳过去
