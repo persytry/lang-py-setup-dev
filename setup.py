@@ -28,7 +28,11 @@ _os_file_list = [
     ['vifm/colors/Default.vifm', '~/AppData/Roaming/Vifm/colors/Default.vifm', '~/.config/vifm/colors/Default.vifm', None],
     ['vifm/colors/Default-linux.vifm', None, None, '~/.config/vifm/colors/Default.vifm'],
     ['vifm/colors/solarized-light.vifm', '~/AppData/Roaming/Vifm/colors/solarized-light.vifm', '~/.config/vifm/colors/solarized-light.vifm', '~/.config/vifm/colors/solarized-light.vifm'],
-    ['net/sshd_config.conf', 'C:/ProgramData/ssh/sshd_config', None, None],
+    ['net/ssh/sshd_config.conf', 'C:/ProgramData/ssh/sshd_config', None, None],
+    ['net/ssh/config.conf', None, '~/.ssh/config', '~/.ssh/config'],
+    ['net/ssh/config_win.conf', '~/.ssh/config', None, None],
+    # https://github.com/shunf4/proxychains-windows
+    ['net/proxychains.conf', '~/.proxychains/proxychains.conf', '/usr/local/etc/proxychains.conf', '/usr/local/etc/proxychains.conf'],
     ['t/lazygit-config.yml', '~/.config/jesseduffield/lazygit/config.yml', '~/Library/Application Support/jesseduffield/lazygit/config.yml', '~/Library/Application Support/jesseduffield/lazygit/config.yml'],
     ['t/fbtermrc',None,None,'~/.fbtermrc'],
     ['t/tmux.conf',None,'~/.tmux.conf','~/.tmux.conf'],
@@ -158,8 +162,16 @@ def copyVifmCfg(toSystem: bool) -> int:
 
 def copySshdCfg(toSystem: bool) -> int:
     cnt = 0
-    cnt += _copyFileItemByName(toSystem, 'net/sshd_config.conf')
+    cnt += _copyFileItemByName(toSystem, 'net/ssh/sshd_config.conf')
     print(f'copy sshd config {cnt} files')
+    return cnt
+
+
+def copySshCfg(toSystem: bool) -> int:
+    cnt = 0
+    cnt += _copyFileItemByName(toSystem, 'net/ssh/config.conf')
+    cnt += _copyFileItemByName(toSystem, 'net/ssh/config_win.conf')
+    print(f'copy ssh config {cnt} files')
     return cnt
 
 
@@ -187,6 +199,8 @@ def copyGitCfg(toSystem: bool, vimName: str) -> int:
         cnt += _setGitCfgItem(f'merge.tool gdiff') # Plug 'tpope/vim-fugitive'
         cnt += _setGitCfgItem(f'mergetool.{vimName}.trustExitCode true')
         cnt += _setGitCfgItem(f'mergetool.gdiff.trustExitCode true')
+        cnt += _setGitCfgItem(f'user.name persy')
+        cnt += _setGitCfgItem(f'user.email persytry@outlook.com')
         if _isWindows():
             cnt += _setGitCfgItem(r'difftool.'+vimName+r'.cmd "'+vimName+r' -d $REMOTE $LOCAL"')
             cnt += _setGitCfgItem("mergetool."+vimName+".cmd \""+vimName+" -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J' -c '$wincmd w' -c 'wincmd ='\"")
@@ -232,6 +246,7 @@ def main() -> None:
     parser.add_argument('--te', default=False, action='store_true')
     parser.add_argument('--vifm', default=False, action='store_true')
     parser.add_argument('--sshd', default=False, action='store_true')
+    parser.add_argument('--ssh', default=False, action='store_true')
     parser.add_argument('--git', default=False, action='store_true')
     parser.add_argument('--tool', default=False, action='store_true')
     parser.add_argument('--tmux', default=False, action='store_true')
@@ -239,6 +254,7 @@ def main() -> None:
     parser.add_argument('--w3m', default=False, action='store_true')
     parser.add_argument('--profile', default=False, action='store_true')
     parser.add_argument('--i3', default=False, action='store_true')
+    parser.add_argument('--pc', default=False, action='store_true')
     args = parser.parse_args()
 
     cnt = 0
@@ -266,6 +282,8 @@ def main() -> None:
         cnt += copyVifmCfg(toSystem)
     if all or args.sshd:
         cnt += copySshdCfg(toSystem)
+    if all or args.ssh:
+        cnt += copySshCfg(toSystem)
     if all or args.git:
         cnt += copyGitCfg(toSystem, vimName)
     if all or args.tool:
@@ -281,6 +299,8 @@ def main() -> None:
         cnt += _copyFileItemByName(toSystem, 'os/linux/cmn_profile.sh')
     if all or args.i3:
         cnt += _copyFileItemByName(toSystem, 'os/linux/i3/config')
+    if all or args.pc:
+        cnt += _copyFileItemByName(toSystem, 'net/proxychains.conf')
     print(f'copy total {cnt} file done')
 
 
