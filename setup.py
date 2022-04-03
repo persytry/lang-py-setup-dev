@@ -93,7 +93,7 @@ def _copyFileImpl(srcPath: str, dstPath: str) -> int:
     return cnt
 
 
-def _copyFileItem(toSystem: bool, item: list) -> int:
+def _copyFileItem(toSystem: bool, item: list, chmod: int) -> int:
     assert len(item) == 4
     if _isWindows():
         if item[1] is None:
@@ -114,14 +114,17 @@ def _copyFileItem(toSystem: bool, item: list) -> int:
     curPath = os.path.realpath(os.path.join(_cur_dir, item[0]))
     if toSystem:
         cnt = _copyFileImpl(curPath, sysPath)
+        if chmod > 0:
+            os.system(f'chmod {chmod} {sysPath}')
+            print(f'chmod {chmod} {sysPath}')
     else:
         cnt = _copyFileImpl(sysPath, curPath)
     return cnt
 
 
-def _copyFileItemByName(toSystem: bool, itemName: str) -> int:
+def _copyFileItemByName(toSystem: bool, itemName: str, chmod: int = 0) -> int:
     item = _os_file_list[_os_file_map[itemName]]
-    return _copyFileItem(toSystem, item)
+    return _copyFileItem(toSystem, item, chmod)
 
 
 def copyVimCfg(toSystem: bool, isNvim: bool) -> int:
@@ -169,7 +172,7 @@ def copySshdCfg(toSystem: bool) -> int:
 
 def copySshCfg(toSystem: bool) -> int:
     cnt = 0
-    cnt += _copyFileItemByName(toSystem, 'net/ssh/config.conf')
+    cnt += _copyFileItemByName(toSystem, 'net/ssh/config.conf', 600)
     cnt += _copyFileItemByName(toSystem, 'net/ssh/config_win.conf')
     print(f'copy ssh config {cnt} files')
     return cnt
