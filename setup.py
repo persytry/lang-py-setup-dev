@@ -28,6 +28,7 @@ _os_file_list = [
     ['vifm/colors/Default.vifm', '~/AppData/Roaming/Vifm/colors/Default.vifm', '~/.config/vifm/colors/Default.vifm', None],
     ['vifm/colors/Default-linux.vifm', None, None, '~/.config/vifm/colors/Default.vifm'],
     ['vifm/colors/solarized-light.vifm', '~/AppData/Roaming/Vifm/colors/solarized-light.vifm', '~/.config/vifm/colors/solarized-light.vifm', '~/.config/vifm/colors/solarized-light.vifm'],
+    # 需要拷贝文件: $HOME/.ssh/authorized_keys
     ['net/ssh/sshd_config.conf', 'C:/ProgramData/ssh/sshd_config', None, None],
     ['net/ssh/config.conf', None, '~/.ssh/config', '~/.ssh/config'],
     ['net/ssh/config_win.conf', '~/.ssh/config', None, None],
