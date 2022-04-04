@@ -547,6 +547,16 @@ highlight Cursor ctermbg=white
 """""common plug set end
 """""""""""plug end
 
+"""""""""""far begin
+let g:far#enable_undo=1
+" :Far {pattern} {replace-with} {file-mask} [params]. Find the text to replace.
+" :F {pattern} {file-mask} [params]. Find only.
+" :Far {pattern} {replace-with} **/*.py  " 在当前目录及子目录下的所有py文件中查找与替换
+" :Far {pattern} {replace-with} **/*  " 在当前目录及子目录下的所有文件中查找与替换
+" :Fardo [params]. Runs the replacement task. The shortcut for it is s (substitute).
+" :Farundo [params]. Undo the recurrent replacement. The shortcut for it is u (undo).
+"""""""""""far end
+
 """""""""""defx begin
 "let g:defx_icons_enable_syntax_highlight = 1
 call defx#custom#option('_', {
