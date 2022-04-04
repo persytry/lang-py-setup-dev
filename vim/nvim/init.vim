@@ -430,6 +430,7 @@ let g:Lf_GtagsAcceptDotfiles = 0
 let g:Lf_FollowLinks = 1
 let g:Lf_GtagsSkipSymlink = 'f'
 let g:Lf_JumpToExistingWindow = 1
+let g:Lf_PreviewResult = {'File': 1, 'Buffer': 1, 'Mru': 1, 'Tag': 1, 'BufTag': 1, 'Function': 1, 'Line': 1, 'Colorscheme': 1, 'Jumps': 1}
 " C-Y: 粘贴, C-X: 切换搜索模式(正则表达式或FullPath),C-S: 水平分割,C-V:垂直分割
 " C-A: 行首, C-D: 删除后一个字符, C-F: 向右移动一个字符, C-B: 向左移动一个字符
 " C-P: 预览,这个很不错
