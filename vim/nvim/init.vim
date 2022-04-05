@@ -75,6 +75,14 @@ set tabpagemax=15
 set showtabline=2	" 总是显示标签页
 set foldenable
 
+
+" 自定义快捷键的方式有6种:<leader>,<localleader>,ctrl,alt,g开头,z开头.
+" 其他方式开头的快捷键方式就不要考虑了,因为可能会造成冲突,而且现有的这6种方式应该是足够了.
+" 优先考虑<leader>,若是快捷键有冲突或命令不怎么常用,则用<localleader>
+" <leader>和<localleader>以按键的便捷程度为依据去定义快捷键.
+let mapleader = "\<Space>"
+let localmapleader = "\<Bslash>"
+
 let g:python3_host_prog = 'python'
 let g:iswindows = 0
 let g:ismac = 0
@@ -105,6 +113,7 @@ else
 endif
 
 if g:iswsl
+    " 如果想要删除变量,那么就键入`:unlet[!] g:clipboard`, 如果试图删除一个不存在的变量，那么Vim就会报错；而如果使用!标记，则不会显示错误信息
     " win32yank.exe在nvim所在目录,需要把它拷贝到wsl中: copy /mnt/c/tool/Neovim/bin/win32yank.exe /usr/local/bin/win32yank
     let g:clipboard = {
             \'name' : 'win32yank-wsl',
@@ -119,6 +128,21 @@ if g:iswsl
             \'cache_enabled' : 1
             \}
 endif
+nnoremap <silent><expr> <leader>le <SID>useLemonade()
+function! s:useLemonade()
+    let g:clipboard = {
+            \'name' : 'useLemonade',
+            \'copy' : {
+            \     '+' : 'lemonade copy',
+            \     '*' : 'lemonade copy'
+            \},
+            \'paste' : {
+            \    '+' : 'lemonade paste',
+            \    '*' : 'lemonade paste'
+            \},
+            \'cache_enabled' : 1
+            \}
+endfunction
 
 " Don't pass messages to |ins-completion-menu|.
 set shortmess+=c
@@ -133,13 +157,6 @@ set shortmess+=c
   "set signcolumn=yes
 "endif
 set signcolumn=auto
-
-" 自定义快捷键的方式有6种:<leader>,<localleader>,ctrl,alt,g开头,z开头.
-" 其他方式开头的快捷键方式就不要考虑了,因为可能会造成冲突,而且现有的这6种方式应该是足够了.
-" 优先考虑<leader>,若是快捷键有冲突或命令不怎么常用,则用<localleader>
-" <leader>和<localleader>以按键的便捷程度为依据去定义快捷键.
-let mapleader = "\<Space>"
-let localmapleader = "\<Bslash>"
 """""""""""common set end
 
 """""""""""common user map or command begin
