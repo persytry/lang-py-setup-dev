@@ -48,7 +48,9 @@ _os_file_list = [
     ['t/ctags_mac','~/.ctags','~/.ctags',None], # linux版ctags支持go,而mac版不支持,所以会有此区分
     ['t/ctags_linux',None,None,'~/.ctags'],
     ['t/vscode/settings.json','~/AppData/Roaming/Code/User/settings.json','~/Library/Application Support/Code/User/settings.json',None],
-    ['t/vscode/keybindings.json','~/AppData/Roaming/Code/User/keybindings.json','~/Library/Application Support/Code/User/keybindings.json',None]
+    ['t/vscode/keybindings.json','~/AppData/Roaming/Code/User/keybindings.json','~/Library/Application Support/Code/User/keybindings.json',None],
+    # 不要忘记lemonade.service的存在
+    ['t/lemonade/lemonade.toml','~/.config/lemonade.toml','~/.config/lemonade.toml','~/.config/lemonade.toml']
 ]
 _os_file_map = {}
 if len(_os_file_map) != len(_os_file_list):
@@ -259,6 +261,7 @@ def main() -> None:
     parser.add_argument('--profile', default=False, action='store_true')
     parser.add_argument('--i3', default=False, action='store_true')
     parser.add_argument('--pc', default=False, action='store_true')
+    parser.add_argument('--lemonade', default=False, action='store_true')
     args = parser.parse_args()
 
     cnt = 0
@@ -305,6 +308,8 @@ def main() -> None:
         cnt += _copyFileItemByName(toSystem, 'os/linux/i3/config')
     if all or args.pc:
         cnt += _copyFileItemByName(toSystem, 'net/proxychains.conf')
+    if all or args.lemonade:
+        cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.toml')
     print(f'copy total {cnt} file done')
 
 

@@ -1,0 +1,4 @@
+port = 59500
+host = "home.izds.top"
+trans-loopback = true
+trans-localfile = true
