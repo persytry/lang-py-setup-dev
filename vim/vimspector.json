@@ -40,6 +40,8 @@
         "golang": {
             "adapter": "vscode-go",
             "configuration": {
+                "name": "Launch Package",
+                "type": "go",
                 "request": "launch",
                 "program": "${fileDirname}",
                 "args":["run","-c","~/a/git/lang/go/net/v2ray-core/debug/config.json"],
