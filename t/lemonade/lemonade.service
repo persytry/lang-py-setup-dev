@@ -1,0 +1,10 @@
+[Unit]
+Description=lemonade by persy
+After=network.target
+
+[Service]
+User=root
+ExecStart=lemonade server --port=59500
+
+[Install]
+WantedBy=multi-user.target

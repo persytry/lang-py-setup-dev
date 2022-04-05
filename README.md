@@ -24,6 +24,7 @@
 - htop
 - hd-idle, 系统休眠
 - 当前使用的gtags/global的版本(mac和linux都是这个版本)是global-6.6.8.tar.gz, [global/gtags官方下载地址](https://ftp.gnu.org/pub/gnu/global/)
+- lemonade
 
 #### 配置文件
 
