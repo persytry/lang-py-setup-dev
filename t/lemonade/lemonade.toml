@@ -1,4 +1,4 @@
 port = 59500
-host = "home.izds.top"
+host = "proxy.izds.top"
 trans-loopback = true
 trans-localfile = true
