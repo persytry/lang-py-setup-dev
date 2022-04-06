@@ -142,7 +142,8 @@ function! s:useLemonade()
             \},
             \'cache_enabled' : 1
             \}
-    echo "useLemonade, but maybe need run checkhelth to refresh g:clipboard"
+    call provider#clipboard#Executable()
+    echo "useLemonade"
 endfunction
 
 " Don't pass messages to |ins-completion-menu|.
