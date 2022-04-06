@@ -128,22 +128,36 @@ if g:iswsl
             \'cache_enabled' : 1
             \}
 endif
-nnoremap <silent><expr> <leader>le <SID>useLemonade()
-function! s:useLemonade()
-    let g:clipboard = {
-            \'name' : 'useLemonade',
-            \'copy' : {
-            \     '+' : 'lemonade copy',
-            \     '*' : 'lemonade copy'
-            \},
-            \'paste' : {
-            \    '+' : 'lemonade paste',
-            \    '*' : 'lemonade paste'
-            \},
-            \'cache_enabled' : 1
-            \}
+nnoremap <silent><expr> <leader>le <SID>useLemonade(1)
+nnoremap <silent><expr> <leader>lu <SID>useLemonade(0)
+function! s:useLemonade(isUse)
+    if a:isUse == 1
+        if exists('g:clipboard')
+            let g:clipboardOld_ = g:clipboard
+        endif
+        let g:clipboard = {
+                \'name' : 'useLemonade',
+                \'copy' : {
+                \     '+' : 'lemonade copy',
+                \     '*' : 'lemonade copy'
+                \},
+                \'paste' : {
+                \    '+' : 'lemonade paste',
+                \    '*' : 'lemonade paste'
+                \},
+                \'cache_enabled' : 1
+                \}
+        echo "useLemonade"
+    else
+        if exists('g:clipboardOld_')
+            let g:clipboard = g:clipboardOld_
+            echo "use clipboardOld"
+        else
+            unlet g:clipboard
+            echo "unlet g:clipboard"
+        endif
+    endif
     call provider#clipboard#Executable()
-    echo "useLemonade"
 endfunction
 
 " Don't pass messages to |ins-completion-menu|.
