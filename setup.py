@@ -45,6 +45,7 @@ _os_file_list = [
     ['vim/gtags.conf','~/.globalrc','~/.globalrc','~/.globalrc'],
     ['os/linux/i3/config', None, None, '~/.config/i3/config'],
     ['t/delta-themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig'],
+    # 用了Universal Ctags后, `.ctags`配置文件已经用处不大了
     ['t/ctags_mac','~/.ctags','~/.ctags',None], # linux版ctags支持go,而mac版不支持,所以会有此区分
     ['t/ctags_linux',None,None,'~/.ctags'],
     ['t/vscode/settings.json','~/AppData/Roaming/Code/User/settings.json','~/Library/Application Support/Code/User/settings.json',None],
@@ -233,8 +234,8 @@ def copyToolCfg(toSystem: bool, vimName: str) -> int:
     cnt = 0
     cnt += _copyFileItemByName(toSystem, 't/fbtermrc')
     cnt += _copyFileItemByName(toSystem, 't/tmux.conf')
-    cnt += _copyFileItemByName(toSystem, 't/ctags_mac')
-    cnt += _copyFileItemByName(toSystem, 't/ctags_linux')
+    # cnt += _copyFileItemByName(toSystem, 't/ctags_mac')
+    # cnt += _copyFileItemByName(toSystem, 't/ctags_linux')
     cnt += _copyFileItemByName(toSystem, 't/vscode/settings.json')
     cnt += _copyFileItemByName(toSystem, 't/vscode/keybindings.json')
     cnt += copyGitCfg(toSystem, vimName)
