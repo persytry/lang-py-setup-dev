@@ -624,9 +624,11 @@ autocmd FileType defx call s:defx_my_settings()
 	  " 用drop而不用open,因为对于同一个文件,drop只会打开一次,而open会重复打开
 	  nnoremap <silent><buffer><expr> <CR>
 	  \ defx#do_action('drop') "在当前tab的窗口中打开文件
-	  nnoremap <silent><buffer><expr> o
+	  nnoremap <silent><buffer><expr> <C-v>
 	  \ defx#do_action('drop', 'botright vnew') "在最右侧窗口打开文件
-	  nnoremap <silent><buffer><expr> l
+	  nnoremap <silent><buffer><expr> <C-s>
+	  \ defx#do_action('drop', 'belowright new') "在最下侧窗口打开文件
+	  nnoremap <silent><buffer><expr> <C-t>
 	  \ defx#do_action('drop', '$tabnew') " 在新的tab中打开文件
 	  nnoremap <silent><buffer><expr> zo
 	  \ defx#do_action('open_tree')
