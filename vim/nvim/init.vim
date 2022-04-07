@@ -6,6 +6,10 @@
 syntax on
 syntax enable
 
+"这两个命令的作用：vim首先在当前目录里寻找tags文件，如果没有找到tags文件，或者没有找到对应的目标，就到父目录中查找，一直向上递归。因为tags文件中记录的路径总是相对于tags文件所在的路径,需要注意的是，第一个命令里的分号是必不可少的
+set tags=tags;
+set autochdir
+
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
