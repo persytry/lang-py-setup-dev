@@ -622,6 +622,8 @@ autocmd FileType defx call s:defx_my_settings()
 	  nnoremap <silent><buffer><expr> p
 	  \ defx#do_action('paste')
 	  " 用drop而不用open,因为对于同一个文件,drop只会打开一次,而open会重复打开
+	  nnoremap <silent><buffer><expr> l
+	  \ defx#do_action('drop') "在当前tab的窗口中打开文件
 	  nnoremap <silent><buffer><expr> <CR>
 	  \ defx#do_action('drop') "在当前tab的窗口中打开文件
 	  nnoremap <silent><buffer><expr> <C-v>
