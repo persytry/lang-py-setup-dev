@@ -649,7 +649,7 @@ autocmd FileType defx call s:defx_my_settings()
 	  nnoremap <silent><buffer><expr> DD
 	  \ defx#do_action('remove')
 	  nnoremap <silent><buffer><expr> cw
-	  \ defx#do_action('rename')
+	  \ defx#do_action('rename', 'append')
 	  nnoremap <silent><buffer><expr> !
 	  \ defx#do_action('execute_command')
 	  nnoremap <silent><buffer><expr> x
