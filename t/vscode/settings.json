@@ -9,7 +9,8 @@
         "**/.vimroot": true,
         "**/.hg": true,
         "**/CVS": true,
-        "**/.DS_Store": true
+        "**/.DS_Store": true,
+        "tags": true
     },
     "editor.quickSuggestions": {
         "other": true,

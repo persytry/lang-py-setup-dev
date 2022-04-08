@@ -457,11 +457,11 @@ let g:Lf_CacheDirectory = $HOME
 let g:Lf_DelimiterChar = ';'
 let g:Lf_RgConfig = [
     \ "--max-columns=150",
-    \ "--glob=!{.git/,.svn/,/stage/,__pycache__/}"
+    \ "--glob=!{.git/,.svn/,/stage/,__pycache__/,tags}"
 \ ]
 let g:Lf_WildIgnore = {
     \ 'dir': ['/stage','__pycache__','.git','.svn'],
-    \ 'file': []
+    \ 'file': ['tags']
     \}
 let g:Lf_ShortcutF = "<leader>ff"
 let g:Lf_ShortcutB = "<leader>fb"
