@@ -208,6 +208,7 @@ def copyGitCfg(toSystem: bool, vimName: str) -> int:
         cnt += _setGitCfgItem(f'mergetool.gdiff.trustExitCode true')
         cnt += _setGitCfgItem(f'user.name persy')
         cnt += _setGitCfgItem(f'user.email persytry@outlook.com')
+        cnt += _setGitCfgItem(f'pull.rebase false')
         if _isWindows():
             cnt += _setGitCfgItem(r'difftool.'+vimName+r'.cmd "'+vimName+r' -d $REMOTE $LOCAL"')
             cnt += _setGitCfgItem("mergetool."+vimName+".cmd \""+vimName+" -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J' -c '$wincmd w' -c 'wincmd ='\"")
