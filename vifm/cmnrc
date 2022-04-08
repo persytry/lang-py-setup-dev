@@ -34,8 +34,8 @@ nnoremap <space> :<esc><esc>
 nnoremap o :!$VIFM_VICMD %f<cr>
 nnoremap O :!$VIFM_VICMD_OTHER %f<cr>
 
-command! g %m rg --follow --no-text -g '!ctags' --smart-case -n %a
-command! G !!rg --follow --no-text -g '!ctags' --smart-case -n %a
+command! g %m rg --follow --no-text -g '!tags' --smart-case -n %a
+command! G !!rg --follow --no-text -g '!tags' --smart-case -n %a
 command! f %m fd --type f --follow --exclude={.git,.svn,.idea,.vscode,.sass-cache,node_modules,build,.vimroot,__pycache__} %a
 command! F !!fd --type f --follow --exclude={.git,.svn,.idea,.vscode,.sass-cache,node_modules,build,.vimroot,__pycache__} %a
 
