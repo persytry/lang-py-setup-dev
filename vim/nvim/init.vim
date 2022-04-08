@@ -187,13 +187,14 @@ noremap <silent><nowait> gs :<C-u>w<CR>
 """""insert mode as Emacs key-mapping begin
 " a应该是ahead的意思
 " 保留vim之C-d的原始功能,就是反缩进,与C-t相对
-inoremap <silent><nowait> <M-t> <C-d>
+" 尽量不要占用alt类的键位,因为要用alt模式,就是alt+字母=esc+字母
+"inoremap <silent><nowait> <M-t> <C-d>
 " 删除下一个字符
 inoremap <silent><nowait> <C-d> <Del>
 " 删除上一个字
-inoremap <silent><nowait> <M-Backspace> <C-w>
+"inoremap <silent><nowait> <M-Backspace> <C-w>
 " 删除下一个字,删除至字尾
-inoremap <silent><nowait> <M-d> <C-o>ce
+"inoremap <silent><nowait> <M-d> <C-o>ce
 " 将光标移动到行首的第一个非空白字符
 inoremap <silent><nowait> <M-m> <Esc><Esc>^i
 noremap <silent><nowait> <M-m> ^
@@ -202,13 +203,13 @@ inoremap <silent><nowait> <C-a> <Home>
 " 移到行尾
 inoremap <silent><nowait> <C-e> <End>
 " 句首,从行首到句首之间可能有空格
-inoremap <silent><nowait> <M-a> <Esc><Esc>(i
+"inoremap <silent><nowait> <M-a> <Esc><Esc>(i
 " 句尾
-inoremap <silent><nowait> <M-e> <Esc><Esc>)gea
+"inoremap <silent><nowait> <M-e> <Esc><Esc>)gea
 " 前进一个字,移动到下一个词首
-inoremap <silent><nowait> <M-f> <C-Right>
+"inoremap <silent><nowait> <M-f> <C-Right>
 " 后退一个字,跳动到当前光标所在词的开头
-inoremap <silent><nowait> <M-b> <C-Left>
+"inoremap <silent><nowait> <M-b> <C-Left>
 " 删除到行尾
 inoremap <silent><nowait> <C-k> <C-o>C
 " 删除这一句,M-k另有它用,注释掉吧.
@@ -224,9 +225,9 @@ inoremap <silent><nowait> <C-p> <Up>
 " 当前行居中
 inoremap <silent><nowait> <C-l> <Esc><Esc>zza
 " 向下翻页
-inoremap <silent><nowait> <C-v> <C-o><C-d>
+"inoremap <silent><nowait> <C-v> <C-o><C-d>
 " 向上翻页
-inoremap <silent><nowait> <M-v> <C-o><C-u>
+"inoremap <silent><nowait> <M-v> <C-o><C-u>
 " 粘贴至光标后
 "inoremap <silent><expr> <C-y> <SID>insertModePaste()
 inoremap <silent><nowait> <C-y> <C-r>+
@@ -251,8 +252,8 @@ inoremap <silent><nowait> <C-x><C-s> <Esc><Esc>:<C-u>w<CR>a
 cnoremap <C-a> <Home>
 cnoremap <C-f> <Right>
 cnoremap <C-b> <Left>
-cnoremap <M-f> <S-Right>
-cnoremap <M-b> <S-Left>
+"cnoremap <M-f> <S-Right>
+"cnoremap <M-b> <S-Left>
 cnoremap <C-d> <Del>
 "<C-r>=  可以计算一个表达式,比如输入`<C-r>=1+2`然后按回车,就会得到数字3
 cnoremap <C-y> <C-r>+
@@ -289,8 +290,8 @@ noremap <leader>vv :<C-u>VsplitVifm<CR>
 noremap <leader>vt :<C-u>TabVifm<CR>
 noremap <leader>vi :<C-u>Vifm<CR>
 noremap <leader>vd :<C-u>DiffVifm<CR>
-noremap <C-p> :<C-u>let @p = @+<CR>
-noremap <M-p> :<C-u>let @+ = @p<CR>
+"noremap <C-p> :<C-u>let @p = @+<CR>
+"noremap <M-p> :<C-u>let @+ = @p<CR>
 
 nnoremap <silent><nowait> <C-h> :<C-u>tabp<CR>
 " C-l 本来是用来刷新的
