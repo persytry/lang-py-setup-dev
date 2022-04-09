@@ -52,7 +52,8 @@ _os_file_list = [
     ['t/vscode/keybindings.json','~/AppData/Roaming/Code/User/keybindings.json','~/Library/Application Support/Code/User/keybindings.json',None],
     # 不要忘记lemonade.service的存在
     ['t/lemonade/lemonade.toml','~/.config/lemonade.toml','~/.config/lemonade.toml','~/.config/lemonade.toml'],
-    ['t/ripgrep.conf','~/.config/ripgrep.conf','~/.config/ripgrep.conf','~/.config/ripgrep.conf']
+    ['t/ripgrep.conf','~/.config/ripgrep.conf','~/.config/ripgrep.conf','~/.config/ripgrep.conf'],
+    ['t/fdignore.conf','~/.config/fd/ignore','~/.config/fd/ignore','~/.config/fd/ignore']
 ]
 _os_file_map = {}
 if len(_os_file_map) != len(_os_file_list):
@@ -242,6 +243,7 @@ def copyToolCfg(toSystem: bool, vimName: str) -> int:
     cnt += _copyFileItemByName(toSystem, 't/vscode/keybindings.json')
     cnt += copyGitCfg(toSystem, vimName)
     cnt += _copyFileItemByName(toSystem, 't/ripgrep.conf')
+    cnt += _copyFileItemByName(toSystem, 't/fdignore.conf')
     print(f'copy tool config {cnt} files or items')
     return cnt
 
