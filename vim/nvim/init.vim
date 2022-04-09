@@ -1196,6 +1196,7 @@ silent! nmap <unique><silent> <leader>sr <Plug>(operator-sandwich-replace)<Plug>
 silent! nmap <unique><silent> <leader>sdb <Plug>(operator-sandwich-delete)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
 silent! nmap <unique><silent> <leader>srb <Plug>(operator-sandwich-replace)<Plug>(operator-sandwich-release-count)<Plug>(textobj-sandwich-auto-a)
 " add
+" <leader>saiw(  为一个单词增加小括号
 silent! nmap <unique> <leader>sa <Plug>(operator-sandwich-add)
 silent! xmap <unique> <leader>sa <Plug>(operator-sandwich-add)
 silent! omap <unique> <leader>sa <Plug>(operator-sandwich-g@)
