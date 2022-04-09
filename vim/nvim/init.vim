@@ -482,7 +482,8 @@ let g:Lf_GtagsAcceptDotfiles = 0
 let g:Lf_FollowLinks = 1
 let g:Lf_GtagsSkipSymlink = 'f'
 let g:Lf_JumpToExistingWindow = 1
-let g:Lf_PreviewResult = {'File': 1, 'Buffer': 1, 'Mru': 1, 'Tag': 1, 'BufTag': 1, 'Function': 1, 'Line': 1, 'Colorscheme': 1, 'Jumps': 1}
+" 感觉自动显示preview体验不大好
+let g:Lf_PreviewResult = {'File': 0, 'Buffer': 0, 'Mru': 0, 'Tag': 0, 'BufTag': 0, 'Function': 0, 'Line': 0, 'Colorscheme': 0, 'Jumps': 0}
 " C-Y: 粘贴, C-X: 切换搜索模式(正则表达式或FullPath),C-S: 水平分割,C-V:垂直分割
 " C-A: 行首, C-D: 删除后一个字符, C-F: 向右移动一个字符, C-B: 向左移动一个字符
 " C-P: 预览,这个很不错
@@ -1075,16 +1076,16 @@ noremap <leader>fT :<C-U>LeaderfBufTagAll<CR>
 noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 noremap <leader>fn :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
 noremap <leader>fN :<C-U>LeaderfFunctionAll<CR>
-noremap <leader>fh :<C-U><C-R>=printf("Leaderf --auto-preview help %s", "")<CR><CR>
-noremap <leader>fH :<C-U><C-R>=printf("Leaderf --auto-preview cmdHistory %s", "")<CR><CR>
-noremap <leader>fw :<C-U><C-R>=printf("Leaderf --auto-preview window %s", "")<CR><CR>
-noremap <leader>fc :<C-U><C-R>=printf("Leaderf --auto-preview command %s", "")<CR><CR>
+noremap <leader>fh :<C-U><C-R>=printf("Leaderf help %s", "")<CR><CR>
+noremap <leader>fH :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
+noremap <leader>fw :<C-U><C-R>=printf("Leaderf window %s", "")<CR><CR>
+noremap <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 "a->awake之意
 noremap <leader>fa :<C-U><C-R>=printf("Leaderf! --recall %s", "")<CR><CR>
 
 " FZRg用的是fzf的功能,与Leaderf rg功能差不多,但是leaderf的界面更友好一些
 " noremap <leader>rg :<C-u>FZRg<CR>
-noremap <leader>rg :<C-U><C-R>=printf("Leaderf rg --auto-preview --match-path %s", "")<CR><CR>
+noremap <leader>rg :<C-U><C-R>=printf("Leaderf rg --match-path %s", "")<CR><CR>
 " Leaderf和Leaderf!的区别是,不加!则弹框可输入,加!则弹框不可输入
 " -e就是--regexp,就是正则表达式(The input string is the same as the Vim's regexp),当Leaderf! rg后面有更多的参数的时候,默认是正则表达式搜索. -e选项必须放在最后,否则会出错
 " 在当前文件中查找. 如果想要搜某个单词,就这样: Leaderf! rg --current-buffer -e '\bword\b'
@@ -1097,13 +1098,13 @@ noremap <leader>rg :<C-U><C-R>=printf("Leaderf rg --auto-preview --match-path %s
 "-w 搜索只匹配有边界的词
 "-t <TYPE>..., --type <TYPE>... Only search files matching TYPE. Multiple type flags may be provided. 比如只在python 文件中搜索的话,就输入-t py
 "--match-path          Match the file path when fuzzy searching.
-noremap <leader>rS :<C-U><C-R>=printf("Leaderf rg --auto-preview --current-buffer %s ", expand("<cword>"))<CR>
+noremap <leader>rS :<C-U><C-R>=printf("Leaderf rg --current-buffer %s ", expand("<cword>"))<CR>
 " 在工作目录下查找, 即全局查找
-noremap <leader>rs :<C-U><C-R>=printf("Leaderf rg --auto-preview %s ", expand("<cword>"))<CR>
+noremap <leader>rs :<C-U><C-R>=printf("Leaderf rg %s ", expand("<cword>"))<CR>
 " 在本文件中搜索可视模式下选择的文本
-xnoremap <leader>rV :<C-U><C-R>=printf("Leaderf rg --auto-preview --current-buffer -F -w %s ", leaderf#Rg#visual())<CR>
+xnoremap <leader>rV :<C-U><C-R>=printf("Leaderf rg --current-buffer -F -w %s ", leaderf#Rg#visual())<CR>
 " search visually selected text literally, 全局搜索可视模式下选择的文本
-xnoremap <leader>rv :<C-U><C-R>=printf("Leaderf rg --auto-preview -F -w %s ", leaderf#Rg#visual())<CR>
+xnoremap <leader>rv :<C-U><C-R>=printf("Leaderf rg -F -w %s ", leaderf#Rg#visual())<CR>
 " 这个命令是在LeaderF窗口关闭的情况下,召回最后的搜索结果. a->awake之意.
 noremap <leader>ra :<C-U>Leaderf! rg --recall<CR>
 
@@ -1111,15 +1112,15 @@ noremap <leader>ra :<C-U>Leaderf! rg --recall<CR>
 "更新. 必须得在根目录下创建.vim文件夹作为根目录,否则更新会失败的
 noremap <leader>gu :<C-u><C-r>=printf("Leaderf! gtags --update %s", "")<CR>
 "Show locations of definitions. 跳转到定义
-noremap <leader>gd :<C-U><C-R>=printf("Leaderf gtags --auto-preview -d %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>gd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
 "Show reference to a symbol which has definitions. 查找引用
-noremap <leader>gr :<C-U><C-R>=printf("Leaderf gtags --auto-preview -r %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>gr :<C-U><C-R>=printf("Leaderf gtags -r %s --auto-jump", expand("<cword>"))<CR><CR>
 "Show reference to a symbol which has no definition. 不知道这个功能是干嘛的
-noremap <leader>gs :<C-U><C-R>=printf("Leaderf gtags --auto-preview -s %s --auto-jump", expand("<cword>"))<CR><CR>
+noremap <leader>gs :<C-U><C-R>=printf("Leaderf gtags -s %s --auto-jump", expand("<cword>"))<CR><CR>
 "Show all lines which match to the <PATTERN>. -g功能已被Leaderf rg包含
 "noremap <leader>gg :<C-U><C-R>=printf("Leaderf gtags -g %s --auto-jump", expand("<cword>"))<CR><CR>
 "Decide tag type by context at cursor position. If the context is a definition of the pattern then use -r, else if there is at least one definition of the pattern then use -d, else use -s. Regular expression is not allowed for pattern.
-noremap <leader>gc :<C-U><C-R>=printf("Leaderf gtags --auto-preview --by-context %s --auto-jump", "")<CR><CR>
+noremap <leader>gc :<C-U><C-R>=printf("Leaderf gtags --by-context %s --auto-jump", "")<CR><CR>
 "跳转到下一个位置
 noremap <leader>gj :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
 "跳转到上一个位置
