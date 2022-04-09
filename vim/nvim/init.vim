@@ -299,13 +299,6 @@ nnoremap <silent><nowait> <C-l> :<C-u>tabn<CR>
 """""""""""common user map or command end
 
 """""""""""common script begin
-function! s:MapNotHasmapto(lhs, rhs)
-    if !hasmapto('<Plug>' . a:rhs)
-        execute 'nmap <buffer>' . a:lhs . ' <Plug>' . a:rhs
-        execute 'vmap <buffer>' . a:lhs . ' <Plug>' . a:rhs
-    endif
-endfunction
-
 function! s:getExpl2()
 	if (g:iswindows)
 		return s:path . '/mycmd/expl2.bat'
@@ -341,6 +334,7 @@ let g:EasyMotion_use_smartsign_us = 1
 let g:sandwich_no_default_key_mappings = 1
 let g:operator_sandwich_no_default_key_mappings = 1
 
+"""""""""""markdown begin
 " markdown setting
 " Latex数学公式
 let g:vim_markdown_math = 1
@@ -353,7 +347,7 @@ let g:vim_markdown_toc_autofit = 1
 let g:vim_markdown_folding_disabled = 1
 let g:vim_markdown_folding_style_pythonic = 0
 let g:vim_markdown_folding_level = 0
-let g:vim_markdown_no_default_key_mappings = 1
+let g:vim_markdown_no_default_key_mappings = 0
 " 这个插件的conceal功能和indentLine插件的功能相冲突了吗?貌似没有吧,反正管用就行了
 let g:vim_markdown_conceal = 2
 " 这个控制新增行的新增空白,若是为0,表示只是跟上一行对齐即可,不再增加新的空白
@@ -369,6 +363,25 @@ endfunction
 "au BufRead,BufNewFile *.{txt} setfiletype markdown
 "autocmd BufRead,BufNewFile *.{md} call s:setlocalTabstopWidth(2)
 autocmd FileType markdown call s:setlocalTabstopWidth(2)
+" 还是不要自定义markdown的快捷键了,因为它有时在mac上不正常,而在linux下正常,用默认的快捷键就挺好的,默认的快捷键跟下面自定义的基本一致,除了不带<leader>
+"function! s:MapNotHasmapto(lhs, rhs)
+    "if !hasmapto('<Plug>' . a:rhs)
+        "execute 'nmap <buffer>' . a:lhs . ' <Plug>' . a:rhs
+        "execute 'vmap <buffer>' . a:lhs . ' <Plug>' . a:rhs
+    "endif
+"endfunction
+"call <sid>MapNotHasmapto('<leader>]]', 'Markdown_MoveToNextHeader')
+"call <sid>MapNotHasmapto('<leader>[[', 'Markdown_MoveToPreviousHeader')
+"call <sid>MapNotHasmapto('<leader>][', 'Markdown_MoveToNextSiblingHeader')
+"call <sid>MapNotHasmapto('<leader>[]', 'Markdown_MoveToPreviousSiblingHeader')
+"" u-> Up
+"call <sid>MapNotHasmapto('<leader>]u', 'Markdown_MoveToParentHeader')
+"" h->Header
+"call <sid>MapNotHasmapto('<leader>]h', 'Markdown_MoveToCurHeader')
+"call <sid>MapNotHasmapto('gx', 'Markdown_OpenUrlUnderCursor')
+" ps. 这个快捷键跟标准的冲突了,也不知道它是干什么用的,注释掉吧
+"call <sid>MapNotHasmapto('ge', 'Markdown_EditUrlUnderCursor')
+"""""""""""markdown end
 
 " indentLine setting
 let g:indentLine_enable = 1
@@ -934,19 +947,6 @@ xnoremap <silent><nowait> <leader>il :<C-u>IndentLinesToggle<CR>
 nnoremap <silent><nowait> <leader>is :<C-u>LeadingSpaceToggle<CR>
 xnoremap <silent><nowait> <leader>is :<C-u>LeadingSpaceToggle<CR>
 """""""""""indentLine end
-
-"""""""""""markdown begin
-call <sid>MapNotHasmapto('<leader>]]', 'Markdown_MoveToNextHeader')
-call <sid>MapNotHasmapto('<leader>[[', 'Markdown_MoveToPreviousHeader')
-call <sid>MapNotHasmapto('<leader>][', 'Markdown_MoveToNextSiblingHeader')
-call <sid>MapNotHasmapto('<leader>[]', 'Markdown_MoveToPreviousSiblingHeader')
-" u-> Up
-call <sid>MapNotHasmapto('<leader>]u', 'Markdown_MoveToParentHeader')
-call <sid>MapNotHasmapto('<leader>]c', 'Markdown_MoveToCurHeader')
-call <sid>MapNotHasmapto('gx', 'Markdown_OpenUrlUnderCursor')
-" ps. 这个快捷键跟标准的冲突了,也不知道它是干什么用的,注释掉吧
-"call <sid>MapNotHasmapto('ge', 'Markdown_EditUrlUnderCursor')
-"""""""""""markdown end
 
 """""""""""rainbow begin
 let g:rainbow_active = 1
