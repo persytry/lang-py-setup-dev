@@ -536,15 +536,15 @@ let g:Lf_NormalMap = {
     \ "Gtags": [["<C-t>", ':exec g:Lf_py "gtagsExplManager.accept(\"t\")"<CR>'],
     \   ["<C-v>", ':exec g:Lf_py "gtagsExplManager.accept(\"v\")"<CR>'],
     \   ["<C-s>", ':exec g:Lf_py "gtagsExplManager.accept(\"h\")"<CR>']],
-    \ "Help": [["<C-t>", ':exec g:Lf_py "helpExplManager.accept(\"t\")<CR>'],
-    \   ["<C-v>", ':exec g:Lf_py "helpExplManager.accept(\"v\")<CR>'],
-    \   ["<C-s>", ':exec g:Lf_py "helpExplManager.accept(\"h\")<CR>']],
-    \ "QfLocList": [["<C-t>", ':exec g:Lf_py "qfloclistExplManager.accept(\"t\")<CR>'],
-    \   ["<C-v>", ':exec g:Lf_py "qfloclistExplManager.accept(\"v\")<CR>'],
-    \   ["<C-s>", ':exec g:Lf_py "qfloclistExplManager.accept(\"h\")<CR>']],
-    \ "Rg": [["<C-t>", ':exec g:Lf_py "rgExplManager.accept(\"t\")<CR>'],
-    \   ["<C-v>", ':exec g:Lf_py "rgExplManager.accept(\"v\")<CR>'],
-    \   ["<C-s>", ':exec g:Lf_py "rgExplManager.accept(\"h\")<CR>']]
+    \ "Help": [["<C-t>", ':exec g:Lf_py "helpExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "helpExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "helpExplManager.accept(\"h\")"<CR>']],
+    \ "QfLocList": [["<C-t>", ':exec g:Lf_py "qfloclistExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "qfloclistExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "qfloclistExplManager.accept(\"h\")"<CR>']],
+    \ "Rg": [["<C-t>", ':exec g:Lf_py "rgExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "rgExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "rgExplManager.accept(\"h\")"<CR>']]
     \}
 
 "vimspector setting
