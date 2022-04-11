@@ -489,6 +489,39 @@ let g:Lf_PreviewResult = {'File': 0, 'Buffer': 0, 'Mru': 0, 'Tag': 0, 'BufTag': 
 " C-P: 预览,这个很不错
 let g:Lf_CommandMap = {'<C-X>': ['<C-S>'], '<C-]>': ['<C-V>'], '<C-V>': ['<C-Y>'], '<C-R>': ['<C-X>'],
     \ '<Home>': ['<C-A>'], '<Del>': ['<C-D>'], '<Right>': ['<C-F>'], '<Left>': ['<C-B>']}
+let g:Lf_NormalMap = {
+    \ "_": [["<C-j>", "j"],["<C-k>", "k"]],
+    \ "File": [["<C-t>", ':exec g:Lf_py "fileExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "fileExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "fileExplManager.accept(\"h\")"<CR>']],
+    \ "Buffer": [["<C-t>", ':exec g:Lf_py "bufExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "bufExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "bufExplManager.accept(\"h\")"<CR>']],
+    \ "Mru": [["<C-t>", ':exec g:Lf_py "mruExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "mruExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "mruExplManager.accept(\"h\")"<CR>']],
+    \ "Tag": [["<C-t>", ':exec g:Lf_py "tagExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "tagExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "tagExplManager.accept(\"h\")"<CR>']],
+    \ "BufTag": [["<C-t>", ':exec g:Lf_py "bufTagExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "bufTagExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "bufTagExplManager.accept(\"h\")"<CR>']],
+    \ "Function": [["<C-t>", ':exec g:Lf_py "functionExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "functionExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "functionExplManager.accept(\"h\")"<CR>']],
+    \ "Line": [["<C-t>", ':exec g:Lf_py "lineExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "lineExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "lineExplManager.accept(\"h\")"<CR>']],
+    \ "History": [["<C-t>", ':exec g:Lf_py "historyExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "historyExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "historyExplManager.accept(\"h\")"<CR>']],
+    \ "Self": [["<C-t>", ':exec g:Lf_py "selfExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "selfExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "selfExplManager.accept(\"h\")"<CR>']],
+    \ "Colorscheme": [["<C-t>", ':exec g:Lf_py "colorschemeExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "colorschemeExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "colorschemeExplManager.accept(\"h\")"<CR>']]
+    \}
 
 "vimspector setting
 "Run :VimspectorInstall and the 4 adapters should be installed
