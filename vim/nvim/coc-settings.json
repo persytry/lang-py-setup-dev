@@ -11,6 +11,13 @@
 	"python.jediEnabled": false,
 	"pyright.enable": true,
 	"pyright.trace.server": "verbose",
+	"list.insertMappings": {
+		"<C-t>": "action:tabe",
+		"<C-s>": "action:split",
+		"<C-v>": "action:vsplit",
+		"<C-p>": "action:preview",
+		"<C-y>": "eval:@@"
+	},
 	"languageserver": {
 		"python": {
 			"enable": false,

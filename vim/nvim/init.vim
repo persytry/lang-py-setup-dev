@@ -944,6 +944,10 @@ nnoremap <silent><nowait> <C-k> :<C-u>CocCommand document.jumpToPrevSymbol<CR>
 
 " C-t, C-]
 set tagfunc=CocTagFunc
+
+" coc-list-mappings, 文档关键字, 用来查看快捷键, Default mappings on insert mode
+" <C-o>       - Change to normal mode.
+" coc-list-mappings-custom, 在coc-settings.json中改键
 """""""""""coc end
 
 """""""""""table mode begin
