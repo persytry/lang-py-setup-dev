@@ -520,7 +520,31 @@ let g:Lf_NormalMap = {
     \   ["<C-s>", ':exec g:Lf_py "selfExplManager.accept(\"h\")"<CR>']],
     \ "Colorscheme": [["<C-t>", ':exec g:Lf_py "colorschemeExplManager.accept(\"t\")"<CR>'],
     \   ["<C-v>", ':exec g:Lf_py "colorschemeExplManager.accept(\"v\")"<CR>'],
-    \   ["<C-s>", ':exec g:Lf_py "colorschemeExplManager.accept(\"h\")"<CR>']]
+    \   ["<C-s>", ':exec g:Lf_py "colorschemeExplManager.accept(\"h\")"<CR>']],
+    \ "Window": [["<C-t>", ':exec g:Lf_py "windowExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "windowExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "windowExplManager.accept(\"h\")"<CR>']],
+    \ "Jumps": [["<C-t>", ':exec g:Lf_py "jumpsExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "jumpsExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "jumpsExplManager.accept(\"h\")"<CR>']],
+    \ "Command": [["<C-t>", ':exec g:Lf_py "commandExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "commandExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "commandExplManager.accept(\"h\")"<CR>']],
+    \ "Filetype": [["<C-t>", ':exec g:Lf_py "filetypeExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "filetypeExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "filetypeExplManager.accept(\"h\")"<CR>']],
+    \ "Gtags": [["<C-t>", ':exec g:Lf_py "gtagsExplManager.accept(\"t\")"<CR>'],
+    \   ["<C-v>", ':exec g:Lf_py "gtagsExplManager.accept(\"v\")"<CR>'],
+    \   ["<C-s>", ':exec g:Lf_py "gtagsExplManager.accept(\"h\")"<CR>']],
+    \ "Help": [["<C-t>", ':exec g:Lf_py "helpExplManager.accept(\"thelpExplManagerCR>'],
+    \   ["<C-v>", ':exec g:Lf_py "helpExplManager.accept(\"vhelpExplManagerCR>'],
+    \   ["<C-s>", ':exec g:Lf_py "helpExplManager.accept(\"hhelpExplManagerCR>']],
+    \ "QfLocList": [["<C-t>", ':exec g:Lf_py "qfloclistExplManager.accept(\"thelpExplManagerCR>'],
+    \   ["<C-v>", ':exec g:Lf_py "qfloclistExplManager.accept(\"vhelpExplManagerCR>'],
+    \   ["<C-s>", ':exec g:Lf_py "qfloclistExplManager.accept(\"hhelpExplManagerCR>']],
+    \ "Rg": [["<C-t>", ':exec g:Lf_py "rgExplManager.accept(\"thelpExplManagerCR>'],
+    \   ["<C-v>", ':exec g:Lf_py "rgExplManager.accept(\"vhelpExplManagerCR>'],
+    \   ["<C-s>", ':exec g:Lf_py "rgExplManager.accept(\"hhelpExplManagerCR>']]
     \}
 
 "vimspector setting
