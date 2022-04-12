@@ -1127,6 +1127,9 @@ let g:vista#renderer#icons = {
 \  }
 
 nnoremap <silent><nowait> <leader>wo :<C-u>Vista!!<cr>
+autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <C-p> :<c-u>call vista#cursor#TogglePreview()<CR>
+autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <C-j> j
+autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <C-k> k
 """""""""""vista end
 
 """""""""""LeaderF begin
