@@ -28,6 +28,7 @@ set clipboard^=unnamed,unnamedplus
 
 " 滚动屏幕,滚屏
 " 自动回绕
+"set wrapscan
 "set nowrap
 
 set number
@@ -58,6 +59,8 @@ set expandtab
 " 开启时，在行首按TAB将加入sw个空格，否则加入ts个空格
 set smarttab
 ":retab! "将文档中既有的<Tab>转成<space>
+" 会以字符的形式显示tab
+set list
 "set autoindent
 " smartindent貌似要比autoindent高级一点
 set smartindent
@@ -184,6 +187,17 @@ set signcolumn=auto
 "保存修改, gs原来的含义是sleep 1秒钟,5gs是sleep 5秒钟
 noremap <silent><nowait> gs :<C-u>w<CR>
 
+" 原先的}和{只能跳转到空白行(只能有换行符的行)
+" } - move ahead one paragraph (to the next empty line without any whitespace)
+" { - move back one paragraph (to the next empty line without any whitespace)
+" 参考自: [重新映射键以移动到下一个非空行（反之亦然）](https://stackoverflow.com/questions/40498194/vim-remap-key-to-move-to-the-next-non-blank-line-and-vice-versa)
+nnoremap <silent><nowait> } :<C-u>call search('^\s*$', 'W')<CR>
+xnoremap <silent><nowait> } /^\s*$<cr>
+"xnoremap <silent><nowait> } :<C-u>normal! gv<C-r>=search('\c^\s*$', 'eW')<CR>gg<CR>
+onoremap <silent><nowait> } /^\s*$<cr>
+nnoremap <silent><nowait> { :<C-u>call search('^\s*$', 'bW')<CR>
+xnoremap <silent><nowait> { ?^\s*$<cr>
+onoremap <silent><nowait> { ?^\s*$<cr>
 """""insert mode as Emacs key-mapping begin
 " a应该是ahead的意思
 " 保留vim之C-d的原始功能,就是反缩进,与C-t相对
