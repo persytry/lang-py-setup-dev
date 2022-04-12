@@ -12,12 +12,21 @@
 	"pyright.enable": true,
 	"pyright.trace.server": "verbose",
 	"list.insertMappings": {
+        "<Tab>": "do:togglemode",
+        "<C-o>": "do:chooseaction",
 		"<C-t>": "action:tabe",
 		"<C-s>": "action:split",
 		"<C-v>": "action:vsplit",
-		"<C-p>": "action:preview",
+		"<C-p>": "do:previewtoggle",
 		"<C-y>": "eval:@@"
 	},
+    "list.normalMappings": {
+        "<Tab>": "do:togglemode",
+		"<C-p>": "do:previewtoggle",
+        "<C-j>": "normal:j",
+        "<C-k>": "normal:k",
+        "q": "do:exit"
+    },
 	"languageserver": {
 		"python": {
 			"enable": false,
