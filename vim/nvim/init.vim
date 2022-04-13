@@ -368,6 +368,9 @@ let g:EasyMotion_use_smartsign_us = 1
 let g:sandwich_no_default_key_mappings = 1
 let g:operator_sandwich_no_default_key_mappings = 1
 
+" signature setting
+" DeleteMark原先的快捷键是dm, 感觉没必要, 而且会影响Leaderf的buffer窗口的d按键
+let g:SignatureMap = {'DeleteMark': ''}
 """""""""""markdown begin
 " markdown setting
 " Latex数学公式
