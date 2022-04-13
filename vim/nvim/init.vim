@@ -194,25 +194,28 @@ noremap <silent><nowait> gs :<C-u>w<CR>
 " 参考自: [重新映射键以移动到下一个非空行（反之亦然）](https://stackoverflow.com/questions/40498194/vim-remap-key-to-move-to-the-next-non-blank-line-and-vice-versa)
 "xnoremap <silent><nowait> } /^\s*$<CR>  " 这种方式不好,会高亮污染
 "xnoremap <silent><nowait> } :<C-u>normal! gv<C-r>=search('\c^\s*$', 'W')<CR>gg<CR>  " 这种方式不好,只能定位一次,可能是因为在visual模式下的搜索是从选择的首行开始的
-nnoremap <silent><nowait> } :<C-u>call search('^\s*$', 'W')<CR>
-xnoremap <expr><silent><nowait> } <SID>findBlankLine(1)
-onoremap <expr><silent><nowait> } <SID>findBlankLine(1)
-nnoremap <silent><nowait> { :<C-u>call search('^\s*$', 'bW')<CR>
-xnoremap <expr><silent><nowait> { <SID>findBlankLine(0)
-onoremap <expr><silent><nowait> { <SID>findBlankLine(0)
-" <expr> 表示{rhs}是表达式，表达式的返回值，作为最后映射的捷键序列
-function! s:findBlankLine(isNext)
-    let l:f = 'nW'
-    if a:isNext == 0
-        let l:f = l:f . 'b'
-    endif
-    let l:l = search('^\s*$', l:f)
-    if l:l == 0
-        return ""
-    endif
-    " 最后的字符'0'表示跳到行首, 很有必要, 因为可以避免在可视模式(非可视块模式)下的向上搜索的一些bug(比如不能定位到上一个空白行)
-    return l:l . 'gg0'
-endfunction
+"nnoremap <silent><nowait> } :<C-u>call search('^\s*$', 'W')<CR>
+"xnoremap <expr><silent><nowait> } <SID>findBlankLine(1)
+"onoremap <expr><silent><nowait> } <SID>findBlankLine(1)
+"nnoremap <silent><nowait> { :<C-u>call search('^\s*$', 'bW')<CR>
+"xnoremap <expr><silent><nowait> { <SID>findBlankLine(0)
+"onoremap <expr><silent><nowait> { <SID>findBlankLine(0)
+"" <expr> 表示{rhs}是表达式，表达式的返回值，作为最后映射的按键序列
+"function! s:findBlankLine(isNext)
+    "let l:f = 'nW'
+    "if a:isNext == 0
+        "let l:f = l:f . 'b'
+    "endif
+    "let l:l = search('^\s*$', l:f)
+    "if l:l == 0
+        "return ""
+    "endif
+    "" 最后的字符'0'表示跳到行首, 很有必要, 因为可以避免在可视模式(非可视块模式)下的向上搜索的一些bug(比如不能定位到上一个空白行)
+    "return l:l . 'gg0'
+"endfunction
+
+" 感觉还是把空白行的空白字符都删了比较好, 这样才是最满足vim之语义的, 从而vim的in a sentense或in a paragraph之类的就都可以用了, 所以把上面关于{和}的映射给注释掉了. DelBlanklineChars
+command! -nargs=0 DblanklineChars :%s/^\s\+$//g
 
 """""insert mode as Emacs key-mapping begin
 " a应该是ahead的意思
