@@ -17,6 +17,7 @@ set encoding=utf-8
 "setlocal hls
 set hls " hlsearch
 set magic
+set autoread "有 Vim 之外的改动时自动重读文件
 " 把默认的未命名寄存器与系统剪贴板关联上,这样y，d，s，x等操作就和系统剪贴版关联上了
 " [参考stackoverflow之Paste in insert
 " mode](https://stackoverflow.com/questions/2861627/paste-in-insert-mode)
@@ -191,13 +192,28 @@ noremap <silent><nowait> gs :<C-u>w<CR>
 " } - move ahead one paragraph (to the next empty line without any whitespace)
 " { - move back one paragraph (to the next empty line without any whitespace)
 " 参考自: [重新映射键以移动到下一个非空行（反之亦然）](https://stackoverflow.com/questions/40498194/vim-remap-key-to-move-to-the-next-non-blank-line-and-vice-versa)
+"xnoremap <silent><nowait> } /^\s*$<CR>  " 这种方式不好,会高亮污染
+"xnoremap <silent><nowait> } :<C-u>normal! gv<C-r>=search('\c^\s*$', 'W')<CR>gg<CR>  " 这种方式不好,只能定位一次,可能是因为在visual模式下的搜索是从选择的首行开始的
 nnoremap <silent><nowait> } :<C-u>call search('^\s*$', 'W')<CR>
-xnoremap <silent><nowait> } /^\s*$<cr>
-"xnoremap <silent><nowait> } :<C-u>normal! gv<C-r>=search('\c^\s*$', 'eW')<CR>gg<CR>
-onoremap <silent><nowait> } /^\s*$<cr>
+xnoremap <expr><silent><nowait> } <SID>findBlankLine(1)
+onoremap <expr><silent><nowait> } <SID>findBlankLine(1)
 nnoremap <silent><nowait> { :<C-u>call search('^\s*$', 'bW')<CR>
-xnoremap <silent><nowait> { ?^\s*$<cr>
-onoremap <silent><nowait> { ?^\s*$<cr>
+xnoremap <expr><silent><nowait> { <SID>findBlankLine(0)
+onoremap <expr><silent><nowait> { <SID>findBlankLine(0)
+" <expr> 表示{rhs}是表达式，表达式的返回值，作为最后映射的捷键序列
+function! s:findBlankLine(isNext)
+    let l:f = 'nW'
+    if a:isNext == 0
+        let l:f = l:f . 'b'
+    endif
+    let l:l = search('^\s*$', l:f)
+    if l:l == 0
+        return ""
+    endif
+    " 最后的字符'0'表示跳到行首, 很有必要, 因为可以避免在可视模式(非可视块模式)下的向上搜索的一些bug(比如不能定位到上一个空白行)
+    return l:l . 'gg0'
+endfunction
+
 """""insert mode as Emacs key-mapping begin
 " a应该是ahead的意思
 " 保留vim之C-d的原始功能,就是反缩进,与C-t相对
