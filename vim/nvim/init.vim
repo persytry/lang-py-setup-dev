@@ -262,24 +262,25 @@ inoremap <silent><nowait> <C-l> <Esc><Esc>zza
 " 向上翻页
 "inoremap <silent><nowait> <M-v> <C-o><C-u>
 " 粘贴至光标后
-inoremap <silent><expr> <C-y> <SID>insertModePaste()
-"inoremap <silent><nowait> <C-y> <C-r>+
+"inoremap <silent><expr> <C-y> <SID>insertModePaste()
+inoremap <silent><nowait> <C-y> <C-r>+
 " save
 inoremap <silent><nowait> <C-x><C-s> <Esc><Esc>:<C-u>w<CR>a
 " 撤销,快捷键不支持,那就算了,无所谓.
 "inoremap <silent><nowait> <C-/> <C-o>u
 
-" 用这个函数去粘贴,是不会自动格式化的,因为<C-r>+会自动格式化
-function! s:insertModePaste()
-    let l:c = col('$')
-    if l:c == 1
-        return "\<Esc>\<Esc>gPa"
-    elseif col('.') == l:c
-        return "\<Esc>\<Esc>gpa"
-    else
-        return "\<Esc>\<Esc>gpi"
-    endif
-endfunction
+" 用这个函数去粘贴,是不会自动格式化的,因为<C-r>+会自动格式化.
+" 感觉还是<C-r>+的体验更好一些, 尤其是也支持vim-visual-multi下的复制
+"function! s:insertModePaste()
+    "let l:c = col('$')
+    "if l:c == 1
+        "return "\<Esc>\<Esc>gPa"
+    "elseif col('.') == l:c
+        "return "\<Esc>\<Esc>gpa"
+    "else
+        "return "\<Esc>\<Esc>gpi"
+    "endif
+"endfunction
 """""insert mode as Emacs key-mapping end
 
 """""Command-line editing begin
