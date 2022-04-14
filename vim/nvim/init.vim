@@ -215,7 +215,7 @@ nnoremap <silent><nowait> gs :<C-u>w<CR>
 "endfunction
 
 " 感觉还是把空白行的空白字符都删了比较好, 这样才是最满足vim之语义的, 从而vim的in a sentense或in a paragraph之类的就都可以用了, 所以把上面关于{和}的映射给注释掉了. DelBlanklineChars
-command! -nargs=0 DblanklineChars :%s/^\s\+$//g
+command! -nargs=0 DblanklineChars :%s/\v^[ \t\r\n]+$//g
 
 """""insert mode as Emacs key-mapping begin
 " a应该是ahead的意思
