@@ -186,7 +186,7 @@ set signcolumn=auto
 
 """""""""""common user map or command begin
 "保存修改, gs原来的含义是sleep 1秒钟,5gs是sleep 5秒钟
-noremap <silent><nowait> gs :<C-u>w<CR>
+nnoremap <silent><nowait> gs :<C-u>w<CR>
 
 " 原先的}和{只能跳转到空白行(只能有换行符的行)
 " } - move ahead one paragraph (to the next empty line without any whitespace)
@@ -1277,14 +1277,15 @@ function! s:myVimIME_SetupKeymap()
         execute 'lnoremap <buffer><expr> ' . c . " <SID>myVimIME_LabelWithSymbol('" . c . "')"
     endfor
 
+    " 对alt键的绑定,不能用lnoremap, 因为它会覆盖掉一些自定义快捷键
     for c in split('abcdefghijklmnopqrstuvwxyz', '\zs')
         let l:u = toupper(c)
-        execute 'lnoremap <buffer> <M-' . c . '> <Esc><Esc>' . c
-        execute 'lnoremap <buffer> <M-' . l:u . '> <Esc><Esc>' . l:u
+        execute 'lmap <buffer> <M-' . c . '> <Esc><Esc>' . c
+        execute 'lmap <buffer> <M-' . l:u . '> <Esc><Esc>' . l:u
     endfor
 
     for c in split("0123456789`-=\\[];',./", '\zs')
-        execute 'lnoremap <buffer> <M-' . c . '> <Esc><Esc>' . c
+        execute 'lmap <buffer> <M-' . c . '> <Esc><Esc>' . c
     endfor
 
     lnoremap <buffer><expr> <lt> <SID>myVimIME_LabelWithSymbol('<')
