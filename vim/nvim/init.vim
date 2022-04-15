@@ -502,6 +502,7 @@ let g:fzf_buffers_jump = 1
 " [作者写的一篇文章,里面有关于rg相关的介绍](https://segmentfault.com/a/1190000017896650)
 " don't show the help in normal mode
 " leaderf弹出的窗口若一开始无法输入字符的话,那么按tab或i键可进入到可输入状态
+" 正则(regex)之要求某行中不包含某个字符串: `\v^((string)@!.)*$`. [正则表达式匹配不包含某些字符串的技巧](https://blog.csdn.net/JHON_03/article/details/77899563)
 let g:Lf_HideHelp = 1
 let g:Lf_UseCache = 0
 let g:Lf_UseVersionControlTool = 0
@@ -531,7 +532,7 @@ let g:Lf_CacheDirectory = $HOME
 let g:Lf_DelimiterChar = ';'
 " Leaderf之config并不会读$RIPGREP_CONFIG_PATH中的文件,而是会使用此处的
 let g:Lf_RgConfig = [
-    \ "--max-columns=150",
+    \ "--max-columns=650",
     \ "--follow",
     \ "--no-text",
     \ "--smart-case",
