@@ -15,6 +15,8 @@ addToPath "$HOME/bin"
 addToPath "$HOME/.local/bin"
 addToPath "$HOME/a/git/lang/py/setup/dev/os/linux/sh"
 addToPath "/opt/anaconda3/bin"
+# 要保证/usr/local/bin目录在/opt/anaconda3/bin前面,因为anaconda3也有rg,而它不一定是最新的版本
+addToPath "/usr/local/bin"
 
 if [[ `uname` == "Linux" ]]; then
     if [ -n "$BASH_VERSION" ]; then
@@ -47,6 +49,7 @@ export FZF_TMUX_HEIGHT='80%'
 export GTAGSLABEL='native-pygments'
 # 用~/.globalrc比较好,因为可以改配置
 #export GTAGSCONF='/usr/local/share/gtags/gtags.conf'
+export RIPGREP_CONFIG_PATH=$HOME/.config/ripgrep.conf
 
 # Use fd (https://github.com/sharkdp/fd) instead of the default find
 # command for listing path candidates.
