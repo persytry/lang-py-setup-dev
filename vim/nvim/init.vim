@@ -67,7 +67,7 @@ set list
 set smartindent
 " 下面这句相当于: filetype on + plugin on + indent on
 " 在启用了下面这一句后,cindent/autoindent/smartindent就没多大用处了,这三者只是vim系统自带的
-filetype plugin indent on	" 打开文件类型检测功能,[开启文件类型检测](https://blog.easwy.com/archives/advanced-vim-skills-filetype-on/)
+filetype plugin indent on   " 打开文件类型检测功能,[开启文件类型检测](https://blog.easwy.com/archives/advanced-vim-skills-filetype-on/)
 set ic " ignorecase
 " 只能在 ignorecase 开启的时候使用，目的是在忽略大小写的大局下，根据搜索模式，动态地抑制 ignorecase 的功能，使大小写策略恢复到默认的区分大小写的搜索
 " 在忽略大小写的搜索下，搜索模式使用大写还是小写已经无关紧要，而输入全小写 的搜索模式更加简单。在这种情况下，如果搜索模式中出现了大写字符，smartcase 会判断用户想使用区分大小写的搜索
@@ -81,9 +81,8 @@ set noequalalways
 " delays and poor user experience.
 set updatetime=300
 set tabpagemax=15
-set showtabline=2	" 总是显示标签页
+set showtabline=2   " 总是显示标签页
 set foldenable
-
 
 " 自定义快捷键的方式有6种:<leader>,<localleader>,ctrl,alt,g开头,z开头.
 " 其他方式开头的快捷键方式就不要考虑了,因为可能会造成冲突,而且现有的这6种方式应该是足够了.
@@ -105,7 +104,7 @@ else
     if filereadable('/mnt/c/Windows/explorer.exe') && stridx(tolower(expand('$path')), "/mnt/c/windows") >= 0
         let g:iswsl = 1
     endif
-	let g:islinux = 1
+    let g:islinux = 1
 endif
 "得到当前脚本所在目录
 "   1: Get the absolute path of the script
@@ -219,8 +218,14 @@ command! -nargs=0 DblanklineChars :%s/\v^[ \t\r\n]+$//g
 command! -nargs=0 CtagsUpdate :!ctags -R
 command! -nargs=0 GtagsUpdate :Leaderf! gtags --update
 " explorer current file directory
-command! -nargs=0 OpenDir :!wsl-open '%:p:h'
-
+" s:getExplorer
+if g:iswsl
+    command! -nargs=0 OpenDir :!wsl-open '%:p:h'
+elseif g:iswindows
+    command! -nargs=0 OpenDir :!explorer.exe '%:p:h'
+else
+    command! -nargs=0 OpenDir :!open '%:p:h'
+endif
 """""insert mode as Emacs key-mapping begin
 " a应该是ahead的意思
 " 保留vim之C-d的原始功能,就是反缩进,与C-t相对
@@ -338,17 +343,28 @@ nnoremap <silent><nowait> <C-l> :<C-u>tabn<CR>
 """""""""""common user map or command end
 
 """""""""""common script begin
-function! s:getExpl2()
-	if (g:iswindows)
-		return s:path . '/mycmd/expl2.bat'
+function! s:getExplorer()
+    if g:iswsl
+        return 'wsl-open'
+    elseif g:iswindows
+        return 'explorer.exe'
+    endif
+    return 'open'
+endfunction
+
+" 打开网络游览器
+function! s:getExplorerNet()
+    return s:getExplorer()
+    if g:iswindows
+        return s:path . '/mycmd/expl2.bat'
     elseif g:ismac
         return 'bash ' . s:path . '/mycmd/expl2_mac.sh'
     elseif g:iswsl
         return 'wsl-open '
     endif
-	return 'bash ' . s:path . '/mycmd/expl2_linux.sh'
+    return 'bash ' . s:path . '/mycmd/expl2_linux.sh'
 endfunction
-let g:netrw_browsex_viewer=s:getExpl2()
+let g:netrw_browsex_viewer=s:getExplorerNet()
 
 " ZFVimIM setting
 let g:ZFVimIM_keymap = 0 "不使用插件默认的快捷键
@@ -381,7 +397,7 @@ let g:SignatureMap = {'DeleteMark': ''}
 " Latex数学公式
 let g:vim_markdown_math = 1
 " [mac上实现markdown的预览](http://xiaqunfeng.cc/2017/05/25/mac-vim-markdown-preview/)
-let g:mkdp_path_to_chrome=s:getExpl2()
+let g:mkdp_path_to_chrome=s:getExplorerNet()
 let g:mkdp_auto_close=0
 let g:mkdp_markdown_css=''
 let g:vim_markdown_frontmatter=1
@@ -449,7 +465,7 @@ let g:open_url_default_mappings = 0
 " rust-analyzer安装步骤: 1. :CocInstall coc-rust-analyzer; 2. rustup component add rust-src; 3. 安装针对 Rust 的 LSP（rust-analyzer）. [参考](https://www.starky.ltd/2021/05/30/vim-configuration-with-coc-support-rust-c-python-complete/)
 " 输入:CocList后,选择marketplace,可以查看所有插件
 let g:coc_global_extensions = [
-	\ 'coc-highlight', 'coc-vimlsp', 'coc-sh',
+    \ 'coc-highlight', 'coc-vimlsp', 'coc-sh',
     \ 'coc-json', 'coc-marketplace', 'coc-clangd', 'coc-cmake',
     \ 'coc-pyright', 'coc-rust-analyzer', 'coc-go',
     \ 'coc-protobuf', 'coc-html-css-support']
@@ -615,14 +631,14 @@ let g:plug_url_format = 'git@github.com:%s.git'
 call plug#begin(s:path . '/plugged')
 " npm i -g bash-language-server
 "Plug 'autozimu/LanguageClient-neovim'
-Plug 'neoclide/coc.nvim', {'branch': 'release'}	" 代码补全、静态检测、函数跳转
+Plug 'neoclide/coc.nvim', {'branch': 'release'} " 代码补全、静态检测、函数跳转
 Plug 'vifm/vifm.vim'
 Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' } " 文件浏览器, 类似nerdtree,coc-explorer
 "下面三个插件显示dev图片,还是注释掉吧,没必要显示图标,没意思
 "Plug 'ryanoasis/nerd-fonts' " github上下载太慢了
 "Plug 'https://gitee.com/keyboardkiller/nerd-fonts.git'
 "Plug 'ryanoasis/vim-devicons' " 这个插件貌似没什么用,好像有时还会有乱码问题
-"Plug 'kristijanhusak/defx-icons'	" defx的图标,defx-icons 依赖
+"Plug 'kristijanhusak/defx-icons'   " defx的图标,defx-icons 依赖
 "nerd-fonts,美化类的东西似乎是没多大必要的
 "需要手动更新gtags数据库:`Leaderf gtags --update`
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' } " 文件模糊查找器,类似fzf.vim. ff:检索文件,fb:检索buffer,c-c或<esc>:退出,c-r:在模糊匹配和正则匹配之间切换,c-f:在全路径搜索和名字搜索之间切换,tab:在检索模式和选择模式之间切换. 记得安装这个,运行速度会更快些`:LeaderfInstallCExtension`.运行完任何一个LeaderF命令后,`:echo g:Lf_fuzzyEngine_C`如果输出为1,则表示安装成功了.
@@ -636,42 +652,42 @@ elseif g:iswindows
 endif
 Plug 'junegunn/fzf.vim'
 "Plug 'altercation/vim-colors-solarized' " 主题
-Plug 'morhetz/gruvbox'	" 主题/配色方案,还是这个主题舒服
+Plug 'morhetz/gruvbox'  " 主题/配色方案,还是这个主题舒服
 "Plug 'tomasr/molokai' " 黑客主题
-Plug 'puremourning/vimspector'	" 调试器, debug
-"Plug 'SirVer/ultisnips'	" 代码片段插件 ps. 貌似coc里有类似的插件的
-Plug 'mg979/vim-xtabline'	" 精致的顶栏,F5可切换模式
-Plug 'dhruvasagar/vim-table-mode'	" vim表模式插件,在插入模式输入||即可进入该模式
-Plug 'mbbill/undotree'	" 强大的撤销更改功能
+Plug 'puremourning/vimspector'  " 调试器, debug
+"Plug 'SirVer/ultisnips'    " 代码片段插件 ps. 貌似coc里有类似的插件的
+Plug 'mg979/vim-xtabline'   " 精致的顶栏,F5可切换模式
+Plug 'dhruvasagar/vim-table-mode'   " vim表模式插件,在插入模式输入||即可进入该模式
+Plug 'mbbill/undotree'  " 强大的撤销更改功能
 Plug 'mg979/vim-visual-multi', {'branch': 'master'} " 多光标选择,类似vim-multiple-cursors,C-n选择一个单词
-Plug 'machakann/vim-sandwich'	" 添加包裹符号,类似vim-surround.sa新增环线,sr修改,sd删除,t表示标签
-Plug 'junegunn/vim-easy-align'	" 根据符号对齐文本,类似tabular,比如gaip=
-Plug 'vim-autoformat/vim-autoformat'	" 自动格式化插件
-"Plug 'godlygeek/tabular'		" 对齐插件,'plasticboy/vim-markdown'依赖它,但我更喜欢easy-align
-Plug 'plasticboy/vim-markdown'	" 提供了针对Markdown的语法高亮，段落折叠，查看目录，段间跳转等功能
-Plug 'mzlogin/vim-markdown-toc'	" 为Markdown文件生成目录
+Plug 'machakann/vim-sandwich'   " 添加包裹符号,类似vim-surround.sa新增环线,sr修改,sd删除,t表示标签
+Plug 'junegunn/vim-easy-align'  " 根据符号对齐文本,类似tabular,比如gaip=
+Plug 'vim-autoformat/vim-autoformat'    " 自动格式化插件
+"Plug 'godlygeek/tabular'       " 对齐插件,'plasticboy/vim-markdown'依赖它,但我更喜欢easy-align
+Plug 'plasticboy/vim-markdown'  " 提供了针对Markdown的语法高亮，段落折叠，查看目录，段间跳转等功能
+Plug 'mzlogin/vim-markdown-toc' " 为Markdown文件生成目录
 " markdown-preview.nvim,需要到这个插件目录里再执行一下编译之类的动作才行
 " 通过浏览器实时预览Markdown 文件。并可以借助浏览器的打印功能导出PDF文档. 附带了Latex预览，Mermaid甘特图，Plantuml UML图等. 首次安装的话，需要先装nodejs和yarn,安装yarn:`npm i -g yarn`，然后在`.config\nvim\plugged\markdown-preview.nvim\app`目录下执行`npm install`或`yarn install`.所以这条命令应该可以不用再执行了:`:call mkdp#util#install()`.
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-Plug 'easymotion/vim-easymotion'	" 快速跳转
+Plug 'easymotion/vim-easymotion'    " 快速跳转
 " 打开函数与变量列表,类似tagbar,<leader>wo打开或关闭outline
 " zm,zr,zc,zo,za之类的折叠功能是可以用的,如此一来便方便多了
 Plug 'liuchengxu/vista.vim'
 " m<space> 去除所有标记
-Plug 'kshenoy/vim-signature'	" 书签
-Plug 'brooth/far.vim'	" 查找与替换,在多个文件里搜索与替换
-Plug 'airblade/vim-gitgutter'	" git侧边栏插件
+Plug 'kshenoy/vim-signature'    " 书签
+Plug 'brooth/far.vim'   " 查找与替换,在多个文件里搜索与替换
+Plug 'airblade/vim-gitgutter'   " git侧边栏插件
 Plug 'kdheepak/lazygit.nvim'
 "[Using Vim or NeoVim as a Git mergetool](https://www.grzegorowski.com/using-vim-or-neovim-nvim-as-a-git-mergetool)
 "When in the central window use d2o or d3o to pull changes from LOCAL or REMOTE file.
 Plug 'tpope/vim-fugitive' " Gdiff之类的可以合并冲突
-Plug 'gcmt/wildfire.vim'	" 按回车快速选择整个标签范围,类似vim-expand-region
+Plug 'gcmt/wildfire.vim'    " 按回车快速选择整个标签范围,类似vim-expand-region
 " scrooloose/nerdcommenter难道就是preservim/nerdcommenter?
-Plug 'preservim/nerdcommenter'	" 快速注释插件,类似vim-commentary.cc:注释,cu:解注释,c<space>:智能判断,cy:先复制再注释,ca:转换注释方式,cA:跳到行尾加注释,cs:性感注释,c$:注释当前光标到行尾
-"Plug 'bling/vim-airline'	" vim的底部状态增强/美化插件,即状态栏
+Plug 'preservim/nerdcommenter'  " 快速注释插件,类似vim-commentary.cc:注释,cu:解注释,c<space>:智能判断,cy:先复制再注释,ca:转换注释方式,cA:跳到行尾加注释,cs:性感注释,c$:注释当前光标到行尾
+"Plug 'bling/vim-airline'   " vim的底部状态增强/美化插件,即状态栏
 Plug 'itchyny/lightline.vim' " 状态栏,用于vista.vim,还是这个好用,主要是实用
-Plug 'Yggdroot/indentLine'	" 可视化缩进
-"Plug 'luochen1990/rainbow'	" 嵌套括号高亮,跟gruvbox主题可能有点冲突
+Plug 'Yggdroot/indentLine'  " 可视化缩进
+"Plug 'luochen1990/rainbow' " 嵌套括号高亮,跟gruvbox主题可能有点冲突
 "gB: Open url under cursor in the default web browser.
 "g<CR>: Search word under cursor using default search engine
 "gG: Google search word under cursor in the default web browser
@@ -734,74 +750,74 @@ nnoremap <silent> <leader>wf :<C-u>Defx -listed -resume
       \ -buffer-name=tab`tabpagenr()`
       \ `expand('%:p:h')` -search=`expand('%:p')`<CR>
 autocmd FileType defx call s:defx_my_settings()
-	function! s:defx_my_settings() abort
-	  nnoremap <silent><buffer><expr> yy
-	  \ defx#do_action('copy')
-	  nnoremap <silent><buffer><expr> dd
-	  \ defx#do_action('move')
-	  nnoremap <silent><buffer><expr> p
-	  \ defx#do_action('paste')
-	  " 用drop而不用open,因为对于同一个文件,drop只会打开一次,而open会重复打开
-	  nnoremap <silent><buffer><expr> l
-	  \ defx#do_action('drop') "在当前tab的窗口中打开文件
-	  nnoremap <silent><buffer><expr> <CR>
-	  \ defx#do_action('drop') "在当前tab的窗口中打开文件
-	  nnoremap <silent><buffer><expr> <C-v>
-	  \ defx#do_action('drop', 'botright vnew') "在最右侧窗口打开文件
-	  nnoremap <silent><buffer><expr> <C-s>
-	  \ defx#do_action('drop', 'belowright new') "在最下侧窗口打开文件
-	  nnoremap <silent><buffer><expr> <C-t>
-	  \ defx#do_action('drop', '$tabnew') " 在新的tab中打开文件
-	  nnoremap <silent><buffer><expr> zo
-	  \ defx#do_action('open_tree')
-	  nnoremap <silent><buffer><expr> zc
-	  \ defx#do_action('close_tree')
-	  nnoremap <silent><buffer><expr> <leader>nd
-	  \ defx#do_action('new_directory')
-	  nnoremap <silent><buffer><expr> <leader>nf
-	  \ defx#do_action('new_file')
-	  nnoremap <silent><buffer><expr> C
-	  \ defx#do_action('toggle_columns',
-	  \                'mark:indent:icon:filename:type:size:time')
-	  nnoremap <silent><buffer><expr> S
-	  \ defx#do_action('toggle_sort', 'time')
-	  nnoremap <silent><buffer><expr> DD
-	  \ defx#do_action('remove')
-	  nnoremap <silent><buffer><expr> cw
-	  \ defx#do_action('rename', 'append')
-	  nnoremap <silent><buffer><expr> !
-	  \ defx#do_action('execute_command')
-	  nnoremap <silent><buffer><expr> x
-	  \ defx#do_action('execute_system')
-	  nnoremap <silent><buffer><expr> yf
-	  \ defx#do_action('yank_path')
-	  nnoremap <silent><buffer><expr> za
-	  \ defx#do_action('toggle_ignored_files')
-	  nnoremap <silent><buffer><expr> ;
-	  \ defx#do_action('repeat')
-	  nnoremap <silent><buffer><expr> h
-	  \ defx#do_action('cd', ['..'])
-	  nnoremap <silent><buffer><expr> ~
-	  \ defx#do_action('cd')
-	  nnoremap <silent><buffer><expr> q
-	  \ defx#do_action('quit')
-	  nnoremap <silent><buffer><expr> v
-	  \ defx#do_action('toggle_select') . 'j'
-	  nnoremap <silent><buffer><expr> V
-	  \ defx#do_action('toggle_select_all')
-	  nnoremap <silent><buffer><expr> j
-	  \ line('.') == line('$') ? 'gg' : 'j'
-	  nnoremap <silent><buffer><expr> k
-	  \ line('.') == 1 ? 'G' : 'k'
-	  nnoremap <silent><buffer><expr> <C-l>
-	  \ defx#do_action('redraw')
-	  nnoremap <silent><buffer><expr> <C-g>
-	  \ defx#do_action('print')
-	  nnoremap <silent><buffer><expr> cd
-	  \ defx#do_action('change_vim_cwd') " Current Working Directory
-	  nnoremap <silent><buffer><expr> w
-	  \ defx#do_action('preview')
-	endfunction
+    function! s:defx_my_settings() abort
+      nnoremap <silent><buffer><expr> yy
+      \ defx#do_action('copy')
+      nnoremap <silent><buffer><expr> dd
+      \ defx#do_action('move')
+      nnoremap <silent><buffer><expr> p
+      \ defx#do_action('paste')
+      " 用drop而不用open,因为对于同一个文件,drop只会打开一次,而open会重复打开
+      nnoremap <silent><buffer><expr> l
+      \ defx#do_action('drop') "在当前tab的窗口中打开文件
+      nnoremap <silent><buffer><expr> <CR>
+      \ defx#do_action('drop') "在当前tab的窗口中打开文件
+      nnoremap <silent><buffer><expr> <C-v>
+      \ defx#do_action('drop', 'botright vnew') "在最右侧窗口打开文件
+      nnoremap <silent><buffer><expr> <C-s>
+      \ defx#do_action('drop', 'belowright new') "在最下侧窗口打开文件
+      nnoremap <silent><buffer><expr> <C-t>
+      \ defx#do_action('drop', '$tabnew') " 在新的tab中打开文件
+      nnoremap <silent><buffer><expr> zo
+      \ defx#do_action('open_tree')
+      nnoremap <silent><buffer><expr> zc
+      \ defx#do_action('close_tree')
+      nnoremap <silent><buffer><expr> <leader>nd
+      \ defx#do_action('new_directory')
+      nnoremap <silent><buffer><expr> <leader>nf
+      \ defx#do_action('new_file')
+      nnoremap <silent><buffer><expr> C
+      \ defx#do_action('toggle_columns',
+      \                'mark:indent:icon:filename:type:size:time')
+      nnoremap <silent><buffer><expr> S
+      \ defx#do_action('toggle_sort', 'time')
+      nnoremap <silent><buffer><expr> DD
+      \ defx#do_action('remove')
+      nnoremap <silent><buffer><expr> cw
+      \ defx#do_action('rename', 'append')
+      nnoremap <silent><buffer><expr> !
+      \ defx#do_action('execute_command')
+      nnoremap <silent><buffer><expr> x
+      \ defx#do_action('execute_system')
+      nnoremap <silent><buffer><expr> yf
+      \ defx#do_action('yank_path')
+      nnoremap <silent><buffer><expr> za
+      \ defx#do_action('toggle_ignored_files')
+      nnoremap <silent><buffer><expr> ;
+      \ defx#do_action('repeat')
+      nnoremap <silent><buffer><expr> h
+      \ defx#do_action('cd', ['..'])
+      nnoremap <silent><buffer><expr> ~
+      \ defx#do_action('cd')
+      nnoremap <silent><buffer><expr> q
+      \ defx#do_action('quit')
+      nnoremap <silent><buffer><expr> v
+      \ defx#do_action('toggle_select') . 'j'
+      nnoremap <silent><buffer><expr> V
+      \ defx#do_action('toggle_select_all')
+      nnoremap <silent><buffer><expr> j
+      \ line('.') == line('$') ? 'gg' : 'j'
+      nnoremap <silent><buffer><expr> k
+      \ line('.') == 1 ? 'G' : 'k'
+      nnoremap <silent><buffer><expr> <C-l>
+      \ defx#do_action('redraw')
+      nnoremap <silent><buffer><expr> <C-g>
+      \ defx#do_action('print')
+      nnoremap <silent><buffer><expr> cd
+      \ defx#do_action('change_vim_cwd') " Current Working Directory
+      nnoremap <silent><buffer><expr> w
+      \ defx#do_action('preview')
+    endfunction
 
 call defx#custom#column('icon', {
       \ 'directory_icon': '▸',
@@ -1060,27 +1076,27 @@ xnoremap <silent><nowait> <leader>is :<C-u>LeadingSpaceToggle<CR>
 """""""""""rainbow begin
 let g:rainbow_active = 1
 let g:rainbow_conf = {
-	\	'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-	\	'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
-	\	'operators': '_,_',
-	\	'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
-	\	'separately': {
-	\		'*': {},
-	\		'tex': {
-	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
-	\		},
-	\		'lisp': {
-	\			'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
-	\		},
-	\		'vim': {
-	\			'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
-	\		},
-	\		'html': {
-	\			'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
-	\		},
-	\		'css': 0,
-	\	}
-	\}
+    \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
+    \   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+    \   'operators': '_,_',
+    \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
+    \   'separately': {
+    \       '*': {},
+    \       'tex': {
+    \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+    \       },
+    \       'lisp': {
+    \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
+    \       },
+    \       'vim': {
+    \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+    \       },
+    \       'html': {
+    \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+    \       },
+    \       'css': 0,
+    \   }
+    \}
 """""""""""rainbow end
 
 """""""""""vimspector begin, debug
@@ -1243,7 +1259,7 @@ noremap <leader>ga :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
 
 """""""""""open-url begin
 call open_url#engines#add('baidu', 'https://www.baidu.com/s?wd=%s') " 这一句要放在let语句的前面,因为如果不执行这句,open-url就不会去初始化,那么这些let语句就会被open-url的初始化语句给冲刷掉,相当于没写let语句
-let g:open_url_browser_default=s:getExpl2()
+let g:open_url_browser_default=s:getExplorerNet()
 let g:open_url#engines#default = 'baidu'
 nmap gB <Plug>(open-url-browser)
 xmap gB <Plug>(open-url-browser)
