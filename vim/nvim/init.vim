@@ -354,6 +354,9 @@ endfunction
 
 " 打开网络游览器
 function! s:getExplorerNet()
+    if g:iswindows
+        return s:path . '/mycmd/expl2.bat'
+    endif
     return s:getExplorer()
     if g:iswindows
         return s:path . '/mycmd/expl2.bat'
