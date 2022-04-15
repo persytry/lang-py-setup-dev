@@ -218,6 +218,8 @@ nnoremap <silent><nowait> gs :<C-u>w<CR>
 command! -nargs=0 DblanklineChars :%s/\v^[ \t\r\n]+$//g
 command! -nargs=0 CtagsUpdate :!ctags -R
 command! -nargs=0 GtagsUpdate :Leaderf! gtags --update
+" explorer current file directory
+command! -nargs=0 OpenDir :!wsl-open '%:p:h'
 
 """""insert mode as Emacs key-mapping begin
 " a应该是ahead的意思
