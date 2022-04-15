@@ -217,6 +217,7 @@ nnoremap <silent><nowait> gs :<C-u>w<CR>
 " 感觉还是把空白行的空白字符都删了比较好, 这样才是最满足vim之语义的, 从而vim的in a sentense或in a paragraph之类的就都可以用了, 所以把上面关于{和}的映射给注释掉了. DelBlanklineChars
 command! -nargs=0 DblanklineChars :%s/\v^[ \t\r\n]+$//g
 command! -nargs=0 CtagsUpdate :!ctags -R
+command! -nargs=0 GtagsUpdate :Leaderf! gtags --update
 
 """""insert mode as Emacs key-mapping begin
 " a应该是ahead的意思
@@ -1213,7 +1214,8 @@ noremap <leader>ra :<C-U>Leaderf! rg --recall<CR>
 
 "--auto-jump [<TYPE>] 意思是如果只有一个结果直接跳过去
 "更新. 必须得在根目录下创建.vim文件夹作为根目录,否则更新会失败的
-noremap <leader>gu :<C-u><C-r>=printf("Leaderf! gtags --update %s", "")<CR>
+" instead of GtagsUpdate command
+"noremap <leader>gu :<C-u><C-r>=printf("Leaderf! gtags --update %s", "")<CR>
 "Show locations of definitions. 跳转到定义
 noremap <leader>gd :<C-U><C-R>=printf("Leaderf gtags -d %s --auto-jump", expand("<cword>"))<CR><CR>
 "Show reference to a symbol which has definitions. 查找引用
