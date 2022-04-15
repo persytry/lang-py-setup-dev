@@ -510,8 +510,13 @@ let g:Lf_WorkingDirectoryMode = 'Ac'
 let g:Lf_DefaultMode = 'FullPath'
 let g:Lf_CacheDirectory = $HOME
 let g:Lf_DelimiterChar = ';'
+" Leaderf之config并不会读$RIPGREP_CONFIG_PATH中的文件,而是会使用此处的
 let g:Lf_RgConfig = [
     \ "--max-columns=150",
+    \ "--follow",
+    \ "--no-text",
+    \ "--smart-case",
+    \ "--auto-hybrid-regex",
     \ "--glob=!{.git/,.svn/,/stage/,__pycache__/,tags}"
 \ ]
 let g:Lf_WildIgnore = {
