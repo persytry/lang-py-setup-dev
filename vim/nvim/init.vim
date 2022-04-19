@@ -76,9 +76,10 @@ set autoread
 set hidden " 允许在有未保存的修改时切换缓冲区,此时的修改由vim负责保存
 " Give more space for displaying messages.
 set cmdheight=1
-set noequalalways
-" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable
-" delays and poor user experience.
+" 这个选项不能设置,否则coc-references当只有两条引用的时候,就会出现没有preview的bug
+" 参考: [New window creation issues (for jump to definition etc) with noequalalways (E36) #3012](https://github.com/neoclide/coc.nvim/issues/3012)
+"set noequalalways
+" Having longer updatetime (default is 4000 ms = 4 s) leads to noticeable delays and poor user experience.
 set updatetime=300
 set tabpagemax=15
 set showtabline=2   " 总是显示标签页
