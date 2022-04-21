@@ -20,17 +20,17 @@ def retabPath(p: str) -> int:
     if os.path.isfile(p):
         return retabFile(p)
     cnt:int = 0
-    for root, dirs, files in os.walk(p):
+    for root, _, files in os.walk(p):
         for f in files:
             cnt += retabFile(os.path.join(root, f))
     return cnt
 
 def retabFile(p: str) -> int:
     changed = 0
-    with open(p, 'rw') as f:
+    with open(p, 'r+') as f:
         lines = f.readlines()
         for i, line in enumerate(lines):
-            newLine = re.sub(r'^[ \t\r\n]+$', '\n', line)
+            newLine = re.sub('^[ \t\r\n]+$', '\n', line)
             if newLine != line:
                 lines[i] = newLine
                 changed = 1
