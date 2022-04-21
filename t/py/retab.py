@@ -44,6 +44,7 @@ def retabFile(p: str) -> int:
             if _verbose:
                 print(f'retab the file: {p}')
             f.seek(0)
+            f.truncate()
             f.writelines(lines)
     return changed
 
