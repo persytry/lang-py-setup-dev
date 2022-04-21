@@ -540,10 +540,10 @@ let g:Lf_RgConfig = [
     \ "--no-text",
     \ "--smart-case",
     \ "--auto-hybrid-regex",
-    \ "--glob=!{.git/,.svn/,/stage/,__pycache__/,tags}"
+    \ "--glob=!{.git/,.svn/,/stage/,/publish/,__pycache__/,tags}"
 \ ]
 let g:Lf_WildIgnore = {
-    \ 'dir': ['/stage','__pycache__','.git','.svn'],
+    \ 'dir': ['/stage','/publish','__pycache__','.git','.svn'],
     \ 'file': ['tags']
     \}
 let g:Lf_ShortcutF = "<leader>ff"
