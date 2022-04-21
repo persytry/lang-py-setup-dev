@@ -1312,11 +1312,12 @@ function! s:myVimIME_SetupKeymap()
     endfor
 
     " 对alt键的绑定,不能用lnoremap, 因为它会覆盖掉一些自定义快捷键
-    for c in split('abcdefghijklmnopqrstuvwxyz', '\zs')
+    for c in split('abcdefghijklnopqrstuvwxyz', '\zs')
         let l:u = toupper(c)
         execute 'lmap <buffer> <M-' . c . '> <Esc><Esc>' . c
         execute 'lmap <buffer> <M-' . l:u . '> <Esc><Esc>' . l:u
     endfor
+    lnoremap <buffer> <M-m> <Esc><Esc>^i
 
     for c in split("0123456789`-=\\[];',./", '\zs')
         execute 'lmap <buffer> <M-' . c . '> <Esc><Esc>' . c
