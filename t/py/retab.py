@@ -7,7 +7,7 @@ import argparse
 import os
 import re
 
-_verbose:bool = False;
+_verbose:bool = True;
 
 def retabPaths(paths) -> None:
     cnt:int = 0
@@ -43,13 +43,14 @@ def retabFile(p: str) -> int:
         if changed > 0:
             if _verbose:
                 print(f'retab the file: {p}')
+            f.seek(0)
             f.writelines(lines)
     return changed
 
 def main() -> None:
     parser = argparse.ArgumentParser(description='retab the name is same as the command retab of vim, it is help to format files which contains \\t convert to 4 spaces, and delete all blank characters of blank line.')
     parser.add_argument('paths', metavar='path', nargs='+', default='', help='retab the file of the path if the path is a file of path, if the path is a directory, it will be retab all files in the directory recursively.')
-    parser.add_argument('-v', '--verbose', default=False, help='if verbose', action='store_true')
+    parser.add_argument('-v', '--verbose', default=True, help='if verbose', action='store_true')
     args = parser.parse_args()
     global _verbose
     _verbose = args.verbose
