@@ -10,10 +10,10 @@ _verbose:bool = True;
 
 def handlePaths(paths) -> None:
     if len(paths) != 2:
-        print('must input two path, first path is input proto file or directory, second path is output directory')
+        print('must input two path, second path is input proto file or directory, first path is output directory')
         return
-    inPath:str = paths[0]
-    outDir:str = paths[1]
+    outDir:str = paths[0]
+    inPath:str = paths[1]
     cnt:int = handlePath(inPath, outDir)
     if _verbose:
         print(f'handle file count: {cnt}')
