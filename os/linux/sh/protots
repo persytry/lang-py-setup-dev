@@ -1,0 +1,4 @@
+#!/bin/bash
+
+#$1是输出目录, $2是输入的proto文件
+protoc --plugin=/opt/nodejs/bin/protoc-gen-ts_proto --ts_proto_out=$1 $2
