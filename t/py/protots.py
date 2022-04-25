@@ -41,7 +41,7 @@ def handleFile(inFile: str, outDir: str) -> int:
 def main() -> None:
     global _verbose
     parser = argparse.ArgumentParser(description='generate protobuf for typescript')
-    parser.add_argument('paths', metavar='path', nargs='+', default='', help='input proto file or directory, and the second path is output directory')
+    parser.add_argument('paths', metavar='path', nargs='+', default='', help='the second path is input proto file or directory, and the first path is output directory')
     parser.add_argument('-v', '--verbose', default=_verbose, help='if verbose', action='store_true')
     args = parser.parse_args()
     _verbose = args.verbose
