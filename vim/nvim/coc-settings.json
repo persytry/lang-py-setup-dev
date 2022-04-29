@@ -4,6 +4,8 @@
     "coc.preferences.extensionUpdateCheck":"weekly",
     "coc.preferences.colorSupport": true,
     "coc.preferences.jumpCommand": "drop",
+    "list.height": 25,
+    "outline.showLineNumber": true,
     "rust-analyzer.procMacro.enable": true,
     "rust-analyzer.cargo.loadOutDirsFromCheck": true,
     "suggest.noselect": true,
