@@ -622,6 +622,53 @@ let g:Lf_NormalMap = {
 "Run :VimspectorInstall and the 4 adapters should be installed
 "vscode-go needs [delve](https://github.com/go-delve/delve) to be installed. mac: brew install delve
 let g:vimspector_install_gadgets = [ 'debugpy', 'vscode-go', 'CodeLLDB', 'vscode-node-debug2' ]
+
+" itchyny/lightline.vim
+let g:lightline = {
+      \ 'colorscheme': 'wombat',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'readonly', 'filename', 'modified', 'method' ] ]
+      \ },
+      \ 'component_function': {
+      \   'method': 'NearestMethodOrFunction'
+      \ },
+      \ }
+
+" *********** vista setting
+" How each level is indented and what to prepend.
+" This could make the display more compact or more spacious.
+" e.g., more compact: ["▸ ", ""]
+" Note: this option only works for the kind renderer, not the tree renderer.
+let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
+" Executive used when opening vista sidebar without specifying it.
+" See all the avaliable executives via `:echo g:vista#executives`.
+"let g:vista_default_executive = 'ctags'
+let g:vista_default_executive = 'coc'
+" Set the executive for some filetypes explicitly. Use the explicit executive
+" instead of the default one for these filetypes when using `:Vista` without
+" specifying the executive.
+let g:vista_executive_for = {
+  \ 'cpp': 'coc',
+  \ 'py': 'coc',
+  \ }
+" Declare the command including the executable and options used to generate ctags output
+" for some certain filetypes.The file path will be appened to your custom command.
+" For example:
+let g:vista_ctags_cmd = {
+      \ 'haskell': 'hasktags -x -o - -c',
+      \ }
+" To enable fzf's preview window set g:vista_fzf_preview.
+" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
+" For example:
+let g:vista_fzf_preview = ['right:50%']
+" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
+let g:vista#renderer#enable_icon = 1
+" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
+let g:vista#renderer#icons = {
+\   "function": "\uf794",
+\   "variable": "\uf71b",
+\  }
 """""""""""common script end
 
 """""""""""plug begin
@@ -678,7 +725,7 @@ Plug 'mzlogin/vim-markdown-toc' " 为Markdown文件生成目录
 " 通过浏览器实时预览Markdown 文件。并可以借助浏览器的打印功能导出PDF文档. 附带了Latex预览，Mermaid甘特图，Plantuml UML图等. 首次安装的话，需要先装nodejs和yarn,安装yarn:`npm i -g yarn`，然后在`.config\nvim\plugged\markdown-preview.nvim\app`目录下执行`npm install`或`yarn install`.所以这条命令应该可以不用再执行了:`:call mkdp#util#install()`.
 Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'easymotion/vim-easymotion'    " 快速跳转
-" 打开函数与变量列表,类似tagbar,<leader>wo打开或关闭outline
+" 打开函数与变量列表,类似tagbar,<leader>ou打开或关闭outline
 " zm,zr,zc,zo,za之类的折叠功能是可以用的,如此一来便方便多了
 Plug 'liuchengxu/vista.vim'
 " m<space> 去除所有标记
@@ -945,6 +992,8 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " Apply AutoFix to problem on the current line.
 " qf: QuickFix
 nmap <leader>qf  <Plug>(coc-fix-current)
+" Run the Code Lens action on the current line.
+nmap <leader>co  <Plug>(coc-codelens-action)
 
 " Map function and class text objects
 " NOTE: Requires 'textDocument.documentSymbol' support from the language server.
@@ -969,9 +1018,8 @@ endif
 
 " Use CTRL-S for selections ranges.
 " Requires 'textDocument/selectionRange' support of language server.
-" 不知道是啥,注释掉吧
-"nmap <silent> <C-s> <Plug>(coc-range-select)
-"xmap <silent> <C-s> <Plug>(coc-range-select)
+nmap <silent> <C-s> <Plug>(coc-range-select)
+xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
 command! -nargs=0 CocFormat :call CocAction('format')
@@ -989,24 +1037,22 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 
 " Mappings for CoCList
 " -N, --number-select: Type a line number to select an item and invoke the default action on insert mode. Type `0` to select the 10th line.
-" Show all diagnostics. p是pop式窗口的简称
-nnoremap <silent><nowait> <leader>pd  :<C-u>CocList -N diagnostics<cr>
+" Show all diagnostics. p是pop式窗口的简称. o->coc中的o
+nnoremap <silent><nowait> <leader>od  :<C-u>CocList diagnostics<cr>
 " Manage extensions.
-nnoremap <silent><nowait> <leader>pe  :<C-u>CocList -N extensions<cr>
+nnoremap <silent><nowait> <leader>oe  :<C-u>CocList extensions<cr>
 " Show commands.
-nnoremap <silent><nowait> <leader>pc  :<C-u>CocList -N commands<cr>
-" Find symbol of current document. outline
-nnoremap <silent><nowait> <leader>po  :<C-u>CocList -N --ignore-case outline<cr>
-nnoremap <silent><nowait> <leader>pO  :<C-u>CocList --ignore-case outline<cr>
+nnoremap <silent><nowait> <leader>oc  :<C-u>CocList commands<cr>
+" Find symbol of current document. f->fn, function中的f
+nnoremap <silent><nowait> <leader>of  :<C-u>CocList outline<cr>
 " Search workspace symbols.
-nnoremap <silent><nowait> <leader>ps  :<C-u>CocList -I -N symbols<cr>
-nnoremap <silent><nowait> <leader>pS  :<C-u>CocList -I symbols<cr>
+nnoremap <silent><nowait> <leader>os  :<C-u>CocList -I symbols<cr>
 " Do default action for next item. 当前已执行过一个coc命令,现在执行CocList中的下一个. c是CoC的简称
-nnoremap <nowait> <leader>cj  :<C-u>CocNext<CR>
+nnoremap <nowait> <leader>oj  :<C-u>CocNext<CR>
 " Do default action for previous item. 当前已执行过一个coc命令,现在执行CocList中的上一个
-nnoremap <nowait> <leader>ck  :<C-u>CocPrev<CR>
+nnoremap <nowait> <leader>ok  :<C-u>CocPrev<CR>
 " Resume latest coc list. a->awake之意
-nnoremap <silent><nowait> <leader>pa  :<C-u>CocListResume<CR>
+nnoremap <silent><nowait> <leader>oa  :<C-u>CocListResume<CR>
 " by persy below
 " jump to next symbol
 nnoremap <silent><nowait> <C-j> :<C-u>CocCommand document.jumpToNextSymbol<CR>
@@ -1145,59 +1191,7 @@ set statusline+=%{NearestMethodOrFunction()}
 " you can add the following line to your vimrc
 autocmd VimEnter * call vista#RunForNearestMethodOrFunction()
 
-" itchyny/lightline.vim
-let g:lightline = {
-      \ 'colorscheme': 'wombat',
-      \ 'active': {
-      \   'left': [ [ 'mode', 'paste' ],
-      \             [ 'readonly', 'filename', 'modified', 'method' ] ]
-      \ },
-      \ 'component_function': {
-      \   'method': 'NearestMethodOrFunction'
-      \ },
-      \ }
-
-" How each level is indented and what to prepend.
-" This could make the display more compact or more spacious.
-" e.g., more compact: ["▸ ", ""]
-" Note: this option only works for the kind renderer, not the tree renderer.
-let g:vista_icon_indent = ["╰─▸ ", "├─▸ "]
-
-" Executive used when opening vista sidebar without specifying it.
-" See all the avaliable executives via `:echo g:vista#executives`.
-"let g:vista_default_executive = 'ctags'
-let g:vista_default_executive = 'coc'
-
-" Set the executive for some filetypes explicitly. Use the explicit executive
-" instead of the default one for these filetypes when using `:Vista` without
-" specifying the executive.
-let g:vista_executive_for = {
-  \ 'cpp': 'coc',
-  \ 'py': 'coc',
-  \ }
-
-" Declare the command including the executable and options used to generate ctags output
-" for some certain filetypes.The file path will be appened to your custom command.
-" For example:
-let g:vista_ctags_cmd = {
-      \ 'haskell': 'hasktags -x -o - -c',
-      \ }
-
-" To enable fzf's preview window set g:vista_fzf_preview.
-" The elements of g:vista_fzf_preview will be passed as arguments to fzf#vim#with_preview()
-" For example:
-let g:vista_fzf_preview = ['right:50%']
-
-" Ensure you have installed some decent font to show these pretty symbols, then you can enable icon for the kind.
-let g:vista#renderer#enable_icon = 1
-
-" The default icons can't be suitable for all the filetypes, you can extend it as you wish.
-let g:vista#renderer#icons = {
-\   "function": "\uf794",
-\   "variable": "\uf71b",
-\  }
-
-nnoremap <silent><nowait> <leader>wo :<C-u>Vista!!<cr>
+nnoremap <silent><nowait> <leader>ou :<C-u>Vista!!<cr>
 autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <C-p> :<c-u>call vista#cursor#TogglePreview()<CR>
 autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <C-j> j
 autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <C-k> k
