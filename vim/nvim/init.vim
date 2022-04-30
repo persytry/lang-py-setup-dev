@@ -1022,10 +1022,15 @@ nmap <silent> <C-s> <Plug>(coc-range-select)
 xmap <silent> <C-s> <Plug>(coc-range-select)
 
 " Add `:Format` command to format current buffer.
+" 2022/04/30 20:40:18, CocFormat格式化由各个语言服务提供,比如想要为每个大括号单独放置在一行:
+" typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+" typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+" javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+" javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
 command! -nargs=0 CocFormat :call CocAction('format')
 
 " Add `:Fold` command to fold current buffer.
-command! -nargs=? CocFold :call     CocAction('fold', <f-args>)
+command! -nargs=? Cocfold :call     CocAction('fold', <f-args>)
 
 " Add `:OR` command for organize imports of the current buffer.
 command! -nargs=0 CocOrganize   :call     CocAction('runCommand', 'editor.action.organizeImport')

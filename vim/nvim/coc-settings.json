@@ -1,7 +1,11 @@
 {
-    "python.analysis.extraPaths": ["./"],
-    "coc.preferences.rootPatterns": [".vimroot"],
-    "coc.preferences.extensionUpdateCheck":"weekly",
+    "python.analysis.extraPaths": [
+        "./"
+    ],
+    "coc.preferences.rootPatterns": [
+        ".vimroot"
+    ],
+    "coc.preferences.extensionUpdateCheck": "weekly",
     "coc.preferences.colorSupport": true,
     "coc.preferences.jumpCommand": "drop",
     "list.height": 25,
@@ -13,6 +17,10 @@
     "python.jediEnabled": false,
     "pyright.enable": true,
     "pyright.trace.server": "verbose",
+    "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+    "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
+    "javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
     "list.insertMappings": {
         "<Tab>": "do:togglemode",
         "<C-o>": "do:chooseaction",
@@ -36,11 +44,20 @@
     "languageserver": {
         "python": {
             "enable": false,
-            "rootPatterns": [".vimroot"],
+            "rootPatterns": [
+                ".vimroot"
+            ],
             "command": "python",
-            "args": [ "-mpyls", "-vv", "--log-file", "/tmp/lsp_python.log" ],
+            "args": [
+                "-mpyls",
+                "-vv",
+                "--log-file",
+                "/tmp/lsp_python.log"
+            ],
             "trace.server": "verbose",
-            "filetypes": [ "python" ],
+            "filetypes": [
+                "python"
+            ],
             "settings": {
                 "pyls": {
                     "enable": true,
@@ -98,13 +115,28 @@
         },
         "bash": {
             "command": "bash-language-server",
-            "args": ["start"],
-            "filetypes": ["sh"]
+            "args": [
+                "start"
+            ],
+            "filetypes": [
+                "sh"
+            ]
         },
         "coc-clangd": {
             "command": "clangd",
-            "rootPatterns": ["compile_flags.txt", "compile_commands.json"],
-            "filetypes": ["c", "cc", "cpp", "c++", "objc", "objcpp", "hpp"]
+            "rootPatterns": [
+                "compile_flags.txt",
+                "compile_commands.json"
+            ],
+            "filetypes": [
+                "c",
+                "cc",
+                "cpp",
+                "c++",
+                "objc",
+                "objcpp",
+                "hpp"
+            ]
         },
         //"ccls": {
         //  "command": "ccls",
@@ -118,39 +150,71 @@
         //},
         "cmake": {
             "command": "cmake-language-server",
-            "filetypes": ["cmake"],
-            "rootPatterns": [ "build/" ],
+            "filetypes": [
+                "cmake"
+            ],
+            "rootPatterns": [
+                "build/"
+            ],
             "initializationOptions": {
                 "buildDirectory": "build"
             }
         },
         "golang": {
             "command": "gopls",
-            "rootPatterns": ["go.mod"],
-            "filetypes": ["go"]
+            "rootPatterns": [
+                "go.mod"
+            ],
+            "filetypes": [
+                "go"
+            ]
         },
         "kotlin": {
             "command": "~/lsp/kotlin/server/bin/kotlin-language-server",
-            "filetypes": ["kotlin"]
+            "filetypes": [
+                "kotlin"
+            ]
         },
         "groovy": {
             "command": "java",
-            "args" : ["-jar", "/path/to/groovy-language-server-all.jar"],
-            "filetypes": ["groovy"]
+            "args": [
+                "-jar",
+                "/path/to/groovy-language-server-all.jar"
+            ],
+            "filetypes": [
+                "groovy"
+            ]
         },
         "java": {
             "command": "jdtls",
-            "filetypes": [ "java", "class" ],
-            "rootPatterns": [ "maven", ".git", ".svn", ".vimroot" ]
+            "filetypes": [
+                "java",
+                "class"
+            ],
+            "rootPatterns": [
+                "maven",
+                ".git",
+                ".svn",
+                ".vimroot"
+            ]
         },
         "lua": {
             "command": "lua-lsp",
-            "filetypes": ["lua"]
+            "filetypes": [
+                "lua"
+            ]
         },
         "sql": {
             "command": "sql-language-server",
-            "args" : ["up", "--method", "stdio"],
-            "filetypes": ["sql", "mysql"]
+            "args": [
+                "up",
+                "--method",
+                "stdio"
+            ],
+            "filetypes": [
+                "sql",
+                "mysql"
+            ]
         }
     }
 }
