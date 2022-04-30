@@ -1,6 +1,5 @@
 --langdef=actionscript
 --langmap=actionscript:.as
---regex-actionscript=/^[ \t]*[(private|public|protected|static|final)( \t)]*function[ \t]+[(set|get)( \t)]*([A-Za-z0-9_]+)[ \t]*\(/\1/f,function,functions/
---regex-actionscript=/^[ \t]*((private|public|protected|static)[ \t]+)+(var|const)[ \t]+([A-Za-z0-9_]+)[ \t]*/\4/v,variable,variables/
---regex-actionscript=/.*\.prototype \.([A-Za-z0-9 ]+)=([ \t]?)function( [ \t]?)*\(/\1/f,function,functions/
---regex-actionscript=/^[ \t]*[(private|public|protected)( \t)]*(class|interface)[ \t]+([A-Za-z0-9_]+)[ \t]*/\2/c,class,classes/
+--regex-actionscript=/^\s*((private|public|protected|static|final|override)\s+)*function\s+((set|get)\s+)*(\w+)\s*\(/func \5/f,function,functions/
+--regex-actionscript=/^\s*((private|public|protected|static)\s+)+(var|const)\s+(\w+)\s*/var \4/v,variable,variables/
+--regex-actionscript=/^\s*((private|public|protected)\s+)*(class|interface)\s+(\w+)\s*/\4/c,class,classes/
