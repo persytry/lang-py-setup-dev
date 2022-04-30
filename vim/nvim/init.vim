@@ -713,11 +713,11 @@ Plug 'puremourning/vimspector'  " 调试器, debug
 "Plug 'SirVer/ultisnips'    " 代码片段插件 ps. 貌似coc里有类似的插件的
 Plug 'mg979/vim-xtabline'   " 精致的顶栏,F5可切换模式
 Plug 'dhruvasagar/vim-table-mode'   " vim表模式插件,在插入模式输入||即可进入该模式
-Plug 'mbbill/undotree'  " 强大的撤销更改功能
+"Plug 'mbbill/undotree'  " 强大的撤销更改功能
 Plug 'mg979/vim-visual-multi', {'branch': 'master'} " 多光标选择,类似vim-multiple-cursors,C-n选择一个单词
 Plug 'machakann/vim-sandwich'   " 添加包裹符号,类似vim-surround.sa新增环线,sr修改,sd删除,t表示标签
 Plug 'junegunn/vim-easy-align'  " 根据符号对齐文本,类似tabular,比如gaip=
-Plug 'vim-autoformat/vim-autoformat'    " 自动格式化插件
+"Plug 'vim-autoformat/vim-autoformat'    " 自动格式化插件,被CocFormat所替代
 "Plug 'godlygeek/tabular'       " 对齐插件,'plasticboy/vim-markdown'依赖它,但我更喜欢easy-align
 Plug 'plasticboy/vim-markdown'  " 提供了针对Markdown的语法高亮，段落折叠，查看目录，段间跳转等功能
 Plug 'mzlogin/vim-markdown-toc' " 为Markdown文件生成目录
@@ -736,9 +736,14 @@ Plug 'kdheepak/lazygit.nvim'
 "[Using Vim or NeoVim as a Git mergetool](https://www.grzegorowski.com/using-vim-or-neovim-nvim-as-a-git-mergetool)
 "When in the central window use d2o or d3o to pull changes from LOCAL or REMOTE file.
 Plug 'tpope/vim-fugitive' " Gdiff之类的可以合并冲突
-Plug 'gcmt/wildfire.vim'    " 按回车快速选择整个标签范围,类似vim-expand-region
+Plug 'gcmt/wildfire.vim'    " 按回车<CR>快速选择整个标签范围,<BS>反向选择. 类似vim-expand-region
+"This plugin provides text object mappings ib and ab
+"ib is a union of i(, i{, i[, i', i" and i<
+"ab is a union of a(, a{, a[, a', a" and a<
+Plug 'rhysd/vim-textobj-anyblock'
+Plug 'kana/vim-textobj-user' "vim-textobj-anyblock依赖此插件
 " scrooloose/nerdcommenter难道就是preservim/nerdcommenter?
-Plug 'preservim/nerdcommenter'  " 快速注释插件,类似vim-commentary.cc:注释,cu:解注释,c<space>:智能判断,cy:先复制再注释,ca:转换注释方式,cA:跳到行尾加注释,cs:性感注释,c$:注释当前光标到行尾
+Plug 'preservim/nerdcommenter'  " 快速注释插件,类似vim-commentary.cc:注释,cu:解注释,c<space>:智能判断,cy:先复制再注释,ca:转换注释方式,cA:跳到行尾加注释,cs:性感注释(就是/****/的注释),cm:NERDCommenterMinimal就是/**/的注释,c$:注释当前光标到行尾
 "Plug 'bling/vim-airline'   " vim的底部状态增强/美化插件,即状态栏
 Plug 'itchyny/lightline.vim' " 状态栏,用于vista.vim,还是这个好用,主要是实用
 Plug 'Yggdroot/indentLine'  " 可视化缩进
@@ -1027,6 +1032,7 @@ xmap <silent> <C-s> <Plug>(coc-range-select)
 " typescript.format.placeOpenBraceOnNewLineForControlBlocks": true,
 " javascript.format.placeOpenBraceOnNewLineForFunctions": true,
 " javascript.format.placeOpenBraceOnNewLineForControlBlocks": true,
+" CocFormat == CocCommand editor.action.formatDocument
 command! -nargs=0 CocFormat :call CocAction('format')
 
 " Add `:Fold` command to fold current buffer.
