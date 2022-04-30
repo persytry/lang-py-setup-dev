@@ -1,5 +1,5 @@
 --langdef=ts
 --langmap=ts:.ts
---regex-ts=/^\s*[(private|public|protected|static|override|set|get|export|default|function)\s+]*(\w+)\s*\(/\1/f,function,functions/
---regex-ts=/^\s*[(private|public|protected|static)\s+]*(\w+)\s*:/\1/v,variable,variables/
---regex-ts=/^\s*[(export|default)\s+]*(class|interface|type)\s+(\w+)\s*/\2/c,class,classes/
+--regex-ts=/^\s*((private|public|protected|static|override|set|get|export|default|function)\s+)*(\w+)\s*\(/\3/f,function,functions/
+--regex-ts=/^\s*((private|public|protected|static)\s+)*(\w+)\s*:/\3/v,variable,variables/
+--regex-ts=/^\s*((export|default)\s+)*(class|interface|type)\s+(\w+)\s*/\4/c,class,classes/
