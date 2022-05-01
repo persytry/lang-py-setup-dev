@@ -11,6 +11,8 @@ set tags=tags;
 "这个选项不能打开,否则每当打开一个文件后,就会自动切换到文件所在的目录
 "set autochdir
 
+"set t_ut= " 防止vim背景颜色错误
+"set showmatch " 高亮匹配括号
 set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936
 set termencoding=utf-8
 set encoding=utf-8
@@ -1050,7 +1052,7 @@ set statusline^=%{coc#status()}%{get(b:,'coc_current_function','')}
 " -N, --number-select: Type a line number to select an item and invoke the default action on insert mode. Type `0` to select the 10th line.
 " Show all diagnostics. p是pop式窗口的简称. o->coc中的o
 nnoremap <silent><nowait> <leader>od  :<C-u>CocList diagnostics<cr>
-" Manage extensions.
+" Manage extensions. ?: 表示无效插件, *: 表示插件已激活, +: 表示插件加载成功, -: 表示插件已禁止
 nnoremap <silent><nowait> <leader>oe  :<C-u>CocList extensions<cr>
 " Show commands.
 nnoremap <silent><nowait> <leader>oc  :<C-u>CocList commands<cr>
