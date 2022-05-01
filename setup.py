@@ -34,12 +34,13 @@ _os_file_list = [
     ['net/ssh/config_win.conf', '~/.ssh/config', None, None],
     # https://github.com/shunf4/proxychains-windows
     ['net/proxychains.conf', '~/.proxychains/proxychains.conf', '/usr/local/etc/proxychains.conf', '/usr/local/etc/proxychains.conf'],
+    ['net/w3m-config-mac.conf',None,'~/.w3m/config',None],
+    ['net/w3m-config-linux.conf',None,None,'~/.w3m/config'],
+    ['net/lftprc.conf','~/.config/lftp/rc','~/.config/lftp/rc','~/.config/lftp/rc'],
     ['t/lazygit-config.yml', '~/.config/jesseduffield/lazygit/config.yml', '~/Library/Application Support/jesseduffield/lazygit/config.yml', '~/Library/Application Support/jesseduffield/lazygit/config.yml'],
     ['t/fbtermrc',None,None,'~/.fbtermrc'],
     ['t/tmux.conf',None,'~/.tmux.conf','~/.tmux.conf'],
     ['os/linux/terminator/config',None,None,'~/.config/terminator/config'],
-    ['net/w3m-config-mac.conf',None,'~/.w3m/config',None],
-    ['net/w3m-config-linux.conf',None,None,'~/.w3m/config'],
     ['os/linux/cmn_profile.sh',None,'~/.cmn_profile.sh','~/.cmn_profile.sh'],
     # mac和linux下不需要拷贝这个文件了,因为已经在环境变量和init.vim中配置过了
     ['vim/gtags.conf','~/.globalrc','~/.globalrc','~/.globalrc'],
@@ -265,7 +266,7 @@ def main() -> None:
     parser.add_argument('--w3m', default=False, action='store_true')
     parser.add_argument('--profile', default=False, action='store_true')
     parser.add_argument('--i3', default=False, action='store_true')
-    parser.add_argument('--pc', default=False, action='store_true')
+    parser.add_argument('--net', default=False, action='store_true')
     parser.add_argument('--lemonade', default=False, action='store_true')
     args = parser.parse_args()
 
@@ -311,8 +312,9 @@ def main() -> None:
         cnt += _copyFileItemByName(toSystem, 'os/linux/cmn_profile.sh')
     if all or args.i3:
         cnt += _copyFileItemByName(toSystem, 'os/linux/i3/config')
-    if all or args.pc:
+    if all or args.net:
         cnt += _copyFileItemByName(toSystem, 'net/proxychains.conf')
+        cnt += _copyFileItemByName(toSystem, 'net/lftprc.conf')
     if all or args.lemonade:
         cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.toml')
     print(f'copy total {cnt} file done')
