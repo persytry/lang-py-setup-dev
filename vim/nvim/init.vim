@@ -1002,6 +1002,7 @@ nmap <leader>ac  <Plug>(coc-codeaction)
 " qf: QuickFix
 nmap <leader>qf  <Plug>(coc-fix-current)
 " Run the Code Lens action on the current line.
+" CodeLens(代码信息指示器)是VS Code的一个功能，它可通过代码旁边的链接提供上下文感知的操作。当VS Code在代码中检测到测试注释时，它将在注释旁边提供“Run Test”链接和“Debug Test”链接，以便您快速进行操作而不需跳出代码. 它还可以动态提供一些有用的数据：单元测试结果、更改历史、工作项历史
 nmap <leader>co  <Plug>(coc-codelens-action)
 
 " Map function and class text objects
