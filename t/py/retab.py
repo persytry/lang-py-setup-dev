@@ -27,7 +27,7 @@ def retabPath(p: str) -> int:
 
 def retabFile(p: str) -> int:
     changed = 0
-    with open(p, 'r+') as f:
+    with open(p, 'r+', encoding='utf-8') as f:
         lines = f.readlines()
         for i, line in enumerate(lines):
             newLine = re.sub('^[ \t\r\n]+$', '\n', line)

@@ -50,7 +50,7 @@ class JsonParser:
         if not os.path.exists(jsonPath):
             print(f'the json file is not exists: {jsonPath}')
             return False
-        with open(jsonPath, 'r') as f:
+        with open(jsonPath, 'r', encoding='utf-8') as f:
             maps = eval(''.join(f.readlines()))
             for k, v in maps['globals'].items():
                 self.globals[k] = v
@@ -210,7 +210,7 @@ class AsParser:
         theCls = AsClassNull
         methodOld = method = AsMethodNull
         isParseMethod = False
-        with open(path, 'r') as f:
+        with open(path, 'r', encoding='utf-8') as f:
             for line in f.readlines():
                 package = re.findall(r'^\s*package\s+([\w\.]+)', line)
                 if len(package) == 1:
@@ -253,13 +253,13 @@ class AsParser:
                 else:
                     classesBundle.append(cls)
             for module in modules:
-                with open(f'{os.path.join(path, module.name)}.ts', 'w') as f:
+                with open(f'{os.path.join(path, module.name)}.ts', 'w', encoding='utf-8') as f:
                     module.writeTo(f, 0)
             if _verbose:
                 print(f'generated module count:{len(modules)}')
             if len(classesBundle) == 0:
                 continue
-            with open(f'{os.path.join(path, package.split(".")[-1])}.d.ts', 'w') as f:
+            with open(f'{os.path.join(path, package.split(".")[-1])}.d.ts', 'w', encoding='utf-8') as f:
                 f.write(f'declare namespace {package}\n{{\n')
                 for cls in classesBundle:
                     cls.writeTo(f, 4)
