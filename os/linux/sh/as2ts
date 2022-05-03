@@ -1,0 +1,3 @@
+#!/bin/bash
+
+python ~/a/git/lang/py/setup/dev/t/py/as2ts.py $*

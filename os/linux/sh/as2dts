@@ -1,3 +1,0 @@
-#!/bin/bash
-
-python ~/a/git/lang/py/setup/dev/t/py/as2.d.ts.py $*
