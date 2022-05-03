@@ -69,7 +69,7 @@ class AsClass:
             f.write(f'    class {self.name} extends {asType2TsType(self.base)}\n    {{\n')
         for var in self.vars:
             var.writeTo(f)
-        f.write('    }\n')
+        f.write('    }\n\n')
 
 
 class AsVar:
