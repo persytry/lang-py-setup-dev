@@ -9,7 +9,7 @@ from datetime import datetime
 import builtins
 
 _verbose:bool = True;
-_seconds = 10
+_seconds = 3
 
 __old_print = builtins.print
 __num_of_print = 0
