@@ -9,7 +9,7 @@ from datetime import datetime
 import builtins
 
 _verbose:bool = True;
-_seconds = 3
+_sleepSeconds = 10
 
 __old_print = builtins.print
 __num_of_print = 0
@@ -26,8 +26,8 @@ async def runOne(cmd:str):
         proc = await asyncio.create_subprocess_shell(cmd)
         await proc.communicate()
         if _verbose:
-            print(f'{cmd!r} exited with {proc.returncode}, and then restart the command after {_seconds} seconds')
-        await asyncio.sleep(_seconds)
+            print(f'{cmd!r} exited with {proc.returncode}, and then restart the command after {_sleepSeconds} seconds')
+        await asyncio.sleep(_sleepSeconds)
 
 async def run(commands):
     fns = []
