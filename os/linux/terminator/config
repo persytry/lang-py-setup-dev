@@ -57,7 +57,8 @@
   [[default]]
     visible_bell = True
     background_color = "#fbf1c7"
-    cursor_color = "#aaaaaa"
+    cursor_color = "#ff9300"
+    cursor_color_fg = False
     font = Monospace 15
     foreground_color = "#3c3836"
     show_titlebar = False
