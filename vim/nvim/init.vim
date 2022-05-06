@@ -223,6 +223,7 @@ command! -nargs=0 GtagsUpdate :Leaderf! gtags --update
 command! -nargs=0 Lettime :let @+ = strftime('%Y/%m/%d %H:%M:%S')
 " CocConfig用于打开coc-settings.json
 command! -nargs=0 Myvimrc :tabnew $MYVIMRC
+command -nargs=* Py :!python % <args>
 """""insert mode as Emacs key-mapping begin
 " a应该是ahead的意思
 " 保留vim之C-d的原始功能,就是反缩进,与C-t相对
@@ -316,7 +317,6 @@ function! s:hlsearchToggle()
 endfunction
 noremap <silent><expr> <leader>hl <SID>hlsearchToggle()
 
-command -nargs=* Py :!python % <args>
 noremap <silent><nowait> <leader>lg :<C-u>LazyGit<CR>
 " :te == :ter == :terminal
 "command Tt :tabe|te
