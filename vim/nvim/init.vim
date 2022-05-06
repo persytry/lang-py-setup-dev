@@ -220,15 +220,6 @@ nnoremap <silent><nowait> gs :<C-u>w<CR>
 command! -nargs=0 DblanklineChars :%s/\v^[ \t\r\n]+$//g
 command! -nargs=0 CtagsUpdate :!ctags -R
 command! -nargs=0 GtagsUpdate :Leaderf! gtags --update
-" explorer current file directory
-" s:getExplorer
-if g:iswsl
-    command! -nargs=0 OpenDir :!wsl-open '%:p:h'
-elseif g:iswindows
-    command! -nargs=0 OpenDir :!explorer.exe '%:p:h'
-else
-    command! -nargs=0 OpenDir :!open '%:p:h'
-endif
 command! -nargs=0 Lettime :let @+ = strftime('%Y/%m/%d %H:%M:%S')
 " CocConfig用于打开coc-settings.json
 command! -nargs=0 Myvimrc :tabnew $MYVIMRC
@@ -358,7 +349,7 @@ function! s:getExplorer()
     return 'open'
 endfunction
 
-" 打开网络游览器
+" 打开网络浏览器
 function! s:getExplorerNet()
     if g:iswindows
         return s:path . '/mycmd/expl2.bat'
