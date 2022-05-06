@@ -385,6 +385,8 @@ let g:ZFVimIM_cloudAsync_autoInit = 1
 let g:ZFVimIM_openapi_enable=0
 " 关闭长句输入
 let g:ZFVimIM_sentence = 0
+" ZFVimIM在启动的情况下,会影响到CocList后面的自动补全, 而且弹出的面板没有任何符号, [问题相关描述](https://github.com/ZSaberLv0/ZFVimIM/issues/43), 把ZFVimIM_autoDisable_coc置0后就没问题了
+let g:ZFVimIM_autoDisable_coc = 0
 
 " easymotion setting
 " 日本用户才需要这个
