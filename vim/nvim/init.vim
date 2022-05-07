@@ -759,7 +759,7 @@ Plug 'preservim/nerdcommenter'  " 快速注释插件,类似vim-commentary.cc:注
 "Plug 'bling/vim-airline'   " vim的底部状态增强/美化插件,即状态栏
 Plug 'itchyny/lightline.vim' " 状态栏,用于vista.vim,还是这个好用,主要是实用
 Plug 'Yggdroot/indentLine'  " 可视化缩进
-"Plug 'luochen1990/rainbow' " 嵌套括号高亮,跟gruvbox主题可能有点冲突
+Plug 'luochen1990/rainbow' " 嵌套括号高亮
 "gB: Open url under cursor in the default web browser.
 "g<CR>: Search word under cursor using default search engine
 "gG: Google search word under cursor in the default web browser
@@ -1159,7 +1159,7 @@ xnoremap <silent><nowait> <leader>is :<C-u>LeadingSpaceToggle<CR>
 let g:rainbow_active = 1
 let g:rainbow_conf = {
     \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
-    \   'ctermfgs': ['lightblue', 'lightyellow', 'lightcyan', 'lightmagenta'],
+    \   'ctermfgs': ['blue', 'red', 'green', 'brown'],
     \   'operators': '_,_',
     \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
     \   'separately': {
