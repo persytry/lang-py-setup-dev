@@ -378,6 +378,7 @@ let g:ZFVimIM_openapi_enable=0
 let g:ZFVimIM_sentence = 0
 " ZFVimIM在启动的情况下,会影响到CocList后面的自动补全, 而且弹出的面板没有任何符号, [问题相关描述](https://github.com/ZSaberLv0/ZFVimIM/issues/43), 把ZFVimIM_autoDisable_coc置0后就没问题了
 let g:ZFVimIM_autoDisable_coc = 0
+let g:ZFVimIME_enableOnInsertOnly = 1
 
 " easymotion setting
 " 日本用户才需要这个
@@ -760,6 +761,10 @@ Plug 'persytry/ZFVimIM_wubi_base'
 Plug 'ZSaberLv0/vim-easymotion-chs'
 Plug 'persytry/t-vim-git_batch', { 'dir': '~/.git_batch' }
 Plug 'jeroenbourgois/vim-actionscript'
+" 参考: [神级编辑器 Vim 使用 - 插件篇](https://www.hanleylee.com/usage-of-vim-editor-plugin.html)
+Plug 'tpope/vim-unimpaired' " 一个映射了大量实用命令的插件, 主要前缀键是[与]
+Plug 'jiangmiao/auto-pairs'
+Plug 'tpope/vim-repeat'  " 支持重复
 call plug#end()
 
 """""common plug set begin
