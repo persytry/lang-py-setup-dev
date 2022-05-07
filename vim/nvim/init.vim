@@ -395,6 +395,16 @@ let g:operator_sandwich_no_default_key_mappings = 1
 " signature setting
 " DeleteMark原先的快捷键是dm, 感觉没必要, 而且会影响Leaderf的buffer窗口的d按键
 let g:SignatureMap = {'DeleteMark': ''}
+
+" auto-pairs setting
+let g:AutoPairsShortcutToggle = ''
+let g:AutoPairsShortcutFastWrap = ''
+let g:AutoPairsShortcutJump = ''
+let g:AutoPairsShortcutBackInsert = ''
+let g:AutoPairsMoveCharacter = ''
+
+" vim-textobj-comment setting
+let g:loaded_textobj_comment = 1
 """""""""""markdown begin
 " markdown setting
 " Latex数学公式
@@ -740,6 +750,10 @@ Plug 'gcmt/wildfire.vim'    " 按回车<CR>快速选择整个标签范围,<BS>�
 "ab is a union of a(, a{, a[, a', a" and a<
 Plug 'rhysd/vim-textobj-anyblock'
 Plug 'kana/vim-textobj-user' "vim-textobj-anyblock依赖此插件
+Plug 'kana/vim-textobj-line'
+" n->note, 也即注释的意思. 不能用c,因为c是class的意思,已被coc占用
+Plug 'glts/vim-textobj-comment'
+Plug 'kana/vim-textobj-indent'
 " scrooloose/nerdcommenter难道就是preservim/nerdcommenter?
 Plug 'preservim/nerdcommenter'  " 快速注释插件,类似vim-commentary.cc:注释,cu:解注释,c<space>:智能判断,cy:先复制再注释,ca:转换注释方式,cA:跳到行尾加注释,cs:性感注释(就是/****/的注释),cm:NERDCommenterMinimal就是/**/的注释,c$:注释当前光标到行尾
 "Plug 'bling/vim-airline'   " vim的底部状态增强/美化插件,即状态栏
@@ -1362,3 +1376,19 @@ silent! xmap <unique> <leader>sd <Plug>(operator-sandwich-delete)
 " replace
 silent! xmap <unique> <leader>sr <Plug>(operator-sandwich-replace)
 """""""""""sandwich end
+
+""""""""""""vim-textobj-comment begin
+" n->note, 也即注释
+call textobj#user#plugin('comment', {
+     \   '-': {
+     \     'select-a-function': 'textobj#comment#select_a',
+     \     'select-a': 'an',
+     \     'select-i-function': 'textobj#comment#select_i',
+     \     'select-i': 'in',
+     \   },
+     \   'big': {
+     \     'select-a-function': 'textobj#comment#select_big_a',
+     \     'select-a': 'aN',
+     \   }
+     \ })
+""""""""""""vim-textobj-comment end
