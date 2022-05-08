@@ -405,6 +405,10 @@ let g:AutoPairsMoveCharacter = ''
 
 " vim-textobj-comment setting
 let g:loaded_textobj_comment = 1
+
+" unimpaired setting
+let g:nremap = { '[y': 0, ']y': 0, '[C': 0, ']C': 0, '[u': 0, ']u': 0, '[x': 0, ']x': 0 }
+let g:xremap = g:nremap
 """""""""""markdown begin
 " markdown setting
 " Latex数学公式
