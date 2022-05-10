@@ -1164,25 +1164,34 @@ let g:rainbow_active = 1
 let g:rainbow_conf = {
     \   'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick'],
     \   'ctermfgs': ['blue', 'red', 'green', 'brown'],
+    \   'guis': [''],
+    \   'cterms': [''],
     \   'operators': '_,_',
     \   'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/{/ end=/}/ fold'],
     \   'separately': {
     \       '*': {},
-    \       'tex': {
-    \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/'],
+    \       'markdown': {
+    \           'parentheses_options': 'containedin=markdownCode contained',
     \       },
     \       'lisp': {
     \           'guifgs': ['royalblue3', 'darkorange3', 'seagreen3', 'firebrick', 'darkorchid3'],
     \       },
-    \       'vim': {
-    \           'parentheses': ['start=/(/ end=/)/', 'start=/\[/ end=/\]/', 'start=/{/ end=/}/ fold', 'start=/(/ end=/)/ containedin=vimFuncBody', 'start=/\[/ end=/\]/ containedin=vimFuncBody', 'start=/{/ end=/}/ fold containedin=vimFuncBody'],
+    \       'haskell': {
+    \           'parentheses': ['start=/(/ end=/)/ fold', 'start=/\[/ end=/\]/ fold', 'start=/\v\{\ze[^-]/ end=/}/ fold'],
     \       },
-    \       'html': {
-    \           'parentheses': ['start=/\v\<((area|base|br|col|embed|hr|img|input|keygen|link|menuitem|meta|param|source|track|wbr)[ >])@!\z([-_:a-zA-Z0-9]+)(\s+[-_:a-zA-Z0-9]+(\=("[^"]*"|'."'".'[^'."'".']*'."'".'|[^ '."'".'"><=`]*))?)*\>/ end=#</\z1># fold'],
+    \       'vim': {
+    \           'parentheses_options': 'containedin=vimFuncBody',
+    \       },
+    \       'perl': {
+    \           'syn_name_prefix': 'perlBlockFoldRainbow',
+    \       },
+    \       'stylus': {
+    \           'parentheses': ['start=/{/ end=/}/ fold contains=@colorableGroup'],
     \       },
     \       'css': 0,
-    \   }
+    \   },
     \}
+
 """""""""""rainbow end
 
 """""""""""vimspector begin, debug
