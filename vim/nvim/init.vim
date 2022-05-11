@@ -1164,6 +1164,9 @@ let g:rainbow_active = 1
 let g:rainbow_conf = {
     \   'ctermfgs': ['blue', 'red', 'green', 'brown'],
     \   'separately': {
+    \       'typescript': {
+    \           'parentheses_options': 'containedin=typescriptBlock,typescriptFuncCallArg,typescriptClassBlock',
+    \       },
     \   },
     \}
 
