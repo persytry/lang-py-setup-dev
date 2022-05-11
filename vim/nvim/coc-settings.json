@@ -28,7 +28,8 @@
         "<C-s>": "action:split",
         "<C-v>": "action:vsplit",
         "<C-p>": "do:previewtoggle",
-        "<C-y>": "eval:@@"
+        //"<C-y>": "eval:@@"    //相当于<C-r>"
+        "<C-y>": "prompt:paste"
     },
     "list.normalMappings": {
         "<Tab>": "do:togglemode",
