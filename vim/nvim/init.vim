@@ -775,9 +775,13 @@ Plug 'ZSaberLv0/ZFVimIM'
 Plug 'ZSaberLv0/ZFVimJob' "用于提升词库加载性能
 "Plug 'ZSaberLv0/ZFVimGitUtil' " optional, cleanup your db commit history when necessary
 "Plug 'ZSaberLv0/ZFVimIM_wubi_base'
-Plug 'persytry/ZFVimIM_wubi_base'
 " must after easymotion plugin, 支持搜索中文.not work for <Plug>(easymotion-s2)
 Plug 'ZSaberLv0/vim-easymotion-chs'
+Plug 'persytry/ZFVimIM_wubi_base'
+" :let g:ZFVimIM_DEBUG_profile = 1
+" :call ZFVimIM_DEBUG_checkHealth() 或 call ZFVimIM_DEBUG_profileInfo()     " 可查看日志输出
+" :ZFProfileStart   " 也可以用这个命令,然后重启vim可查看日志输出到的文件
+Plug 'ZSaberLv0/ZFVimUtil'
 Plug 'persytry/t-vim-git_batch', { 'dir': '~/.git_batch' }
 Plug 'jeroenbourgois/vim-actionscript'
 " 参考: [神级编辑器 Vim 使用 - 插件篇](https://www.hanleylee.com/usage-of-vim-editor-plugin.html)
