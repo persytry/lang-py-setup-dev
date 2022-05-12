@@ -710,14 +710,15 @@ Plug 'Shougo/defx.nvim', { 'do': ':UpdateRemotePlugins' } " 文件浏览器, 类
 "需要手动更新gtags数据库:`Leaderf gtags --update`
 Plug 'Yggdroot/LeaderF', { 'do': ':LeaderfInstallCExtension' } " 文件模糊查找器,类似fzf.vim. ff:检索文件,fb:检索buffer,c-c或<esc>:退出,c-r:在模糊匹配和正则匹配之间切换,c-f:在全路径搜索和名字搜索之间切换,tab:在检索模式和选择模式之间切换. 记得安装这个,运行速度会更快些`:LeaderfInstallCExtension`.运行完任何一个LeaderF命令后,`:echo g:Lf_fuzzyEngine_C`如果输出为1,则表示安装成功了.
 " [fzf之vim下的安装方式](https://github.com/junegunn/fzf/blob/master/README-VIM.md)
-if g:ismac
-    Plug '/usr/local/opt/fzf'
-elseif g:islinux
-    Plug '/usr/share/doc/fzf/examples'
-elseif g:iswindows
-    Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
-endif
-Plug 'junegunn/fzf.vim'
+" 2022/05/12 13:24:04, fzf已被leaderf完全取代
+"if g:ismac
+    "Plug '/usr/local/opt/fzf'
+"elseif g:islinux
+    "Plug '/usr/share/doc/fzf/examples'
+"elseif g:iswindows
+    "Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': { -> fzf#install() } }
+"endif
+"Plug 'junegunn/fzf.vim'
 "Plug 'altercation/vim-colors-solarized' " 主题
 Plug 'morhetz/gruvbox'  " 主题/配色方案,还是这个主题舒服
 "Plug 'tomasr/molokai' " 黑客主题
@@ -752,8 +753,8 @@ Plug 'gcmt/wildfire.vim'    " 按回车<CR>快速选择整个标签范围,<BS>�
 "This plugin provides text object mappings ib and ab
 "ib is a union of i(, i{, i[, i', i" and i<
 "ab is a union of a(, a{, a[, a', a" and a<
-Plug 'rhysd/vim-textobj-anyblock'
 Plug 'kana/vim-textobj-user' "vim-textobj-anyblock依赖此插件
+Plug 'rhysd/vim-textobj-anyblock'
 Plug 'kana/vim-textobj-line'
 " n->note, 也即注释的意思. 不能用c,因为c是class的意思,已被coc占用
 Plug 'glts/vim-textobj-comment'
