@@ -43,6 +43,16 @@ My configuration is across platform(Windows, linux, macox, wsl).
 
 The [neovim](https://github.com/neovim/neovim) is the best, welcome to join the world of neovim.
 
+Copy all configuration to system path.
+```shell
+python setup.py -ta
+```
+
+Copy/Store all configuration from system path.
+```shell
+python setup.py -a
+```
+
 ## 配置
 
 ### debian
