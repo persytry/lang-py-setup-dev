@@ -14,3 +14,23 @@ deb http://mirrors.aliyun.com/debian stable-updates main contrib non-free
 deb-src http://mirrors.aliyun.com/debian stable main contrib non-free
 deb-src http://mirrors.aliyun.com/debian stable-proposed-updates main contrib non-free
 deb-src http://mirrors.aliyun.com/debian stable-updates main contrib non-free
+
+# 2022/05/13 23:03:45, wsl2上的软件源
+deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free
+deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-updates main contrib non-free
+deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-backports main contrib non-free
+deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free
+deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free
+deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-updates main contrib non-free
+deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-backports main contrib non-free
+deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free
+
+deb http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye main
+deb-src http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye main
+# 12 
+deb http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-12 main
+deb-src http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-12 main
+# 13 
+deb http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-13 main
+deb-src http://apt.llvm.org/bullseye/ llvm-toolchain-bullseye-13 main
+
