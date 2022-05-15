@@ -59,6 +59,7 @@ python setup.py -a
 
 #### 需要安装的一些软件
 
+- 更换apt软件源前要先安装: `apt install -y apt-transport-https ca-certificates`
 - proxychains-ng:
   - `brew install proxychains-ng`
   - [编译安装 proxychains-ng proxychains4](https://www.cnblogs.com/xuyaowen/p/proxychians4.html), debian下只能编译了
@@ -72,7 +73,7 @@ python setup.py -a
 - fbterm, tmux
 - ibus五笔输入法, 已由[ZFVimIM](https://github.com/ZSaberLv0/ZFVimIM)方案代替
 - xclip
-- fzf,fd,rg,tree
+- fzf,[fd](https://github.com/sharkdp/fd),rg,tree
 - autojump
 - cheat
 - delta
