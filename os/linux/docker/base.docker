@@ -25,3 +25,4 @@ run set -x; /tmp/basebuilder.sh \
     && rm /tmp/basebuilder.sh
 
 WORKDIR $myhome
+#ENTRYPOINT ["/usr/bin/zsh"]

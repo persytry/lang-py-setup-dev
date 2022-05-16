@@ -41,7 +41,7 @@ _os_file_list = [
     ['t/fbtermrc',None,None,'~/.fbtermrc'],
     ['t/tmux.conf',None,'~/.tmux.conf','~/.tmux.conf'],
     ['os/linux/terminator/config',None,None,'~/.config/terminator/config'],
-    ['os/linux/cmn_profile.sh',None,'~/.cmn_profile.sh','~/.cmn_profile.sh'],
+    # ['os/linux/cmn_profile.sh',None,'~/.cmn_profile.sh','~/.cmn_profile.sh'],
     # mac和linux下不需要拷贝这个文件了,因为已经在环境变量和init.vim中配置过了
     ['vim/gtags.conf','~/.globalrc','~/.globalrc','~/.globalrc'],
     ['os/linux/i3/config', None, None, '~/.config/i3/config'],
@@ -264,7 +264,7 @@ def main() -> None:
     parser.add_argument('--tmux', default=False, action='store_true')
     parser.add_argument('--fbterm', default=False, action='store_true')
     parser.add_argument('--w3m', default=False, action='store_true')
-    parser.add_argument('--profile', default=False, action='store_true')
+    # parser.add_argument('--profile', default=False, action='store_true')
     parser.add_argument('--i3', default=False, action='store_true')
     parser.add_argument('--net', default=False, action='store_true')
     parser.add_argument('--lemonade', default=False, action='store_true')
@@ -308,8 +308,8 @@ def main() -> None:
     if all or args.w3m:
         cnt += _copyFileItemByName(toSystem, 'net/w3m-config-mac.conf')
         cnt += _copyFileItemByName(toSystem, 'net/w3m-config-linux.conf')
-    if all or args.profile:
-        cnt += _copyFileItemByName(toSystem, 'os/linux/cmn_profile.sh')
+    # if all or args.profile:
+        # cnt += _copyFileItemByName(toSystem, 'os/linux/cmn_profile.sh')
     if all or args.i3:
         cnt += _copyFileItemByName(toSystem, 'os/linux/i3/config')
     if all or args.net:

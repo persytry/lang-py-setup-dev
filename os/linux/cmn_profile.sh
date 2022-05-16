@@ -125,7 +125,8 @@ export GOPATH=$HOME/go
 alias vif='nvim $(vifm --choose-file -)'
 alias vid='cd $(vifm --choose-dir -)'
 alias dtvp='sudo mount /dev/sr0 /media/cdrom0'
-alias pc='proxychains4'
+# 已用`ln -s`代替
+#alias pc='proxychains4'
 #alias i2p='sudo i2pd --conf=~/.i2pd/i2pd.conf --tunconf=~/.i2pd/tunnels.conf --tunnelsdir=~/.i2pd/tunnels.conf.d'
 viF(){
     local filepath=$(vifm --choose-file -)
