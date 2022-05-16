@@ -69,14 +69,19 @@ python setup.py -a
 - terminator
 - zsh
 - oh-my-zsh: `sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`  
-  禁止自动更新，可以把这行的注释取消: `# DISABLE_AUTO_UPDATE="true"`
+  禁止自动更新，可以把这行的注释取消: `# DISABLE_AUTO_UPDATE="true"`.  
+  用这种方式比较好(curl的方式可能会超时,可能是代理没设置好):
+  ```shell
+  wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+  sh ./install.sh
+  ```
 - fbterm, tmux
 - ibus五笔输入法, 已由[ZFVimIM](https://github.com/ZSaberLv0/ZFVimIM)方案代替
 - xclip
 - fzf,[fd](https://github.com/sharkdp/fd),rg,tree
 - autojump
-- cheat
-- delta
+- [cheat](https://github.com/cheat/cheat)
+- [delta](https://github.com/dandavison/delta)
 - htop
 - hd-idle, 系统休眠
 - 当前使用的gtags/global的版本(mac和linux都是这个版本)是global-6.6.8.tar.gz, [global/gtags官方下载地址](https://ftp.gnu.org/pub/gnu/global/)
