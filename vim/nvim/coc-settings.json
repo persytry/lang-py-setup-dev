@@ -7,7 +7,8 @@
     ],
     "coc.preferences.extensionUpdateCheck": "weekly",
     "coc.preferences.colorSupport": true,
-    "coc.preferences.jumpCommand": "drop",
+    //[How to jump to definition in new or existing tab](https://github.com/neoclide/coc.nvim/issues/318)
+    "coc.preferences.jumpCommand": "tab drop",
     "list.height": 25,
     "outline.showLineNumber": true,
     "rust-analyzer.procMacro.enable": true,
@@ -21,10 +22,14 @@
     "typescript.format.placeOpenBraceOnNewLineForControlBlocks": false,
     "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
     "javascript.format.placeOpenBraceOnNewLineForControlBlocks": false,
+    //在coc.txt里搜insertMappings可查看相关帮助
     "list.insertMappings": {
         "<Tab>": "do:togglemode",
         "<C-o>": "do:chooseaction",
-        "<C-t>": "action:tabe",
+        "<CR>": "action:drop",
+        //action:open加上jumCommand的tab drop, 可实现跳到已存在或新tab中
+        //"<C-t>": "action:tabe",
+        "<C-t>": "action:open",
         "<C-s>": "action:split",
         "<C-v>": "action:vsplit",
         "<C-p>": "do:previewtoggle",
@@ -34,7 +39,8 @@
     "list.normalMappings": {
         "<Tab>": "do:togglemode",
         "<C-o>": "do:chooseaction",
-        "<C-t>": "action:tabe",
+        "<CR>": "action:drop",
+        "<C-t>": "action:open",
         "<C-s>": "action:split",
         "<C-v>": "action:vsplit",
         "<C-p>": "do:previewtoggle",
