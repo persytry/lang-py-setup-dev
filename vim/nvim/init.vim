@@ -1098,6 +1098,7 @@ nnoremap <silent><nowait> <C-j> :<C-u>CocCommand document.jumpToNextSymbol<CR>
 nnoremap <silent><nowait> <C-k> :<C-u>CocCommand document.jumpToPrevSymbol<CR>
 
 " C-t, C-]
+" :h tagfunc, [CocTagFunc jump in new tab or existed tab](https://github.com/neoclide/coc.nvim/issues/3823)
 set tagfunc=CocTagFunc
 
 " coc-list-mappings, 文档关键字, 用来查看快捷键, Default mappings on insert mode
