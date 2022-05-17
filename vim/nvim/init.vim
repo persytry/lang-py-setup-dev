@@ -189,6 +189,7 @@ set signcolumn=auto
 """""""""""common user map or command begin
 "保存修改, gs原来的含义是sleep 1秒钟,5gs是sleep 5秒钟
 nnoremap <silent><nowait> gs :<C-u>w<CR>
+nnoremap <nowait> <leader>/ :<C-u>let @/=''<CR>
 
 " 原先的}和{只能跳转到空白行(只能有换行符的行)
 " } - move ahead one paragraph (to the next empty line without any whitespace)
