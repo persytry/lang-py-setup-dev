@@ -1138,6 +1138,8 @@ map <silent> <Plug>(easymotion-prefix)l <Plug>(easymotion-lineforward)
 map <silent> <Plug>(easymotion-prefix). <Plug>(easymotion-repeat)
 " 默认的双向search需要提供一个字符,而我感觉两个字符比较合适,c就是char的简称
 map <silent> <Plug>(easymotion-prefix)c <Plug>(easymotion-s2)
+hi EasyMotionTarget2First ctermbg=none ctermfg=red
+hi EasyMotionTarget2Second ctermbg=none ctermfg=blue
 """""""""""easymotion end
 
 """""""""""indentLine begin
