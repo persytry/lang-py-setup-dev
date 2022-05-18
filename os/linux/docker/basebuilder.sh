@@ -1,5 +1,6 @@
 #!/bin/bash
 
+# 尽量安装deb安装包
 cd /tmp/mytmp
 
 if ! type sudo >/dev/null 2>&1; then
@@ -34,12 +35,12 @@ deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security m
 fi
 sudo apt-get update
 
-sudo apt-get install -y zsh curl wget git netcat python3 gcc make
+sudo apt-get install -y zsh curl wget git netcat python3 gcc make ./nvim-linux64.deb
 wget $myminiserve/docker_tar/ssh.tar.gz -O - | tar -xz -C $myhome/
 chown $myname:$myname $myhome/.ssh $myhome/.ssh/id_rsa $myhome/.ssh/id_rsa.pub $myhome/.ssh/config $myhome/.ssh/authorized_keys $myhome/.ssh/known_hosts
 chmod 600 $myhome/.ssh/id_rsa $myhome/.ssh/id_rsa.pub $myhome/.ssh/config
 
-sudo ln -s /opt/nvim-linux64/bin/nvim /usr/local/bin/vi
+sudo ln -s `which nvim` /usr/local/bin/vi
 sudo ln -s /usr/local/bin/proxychains4 /usr/local/bin/pc
 sudo ln -s /usr/bin/python3 /usr/local/bin/python
 

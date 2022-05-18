@@ -8,7 +8,6 @@ MAINTAINER persy persytry@outlook.com
 
 arg myminiserve
 arg http_proxy
-arg https_proxy
 
 #0:清华源(默认), 1:官方源
 env APT_SOURCE_VALUE=0
@@ -16,7 +15,7 @@ env myhome=/root
 env myname=root
 env myminiserve=$myminiserve
 env http_proxy=$http_proxy
-env https_proxy=$https_proxy
+env https_proxy=$http_proxy
 
 copy files/ /
 copy basebuilder.sh /tmp/
