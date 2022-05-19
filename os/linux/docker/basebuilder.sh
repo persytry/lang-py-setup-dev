@@ -14,7 +14,7 @@ sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 #会有`debconf: delaying package configuration, since apt-utils is not installed`的警告,但是没有关系,不用管它
 sudo apt-get install -y ./openssl_1.1.1n-0+deb11u1_amd64.deb ./apt-transport-https_2.2.4_all.deb ./ca-certificates_20210119_all.deb
 
-if [ $APT_SOURCE_VALUE = 1 ];then
+if [ $apt_source_switch = 1 ];then
 sudo echo -e "deb http://deb.debian.org/debian/ bullseye main non-free contrib \n\
 deb http://deb.debian.org/debian/ bullseye-updates main non-free contrib \n\
 deb http://deb.debian.org/debian/ bullseye-backports main contrib non-free \n\
@@ -36,9 +36,9 @@ fi
 sudo apt-get update
 
 sudo apt-get install -y zsh curl wget git netcat python3 gcc make ./nvim-linux64.deb
-wget $myminiserve/docker_tar/ssh.tar.gz -O - | tar -xz -C $myhome/
-chown $myname:$myname $myhome/.ssh $myhome/.ssh/id_rsa $myhome/.ssh/id_rsa.pub $myhome/.ssh/config $myhome/.ssh/authorized_keys $myhome/.ssh/known_hosts
-chmod 600 $myhome/.ssh/id_rsa $myhome/.ssh/id_rsa.pub $myhome/.ssh/config
+wget $myminiserve/docker_tar/ssh.tar.gz -O - | tar -xz -C $HOME/
+chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
+chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
 
 sudo ln -s `which nvim` /usr/local/bin/vi
 sudo ln -s /usr/local/bin/proxychains4 /usr/local/bin/pc
@@ -47,20 +47,20 @@ sudo ln -s /usr/bin/python3 /usr/local/bin/python
 # [ssh 登录出现Are you sure you want to continue connecting (yes/no)?解决方法](https://blog.csdn.net/mct_blog/article/details/52511314)
 sudo sed -i -e "s/^#.*StrictHostKeyChecking.*$/    StrictHostKeyChecking no/" /etc/ssh/ssh_config
 
-git clone git@github.com:persytry/lang-py-setup-dev.git $myhome/a/git/lang/py/setup/dev
+git clone git@github.com:persytry/lang-py-setup-dev.git $HOME/a/git/lang/py/setup/dev
 #这种方式不大好,可能不会通过代理访问网络吧
 #sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 mkdir myzsh
 wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O myzsh
 sudo sh ./myzsh/install.sh
-sed -i -e 's/^# ZSH_THEME_RANDOM_CANDIDATES=.*$/DISABLE_AUTO_UPDATE="true"/' $myhome/.zshrc
-echo -e "\nsource $myhome/a/git/lang/py/setup/dev/os/linux/cmn_profile.sh\nexport myminiserve=$myminiserve" >> $myhome/.zshrc
+sed -i -e 's/^# ZSH_THEME_RANDOM_CANDIDATES=.*$/DISABLE_AUTO_UPDATE="true"/' $HOME/.zshrc
+echo -e "\nsource $HOME/a/git/lang/py/setup/dev/os/linux/cmn_profile.sh\nexport myminiserve=$myminiserve" >> $HOME/.zshrc
 sudo chsh -s /usr/bin/zsh
 
 wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
 wget https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb
 sudo apt-get -y install fzf tmux ./ripgrep_13.0.0_amd64.deb tree autojump ./git-delta_0.13.0_amd64.deb vifm
-git clone https://github.com/tmux-plugins/tpm $myhome/.tmux/plugins/tpm
+git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 
 wget https://github.com/jesseduffield/lazygit/releases/download/v0.34/lazygit_0.34_Linux_x86_64.tar.gz
 mkdir lazygit
@@ -76,7 +76,7 @@ sudo make install
 cd ..
 
 # 这个放到最后执行,因为setup.py会设置其他的代理方式,可能不大稳定
-#python $myhome/a/git/lang/py/setup/dev/setup.py -ta
+#python $HOME/a/git/lang/py/setup/dev/setup.py -ta
 
 cd ..
 rm -rf mytmp

@@ -6,16 +6,17 @@ from debian:stable
 
 MAINTAINER persy persytry@outlook.com
 
+#0:清华源(默认), 1:官方源
+arg apt_source_switch
 arg myminiserve
 arg http_proxy
 
-#0:清华源(默认), 1:官方源
-env APT_SOURCE_VALUE=0
-env myhome=/root
-env myname=root
+env apt_source_switch=$apt_source_switch
 env myminiserve=$myminiserve
 env http_proxy=$http_proxy
 env https_proxy=$http_proxy
+env HOME=/root
+env USER=root
 
 copy files/ /
 copy basebuilder.sh /tmp/
@@ -23,5 +24,5 @@ copy basebuilder.sh /tmp/
 run set -x; /tmp/basebuilder.sh \
     && rm /tmp/basebuilder.sh
 
-WORKDIR $myhome
+WORKDIR $HOME
 #ENTRYPOINT ["/usr/bin/zsh"]
