@@ -1106,6 +1106,15 @@ nnoremap <silent> <leader><C-]> <C-w><C-]><C-w>T
 " coc-list-mappings, 文档关键字, 用来查看快捷键, Default mappings on insert mode
 " <C-o>       - Change to normal mode.
 " coc-list-mappings-custom, 在coc-settings.json中改键
+
+" 用于coc-settings.json. 自定义函数,命令等,首字母必须大写
+function! MyCocDefaultAction(coc)
+    "echomsg a:coc
+    if a:coc.name == 'commands'
+        return 'run'
+    endif
+    return 'drop'
+endfunction
 """""""""""coc end
 
 """""""""""table mode begin

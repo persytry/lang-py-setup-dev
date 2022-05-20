@@ -13,6 +13,8 @@
     "coc.preferences.colorSupport": true,
     //[How to jump to definition in new or existing tab](https://github.com/neoclide/coc.nvim/issues/318)
     "coc.preferences.jumpCommand": "tab drop",
+    //不知道有啥作用,[作者推荐的](https://github.com/neoclide/coc.nvim/issues/3830)
+    "list.source.location.defaultAction": "drop",
     "list.height": 25,
     "outline.showLineNumber": true,
     "rust-analyzer.procMacro.enable": true,
@@ -30,9 +32,8 @@
     "list.insertMappings": {
         "<Tab>": "do:togglemode",
         "<C-o>": "do:chooseaction",
-        "<CR>": "action:drop",
+        "<CR>": "expr:MyCocDefaultAction",
         //action:open加上jumCommand的tab drop, 可实现跳到已存在或新tab中
-        //"<C-t>": "action:tabe",
         "<C-t>": "action:open",
         "<C-s>": "action:split",
         "<C-v>": "action:vsplit",
@@ -43,7 +44,7 @@
     "list.normalMappings": {
         "<Tab>": "do:togglemode",
         "<C-o>": "do:chooseaction",
-        "<CR>": "action:drop",
+        "<CR>": "expr:MyCocDefaultAction",
         "<C-t>": "action:open",
         "<C-s>": "action:split",
         "<C-v>": "action:vsplit",
