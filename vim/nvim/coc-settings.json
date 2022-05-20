@@ -1,6 +1,7 @@
 //[coc-wiki](https://github.com/neoclide/coc.nvim/wiki)
 //[neoclide/coc-cn Gitter](https://gitter.im/neoclide/coc-cn)
 //[coc.nvim/data/schema.json](https://github.com/neoclide/coc.nvim/blob/master/data/schema.json)
+//coc plugins所在: ~/.config/coc/
 {
     "python.analysis.extraPaths": [
         "./"
