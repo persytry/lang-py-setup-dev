@@ -62,6 +62,7 @@ sudo apt-get install -y python3
 
 # 通过apt软件源安装一些常用办公软件(office software)
 sudo apt-get install -y fzf tmux tree autojump vifm
+git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 
 # 安装常用的工具(安装包一般比较大,又需要经常更新最新版本,lastest version)
 sudo apt-get install -y ./nvim-linux64.deb
@@ -73,7 +74,6 @@ git clone git@github.com:persytry/lang-py-setup-dev.git $HOME/a/git/lang/py/setu
 wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
 wget https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb
 sudo apt-get install -y ./ripgrep_13.0.0_amd64.deb ./git-delta_0.13.0_amd64.deb
-git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 
 wget https://github.com/jesseduffield/lazygit/releases/download/v0.34/lazygit_0.34_Linux_x86_64.tar.gz
 mkdir lazygit
@@ -83,6 +83,14 @@ sudo mv lazygit/lazygit /usr/local/bin
 wget https://github.com/samhocevar/rinetd/releases/download/v0.73/rinetd-0.73.tar.gz
 tar -xzf rinetd-0.73.tar.gz
 cd rinetd-0.73
+./configure
+make
+sudo make install
+cd ..
+
+wget https://github.com/rofl0r/proxychains-ng/releases/download/v4.16/proxychains-ng-4.16.tar.xz
+tar -xJf proxychains-ng-4.16.tar.xz
+cd proxychains-ng-4.16
 ./configure
 make
 sudo make install
