@@ -41,7 +41,7 @@ fi
 sudo apt-get update
 
 # 通过apt软件源安装一些最基本的工具
-sudo apt-get install -y zsh curl wget git netcat gcc make
+sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
 chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
@@ -61,25 +61,60 @@ sudo chsh -s `which zsh`
 sudo apt-get install -y python3
 
 # 通过apt软件源安装一些常用办公软件(office software)
-sudo apt-get install -y fzf tmux tree autojump vifm
-git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep git-delta global
 
 # 安装常用的工具(安装包一般比较大,又需要经常更新最新版本,lastest version)
 sudo apt-get install -y ./nvim-linux64.deb
 
+#https://github.com/cheat/cheat
+gzip -d cheat-linux-amd64.gz
+mv cheat-linux-amd64 cheat
+chmod a+x cheat
+sudo mv cheat /usr/local/bin
+
+#https://github.com/universal-ctags/ctags
+tar -xzf p5.9.20220515.0.tar.gz
+cd ctags-p5.9.20220515.0
+./autogen.sh
+#ctags会放到`/usr/local/bin`下面的
+./configure --prefix=/usr/local
+make
+sudo make install
+cd ..
+
+#https://github.com/persytry/lang-go-t-lemonade
+tar -xzf lemonade-linux64.tar.gz
+sudo mv lemonade /usr/local/bin
+
+#https://github.com/protocolbuffers/protobuf
+unzip protoc-3.20.1-linux-x86_64.zip -d protoc
+sudo mv protoc/bin/protoc /usr/local/bin
+
+#https://github.com/syncthing/syncthing
+tar -xzf syncthing-linux-amd64-v1.20.1.tar.gz
+sudo mv syncthing-linux-amd64-v1.20.1/syncthing /usr/local/bin
+sudo chown $USER:$USER /usr/local/bin/syncthing
+
+#https://github.com/unlock-music/cli
+chmod a+x um-linux-amd64
+sudo mv um-linux-amd64 /usr/local/bin/unlock_music
+
+sudo mv win32yank /usr/local/bin
+
+#https://github.com/persytry/lang-rs-t-wsl_pathable
+sudo mv wsl_pathable /usr/local/bin
+
 # 下载各种源码
 git clone git@github.com:persytry/lang-py-setup-dev.git $HOME/a/git/lang/py/setup/dev
+git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 
 # 通过wget下载并安装各种工具
-wget https://github.com/BurntSushi/ripgrep/releases/download/13.0.0/ripgrep_13.0.0_amd64.deb
-wget https://github.com/dandavison/delta/releases/download/0.13.0/git-delta_0.13.0_amd64.deb
-sudo apt-get install -y ./ripgrep_13.0.0_amd64.deb ./git-delta_0.13.0_amd64.deb
-
 wget https://github.com/jesseduffield/lazygit/releases/download/v0.34/lazygit_0.34_Linux_x86_64.tar.gz
 mkdir lazygit
 tar -xzf lazygit_0.34_Linux_x86_64.tar.gz -C lazygit
 sudo mv lazygit/lazygit /usr/local/bin
 
+#从0.70版本开始rinetd已经支持UDP转发
 wget https://github.com/samhocevar/rinetd/releases/download/v0.73/rinetd-0.73.tar.gz
 tar -xzf rinetd-0.73.tar.gz
 cd rinetd-0.73
@@ -107,6 +142,7 @@ sudo rm -rf /var/lib/apt/lists/*
 sudo ln -s `which nvim` /usr/local/bin/vi
 sudo ln -s `which proxychains4` /usr/local/bin/pc
 sudo ln -s `which python3` /usr/local/bin/python
+sudo ln -s `which python3` /usr/local/bin/p
 
 # 这个放到最后执行,因为setup.py会设置其他的代理方式,可能不大稳定
 #python3 $HOME/a/git/lang/py/setup/dev/setup.py -ta
