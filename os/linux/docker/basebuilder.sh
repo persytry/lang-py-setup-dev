@@ -5,6 +5,10 @@ cd /tmp/mytmp
 
 if ! type sudo >/dev/null 2>&1; then
     apt-get install -y ./sudo_1.9.5p2-3_amd64.deb
+    if [ ! $USER = root ]; then
+        sudo usermod -a -G sudo $USER
+        sudo bash -c 'echo -e "\n$USER ALL=(ALL:ALL) ALL" >> /etc/sudoers'
+    fi
 fi
 
 # 修改时区
@@ -36,7 +40,7 @@ fi
 sudo apt-get update
 
 sudo apt-get install -y zsh curl wget git netcat python3 gcc make ./nvim-linux64.deb
-wget $myminiserve/docker_tar/ssh.tar.gz -O - | tar -xz -C $HOME/
+wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
 chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
 
