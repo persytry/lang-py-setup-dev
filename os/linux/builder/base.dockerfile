@@ -1,4 +1,4 @@
-
+# vim: filetype=dockerfile :
 #from scratch
 #from busybox
 #from alpine
