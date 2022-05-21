@@ -54,7 +54,9 @@ mkdir myzsh
 wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O myzsh
 sudo sh ./myzsh/install.sh
 sed -i -e 's/^# ZSH_THEME_RANDOM_CANDIDATES=.*$/DISABLE_AUTO_UPDATE="true"/' $HOME/.zshrc
-echo -e "\nsource $HOME/a/git/lang/py/setup/dev/os/linux/cmn_profile.sh\nexport myminiserve=$myminiserve" >> $HOME/.zshrc
+echo -e "\nsource $HOME/a/git/lang/py/setup/dev/os/linux/cmn_profile.sh\n\
+export myminiserve=$myminiserve\n\
+export myprivsvr=$myprivsvr" >> $HOME/.zshrc
 sudo chsh -s `which zsh`
 
 # 安装编程语言支持
@@ -130,6 +132,11 @@ cd proxychains-ng-4.16
 make
 sudo make install
 cd ..
+
+# build myprivsvr
+if [ -n "$myprivsvr" ]; then
+    git clone $myprivsvr/lang/py/setup/priv_svr.git $HOME/a/git/lang/py/setup/priv_svr
+fi
 
 # 系统清理
 cd ..
