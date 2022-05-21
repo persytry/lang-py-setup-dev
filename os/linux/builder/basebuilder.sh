@@ -12,30 +12,30 @@ if ! type sudo >/dev/null 2>&1; then
 fi
 
 # 修改时区
-sudo echo "Asia/Shanghai" > /etc/timezone
+sudo bash -c 'echo "Asia/Shanghai" > /etc/timezone'
 sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 #会有`debconf: delaying package configuration, since apt-utils is not installed`的警告,但是没有关系,不用管它
 sudo apt-get install -y ./openssl_1.1.1n-0+deb11u1_amd64.deb ./apt-transport-https_2.2.4_all.deb ./ca-certificates_20210119_all.deb
 
 if [ $apt_source_switch = 1 ];then
-sudo echo -e "deb http://deb.debian.org/debian/ bullseye main non-free contrib \n\
+sudo sh -c 'echo "deb http://deb.debian.org/debian/ bullseye main non-free contrib \n\
 deb http://deb.debian.org/debian/ bullseye-updates main non-free contrib \n\
 deb http://deb.debian.org/debian/ bullseye-backports main contrib non-free \n\
 deb http://deb.debian.org/debian-security/ bullseye-security main contrib non-free \n\
 deb-src http://deb.debian.org/debian/ bullseye main non-free contrib \n\
 deb-src http://deb.debian.org/debian/ bullseye-updates main non-free contrib \n\
 deb-src http://deb.debian.org/debian/ bullseye-backports main contrib non-free \n\
-deb-src http://deb.debian.org/debian-security/ bullseye-security main contrib non-free" > /etc/apt/sources.list
+deb-src http://deb.debian.org/debian-security/ bullseye-security main contrib non-free" > /etc/apt/sources.list'
 else
-sudo echo -e "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free \n\
+sudo sh -c 'echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free \n\
 deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-updates main contrib non-free \n\
 deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-backports main contrib non-free \n\
 deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free \n\
 deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free \n\
 deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-updates main contrib non-free \n\
 deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-backports main contrib non-free \n\
-deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list
+deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list'
 fi
 sudo apt-get update
 
