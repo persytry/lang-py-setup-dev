@@ -901,7 +901,7 @@ autocmd FileType defx call s:defx_my_settings()
       \ defx#do_action('print')
       nnoremap <silent><buffer><expr> cd
       \ defx#do_action('change_vim_cwd') " Current Working Directory
-      nnoremap <silent><buffer><expr> w
+      nnoremap <silent><buffer><expr> <C-p>
       \ defx#do_action('preview')
     endfunction
 

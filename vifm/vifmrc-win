@@ -11,7 +11,7 @@
 " If you would like to use another vi clone such as Elvis or Vile
 " you will need to change this setting.
 
-source ~/AppData/Roaming/Vifm/cmnrc
+source ~/AppData/Roaming/Vifm/cmn.vifm
 
 command! lg lazygit -ucd %%USERPROFILE%%/.config/jesseduffield/lazygit %a
 
@@ -420,8 +420,9 @@ nnoremap s :shell<cr>
 nnoremap S :sort<cr>
 
 " Toggle visibility of preview window
-nnoremap w :view<cr>
-vnoremap w :view<cr>gv
+" 变成了<C-p>
+"nnoremap w :view<cr>
+"vnoremap w :view<cr>gv
 
 " Open file in existing instance of gvim
 "nnoremap o :!gvim --remote-tab-silent %f<cr>

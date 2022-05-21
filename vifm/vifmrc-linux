@@ -11,7 +11,7 @@
 " If you would like to use another vi clone such as Elvis or Vile
 " you will need to change this setting.
 
-source ~/.config/vifm/cmnrc
+source ~/.config/vifm/cmn.vifm
 
 " set vicmd=nvim
 " set vicmd=elvis\ -G\ termcap
@@ -406,8 +406,9 @@ nnoremap s :shell<cr>
 nnoremap S :sort<cr>
 
 " Toggle visibility of preview window
-nnoremap w :view<cr>
-vnoremap w :view<cr>gv
+" 变成了<C-p>
+"nnoremap w :view<cr>
+"vnoremap w :view<cr>gv
 
 " Open file in existing instance of gvim
 "nnoremap o :!gvim --remote-tab-silent %f<cr>

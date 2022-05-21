@@ -21,7 +21,7 @@ _os_file_list = [
     ['vim/nvim/mycmd', '~/vimfiles/mycmd', '~/.vim/mycmd', '~/.vim/mycmd'],
     ['vim/vimspector.json', os.path.join(_cur_dir, '../../../../.vimspector.json'), os.path.join(_cur_dir, '../../../../.vimspector.json'), os.path.join(_cur_dir, '../../../../.vimspector.json')],
     ['os/win/terminal/settings.json', '~/AppData/Local/Packages/Microsoft.WindowsTerminal_*/LocalState/settings.json', None, None],
-    ['vifm/cmnrc', '~/AppData/Roaming/Vifm/cmnrc', '~/.config/vifm/cmnrc', '~/.config/vifm/cmnrc'],
+    ['vifm/cmn.vifm', '~/AppData/Roaming/Vifm/cmn.vifm', '~/.config/vifm/cmn.vifm', '~/.config/vifm/cmn.vifm'],
     ['vifm/vifmrc-win', '~/AppData/Roaming/Vifm/vifmrc', None, None],
     ['vifm/vifmrc-osx', None, '~/.config/vifm/vifmrc', None],
     ['vifm/vifmrc-linux', None, None, '~/.config/vifm/vifmrc'],
@@ -158,7 +158,7 @@ def copyTerminalCfg(toSystem: bool) -> int:
 
 def copyVifmCfg(toSystem: bool) -> int:
     cnt = 0
-    cnt += _copyFileItemByName(toSystem, 'vifm/cmnrc')
+    cnt += _copyFileItemByName(toSystem, 'vifm/cmn.vifm')
     cnt += _copyFileItemByName(toSystem, 'vifm/vifmrc-win')
     cnt += _copyFileItemByName(toSystem, 'vifm/vifmrc-osx')
     cnt += _copyFileItemByName(toSystem, 'vifm/vifmrc-linux')

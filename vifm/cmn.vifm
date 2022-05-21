@@ -40,3 +40,5 @@ command! G !!rg -n %a
 command! f %m fd --type f --follow %a
 command! F !!fd --type f --follow %a
 
+nnoremap <C-p> :view<cr>
+vnoremap <C-p> :view<cr>gv
