@@ -19,6 +19,7 @@ env http_proxy=$http_proxy
 env https_proxy=$http_proxy
 env HOME=/root
 env USER=root
+env isdockerenv=true
 
 copy files/ /
 copy basebuilder.sh /tmp/

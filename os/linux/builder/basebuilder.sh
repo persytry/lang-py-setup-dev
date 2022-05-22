@@ -7,41 +7,44 @@ if ! type sudo >/dev/null 2>&1; then
     apt-get install -y ./sudo_1.9.5p2-3_amd64.deb
     if [ ! $USER = root ]; then
         sudo usermod -a -G sudo $USER
-        sudo bash -c 'echo -e "\n$USER ALL=(ALL:ALL) ALL" >> /etc/sudoers'
+        sudo sh -c 'echo -e "\n$USER ALL=(ALL:ALL) ALL" >> /etc/sudoers'
     fi
 fi
 
 # 修改时区
-sudo bash -c 'echo "Asia/Shanghai" > /etc/timezone'
+sudo sh -c 'echo "Asia/Shanghai" > /etc/timezone'
 sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # 安装一些系统基本工具(通常不需要最新版本)
 #会有`debconf: delaying package configuration, since apt-utils is not installed`的警告,但是没有关系,不用管它
 sudo apt-get install -y ./openssl_1.1.1n-0+deb11u1_amd64.deb ./apt-transport-https_2.2.4_all.deb ./ca-certificates_20210119_all.deb
 
+#[get codename](https://unix.stackexchange.com/questions/180776/how-to-get-debian-codename-without-lsb-release)
+mycodename=`grep -Po 'VERSION="[0-9]+ \(\K[^)]+' /etc/os-release`
 if [ $apt_source_switch = 1 ];then
-sudo sh -c 'echo "deb http://deb.debian.org/debian/ bullseye main non-free contrib \n\
-deb http://deb.debian.org/debian/ bullseye-updates main non-free contrib \n\
-deb http://deb.debian.org/debian/ bullseye-backports main contrib non-free \n\
-deb http://deb.debian.org/debian-security/ bullseye-security main contrib non-free \n\
-deb-src http://deb.debian.org/debian/ bullseye main non-free contrib \n\
-deb-src http://deb.debian.org/debian/ bullseye-updates main non-free contrib \n\
-deb-src http://deb.debian.org/debian/ bullseye-backports main contrib non-free \n\
-deb-src http://deb.debian.org/debian-security/ bullseye-security main contrib non-free" > /etc/apt/sources.list'
+echo -e "deb http://deb.debian.org/debian/ $mycodename main non-free contrib \n\
+deb http://deb.debian.org/debian/ $mycodename-updates main non-free contrib \n\
+deb http://deb.debian.org/debian/ $mycodename-backports main contrib non-free \n\
+deb http://deb.debian.org/debian-security/ $mycodename-security main contrib non-free \n\
+deb-src http://deb.debian.org/debian/ $mycodename main non-free contrib \n\
+deb-src http://deb.debian.org/debian/ $mycodename-updates main non-free contrib \n\
+deb-src http://deb.debian.org/debian/ $mycodename-backports main contrib non-free \n\
+deb-src http://deb.debian.org/debian-security/ $mycodename-security main contrib non-free" > sources.list
 else
-sudo sh -c 'echo "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free \n\
-deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-updates main contrib non-free \n\
-deb https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-backports main contrib non-free \n\
-deb https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free \n\
-deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye main contrib non-free \n\
-deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-updates main contrib non-free \n\
-deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ bullseye-backports main contrib non-free \n\
-deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security bullseye-security main contrib non-free" > /etc/apt/sources.list'
+echo -e "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ $mycodename main contrib non-free \n\
+deb https://mirrors.tuna.tsinghua.edu.cn/debian/ $mycodename-updates main contrib non-free \n\
+deb https://mirrors.tuna.tsinghua.edu.cn/debian/ $mycodename-backports main contrib non-free \n\
+deb https://mirrors.tuna.tsinghua.edu.cn/debian-security $mycodename-security main contrib non-free \n\
+deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ $mycodename main contrib non-free \n\
+deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ $mycodename-updates main contrib non-free \n\
+deb-src https://mirrors.tuna.tsinghua.edu.cn/debian/ $mycodename-backports main contrib non-free \n\
+deb-src https://mirrors.tuna.tsinghua.edu.cn/debian-security $mycodename-security main contrib non-free" > sources.list
 fi
+sudo sh -c "cat ./sources.list > /etc/apt/sources.list"
 sudo apt-get update
 
 # 通过apt软件源安装一些最基本的工具
-sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config
+sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
 chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
@@ -63,7 +66,7 @@ sudo chsh -s `which zsh`
 sudo apt-get install -y python3
 
 # 通过apt软件源安装一些常用办公软件(office software)
-sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep git-delta global
+sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep git-delta global lftp
 
 # 安装常用的工具(安装包一般比较大,又需要经常更新最新版本,lastest version)
 sudo apt-get install -y ./nvim-linux64.deb
@@ -136,6 +139,20 @@ cd ..
 # build myprivsvr
 if [ -n "$myprivsvr" ]; then
     git clone $myprivsvr/lang/py/setup/priv_svr.git $HOME/a/git/lang/py/setup/priv_svr
+
+    #sudo apt-get install -y 
+fi
+
+# docker env
+if [ "$isdockerenv" = 'true' ]; then
+    echo 'isdockerenv=true'
+else
+    sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+fi
+
+# build桌面环境
+if [ -n "$DESKTOP_SESSION" ]; then
+    echo 'desktop'
 fi
 
 # 系统清理
