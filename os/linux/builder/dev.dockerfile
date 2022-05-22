@@ -23,10 +23,10 @@ env USER=root
 env isdockerenv=true
 
 copy files/ /
-copy basebuilder.sh /tmp/
+copy devbuilder.sh /tmp/
 
-run set -x; /tmp/basebuilder.sh \
-    && rm /tmp/basebuilder.sh
+run set -x; /tmp/devbuilder.sh \
+    && rm /tmp/devbuilder.sh
 
 WORKDIR $HOME
 #ENTRYPOINT ["/usr/bin/zsh"]

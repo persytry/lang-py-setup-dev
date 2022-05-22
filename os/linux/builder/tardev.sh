@@ -12,6 +12,6 @@ tar -czf ~/share/web/sys/ssh.tar.gz .
 cd ..
 rm -rf ssh
 
-cd ~/data/software/sys/linux/base
-rm ~/share/web/sys/base.tar.gz
-tar -czf ~/share/web/sys/base.tar.gz .
+cd ~/data/software/sys/linux/dev
+rm ~/share/web/sys/dev.tar.gz
+tar -czf ~/share/web/sys/dev.tar.gz .
