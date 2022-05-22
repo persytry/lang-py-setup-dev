@@ -247,14 +247,25 @@ def copyToolCfg(toSystem: bool, vimName: str) -> int:
     print(f'copy tool config {cnt} files or items')
     return cnt
 
+def copyDbgToDir(path:str) -> int:
+    if path is None or len(path) == 0:
+        path = os.getcwd()
+    elif not os.path.exists(path):
+        print(f'the path is not exists: {path}')
+        return 0
+    item = _os_file_list[_os_file_map['vim/vimspector.json']][:]
+    item[1] = item[2] = item[3] = os.path.join(path, '.vimspector.json')
+    return _copyFileItem(True, item, 0)
 
 def main() -> None:
+    # [add_argument() 方法](https://docs.python.org/zh-cn/3/library/argparse.html#argparse.ArgumentParser.add_argument)
     parser = argparse.ArgumentParser(description='this is not only the configuration of vim, also have other software configuration')
     parser.add_argument('-t', '--toSystem', default=False, help='if True then copy config files from git to system path', action='store_true')
     parser.add_argument('-a', '--all', default=False, help='enable all option', action='store_true')
     parser.add_argument('--nvim', default=False, action='store_true')
     parser.add_argument('--vim', default=False, action='store_true')
     parser.add_argument('--dbg', default=False, action='store_true')
+    parser.add_argument('--cpdbg', default=None, nargs='?', const='')
     parser.add_argument('--te', default=False, action='store_true')
     parser.add_argument('--vifm', default=False, action='store_true')
     parser.add_argument('--sshd', default=False, action='store_true')
@@ -289,6 +300,8 @@ def main() -> None:
             vimName = vifm_vicmd
     if all or args.dbg:
         cnt += _copyFileItemByName(toSystem, 'vim/vimspector.json')
+    if args.cpdbg is not None:
+        cnt += copyDbgToDir(args.cpdbg)
     if all or args.te:
         cnt += copyTerminalCfg(toSystem)
     if all or args.vifm:
