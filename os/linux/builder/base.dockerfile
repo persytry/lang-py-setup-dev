@@ -10,11 +10,13 @@ MAINTAINER persy persytry@outlook.com
 arg apt_source_switch
 arg myminiserve
 arg myprivsvr
+arg ismynasenv
 arg http_proxy
 
 env apt_source_switch=$apt_source_switch
 env myminiserve=$myminiserve
 env myprivsvr=$myprivsvr
+env ismynasenv=$ismynasenv
 env http_proxy=$http_proxy
 env https_proxy=$http_proxy
 env HOME=/root

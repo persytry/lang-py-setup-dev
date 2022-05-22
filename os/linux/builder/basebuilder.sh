@@ -54,8 +54,11 @@ sudo sed -i -e "s/^#.*StrictHostKeyChecking.*$/    StrictHostKeyChecking no/" /e
 #这种方式不大好,可能不会通过代理访问网络吧
 #sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 mkdir myzsh
-wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh -O myzsh
-sudo sh ./myzsh/install.sh
+cd myzsh
+wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+chmod a+x install.sh
+./install.sh
+cd ..
 sed -i -e 's/^# ZSH_THEME_RANDOM_CANDIDATES=.*$/DISABLE_AUTO_UPDATE="true"/' $HOME/.zshrc
 echo -e "\nsource $HOME/a/git/lang/py/setup/dev/os/linux/cmn_profile.sh\n\
 export myminiserve=$myminiserve\n\
@@ -140,7 +143,13 @@ cd ..
 if [ -n "$myprivsvr" ]; then
     git clone $myprivsvr/lang/py/setup/priv_svr.git $HOME/a/git/lang/py/setup/priv_svr
 
-    #sudo apt-get install -y 
+    if [ "$ismynasenv" = 'true' ]; then
+        #minidlna
+        sudo apt-get install -y gettext autopoint libflac-dev
+        mv minidlnad_v1.3.0_for_rmvb_by_persy minidlnad
+        chmod a+x minidlnad
+        sudo mv minidlnad /usr/local/sbin
+    fi
 fi
 
 # docker env
