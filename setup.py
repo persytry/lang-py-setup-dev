@@ -21,13 +21,13 @@ _os_file_list = [
     ['vim/nvim/mycmd', '~/vimfiles/mycmd', '~/.vim/mycmd', '~/.vim/mycmd'],
     ['vim/vimspector.json', os.path.join(_cur_dir, '../../../../.vimspector.json'), os.path.join(_cur_dir, '../../../../.vimspector.json'), os.path.join(_cur_dir, '../../../../.vimspector.json')],
     ['os/win/terminal/settings.json', '~/AppData/Local/Packages/Microsoft.WindowsTerminal_*/LocalState/settings.json', None, None],
-    ['vifm/cmn.vifm', '~/AppData/Roaming/Vifm/cmn.vifm', '~/.config/vifm/cmn.vifm', '~/.config/vifm/cmn.vifm'],
-    ['vifm/vifmrc-win', '~/AppData/Roaming/Vifm/vifmrc', None, None],
-    ['vifm/vifmrc-osx', None, '~/.config/vifm/vifmrc', None],
-    ['vifm/vifmrc-linux', None, None, '~/.config/vifm/vifmrc'],
-    ['vifm/colors/Default.vifm', '~/AppData/Roaming/Vifm/colors/Default.vifm', '~/.config/vifm/colors/Default.vifm', None],
-    ['vifm/colors/Default-linux.vifm', None, None, '~/.config/vifm/colors/Default.vifm'],
-    ['vifm/colors/solarized-light.vifm', '~/AppData/Roaming/Vifm/colors/solarized-light.vifm', '~/.config/vifm/colors/solarized-light.vifm', '~/.config/vifm/colors/solarized-light.vifm'],
+    ['t/vifm/cmn.vifm', '~/AppData/Roaming/Vifm/cmn.vifm', '~/.config/vifm/cmn.vifm', '~/.config/vifm/cmn.vifm'],
+    ['t/vifm/vifmrc-win', '~/AppData/Roaming/Vifm/vifmrc', None, None],
+    ['t/vifm/vifmrc-osx', None, '~/.config/vifm/vifmrc', None],
+    ['t/vifm/vifmrc-linux', None, None, '~/.config/vifm/vifmrc'],
+    ['t/vifm/colors/Default.vifm', '~/AppData/Roaming/Vifm/colors/Default.vifm', '~/.config/vifm/colors/Default.vifm', None],
+    ['t/vifm/colors/Default-linux.vifm', None, None, '~/.config/vifm/colors/Default.vifm'],
+    ['t/vifm/colors/solarized-light.vifm', '~/AppData/Roaming/Vifm/colors/solarized-light.vifm', '~/.config/vifm/colors/solarized-light.vifm', '~/.config/vifm/colors/solarized-light.vifm'],
     # 需要拷贝文件: $HOME/.ssh/authorized_keys
     ['net/ssh/sshd_config.conf', 'C:/ProgramData/ssh/sshd_config', None, None],
     ['net/ssh/config.conf', None, '~/.ssh/config', '~/.ssh/config'],
@@ -158,13 +158,13 @@ def copyTerminalCfg(toSystem: bool) -> int:
 
 def copyVifmCfg(toSystem: bool) -> int:
     cnt = 0
-    cnt += _copyFileItemByName(toSystem, 'vifm/cmn.vifm')
-    cnt += _copyFileItemByName(toSystem, 'vifm/vifmrc-win')
-    cnt += _copyFileItemByName(toSystem, 'vifm/vifmrc-osx')
-    cnt += _copyFileItemByName(toSystem, 'vifm/vifmrc-linux')
-    cnt += _copyFileItemByName(toSystem, 'vifm/colors/Default.vifm')
-    cnt += _copyFileItemByName(toSystem, 'vifm/colors/Default-linux.vifm')
-    cnt += _copyFileItemByName(toSystem, 'vifm/colors/solarized-light.vifm')
+    cnt += _copyFileItemByName(toSystem, 't/vifm/cmn.vifm')
+    cnt += _copyFileItemByName(toSystem, 't/vifm/vifmrc-win')
+    cnt += _copyFileItemByName(toSystem, 't/vifm/vifmrc-osx')
+    cnt += _copyFileItemByName(toSystem, 't/vifm/vifmrc-linux')
+    cnt += _copyFileItemByName(toSystem, 't/vifm/colors/Default.vifm')
+    cnt += _copyFileItemByName(toSystem, 't/vifm/colors/Default-linux.vifm')
+    cnt += _copyFileItemByName(toSystem, 't/vifm/colors/solarized-light.vifm')
     print(f'copy vifm config {cnt} files')
     return cnt
 
