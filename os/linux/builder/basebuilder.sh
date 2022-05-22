@@ -149,13 +149,22 @@ cd ..
 if [ -n "$myprivsvr" ]; then
     git clone $myprivsvr/lang/py/setup/priv_svr.git $HOME/a/git/lang/py/setup/priv_svr
 
+    #用的是java8, gitblit-1.9.1.tar.gz用的是高版本java,貌似有点问题不好解决
+    tar -xzf gitblit-1.8.0.tar.gz
+    sudo mv gitblit-1.8.0 /opt/gitblit
+
     if [ "$ismynasenv" = 'true' ]; then
         #minidlna
-        sudo apt-get install -y gettext autopoint libflac-dev
+        #sudo apt-get install -y gettext autopoint libflac-dev
         mv minidlnad_v1.3.0_for_rmvb_by_persy minidlnad
         chmod a+x minidlnad
         sudo mv minidlnad /usr/local/sbin
+
+        sudo apt-get install -y hd-idle
     fi
+
+    sudo $HOME/a/git/lang/py/setup/priv_svr/builder.sh
+    sudo python3 $HOME/a/git/lang/py/setup/priv_svr/setup.py -ta
 fi
 
 # docker env
