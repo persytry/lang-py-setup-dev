@@ -6,7 +6,6 @@ from debian:stable
 
 MAINTAINER persy persytry@outlook.com
 
-#0:清华源(默认), 1:官方源
 arg apt_source_switch
 arg myminiserve
 arg myprivsvr

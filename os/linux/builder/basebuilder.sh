@@ -44,13 +44,16 @@ sudo sh -c "cat ./sources.list > /etc/apt/sources.list"
 sudo apt-get update
 
 # 通过apt软件源安装一些最基本的工具
-sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client
+sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
 chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
 #[ssh 登录出现Are you sure you want to continue connecting (yes/no)?解决方法](https://blog.csdn.net/mct_blog/article/details/52511314)
 sudo sed -i -e "s/^#.*StrictHostKeyChecking.*$/    StrictHostKeyChecking no/" /etc/ssh/ssh_config
 
+if [ ! "$ismynasenv" = 'true' ]; then
+    ismynasenv=false
+fi
 #这种方式不大好,可能不会通过代理访问网络吧
 #sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 mkdir myzsh
@@ -61,8 +64,11 @@ chmod a+x install.sh
 cd ..
 sed -i -e 's/^# ZSH_THEME_RANDOM_CANDIDATES=.*$/DISABLE_AUTO_UPDATE="true"/' $HOME/.zshrc
 echo -e "\nsource $HOME/a/git/lang/py/setup/dev/os/linux/cmn_profile.sh\n\
+#0:清华源(默认), 1:官方源\n\
+export apt_source_switch=$apt_source_switch\n\
 export myminiserve=$myminiserve\n\
-export myprivsvr=$myprivsvr" >> $HOME/.zshrc
+export myprivsvr=$myprivsvr\n\
+export ismynasenv=$ismynasenv" >> $HOME/.zshrc
 sudo chsh -s `which zsh`
 
 # 安装编程语言支持
