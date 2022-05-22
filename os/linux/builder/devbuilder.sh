@@ -161,10 +161,11 @@ if [ -n "$myprivsvr" ]; then
         sudo mv minidlnad /usr/local/sbin
 
         sudo apt-get install -y hd-idle
+        sudo systemctl disable hd-idle
     fi
 
-    sudo $HOME/a/git/lang/py/setup/priv_svr/builder.sh
-    sudo python3 $HOME/a/git/lang/py/setup/priv_svr/setup.py -ta
+    $HOME/a/git/lang/py/setup/priv_svr/install.sh
+    python3 $HOME/a/git/lang/py/setup/priv_svr/setup.py -ta
 fi
 
 # docker env
