@@ -12,6 +12,10 @@ tar -czf ~/share/web/sys/ssh.tar.gz .
 cd ..
 rm -rf ssh
 
-cd ~/data/software/sys/linux/dev
+mkdir mydevtmp && cd mydevtmp
+ln -s ~/data/software/sys/linux/dev dev
+ln -s ~/a/git/lang/py/setup/dev/os/linux/builder/devbuilder.sh ./
 rm ~/share/web/sys/dev.tar.gz
-tar -czf ~/share/web/sys/dev.tar.gz .
+tar -czhf ~/share/web/sys/dev.tar.gz .
+cd ..
+rm -rf mydevtmp

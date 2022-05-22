@@ -1,4 +1,5 @@
 # vim: filetype=dockerfile :
+
 #from scratch
 #from busybox
 #from alpine
@@ -22,11 +23,10 @@ env HOME=/root
 env USER=root
 env isdockerenv=true
 
-copy files/ /
-copy devbuilder.sh /tmp/
+copy dev /tmp/mytmp/dev/
+copy devbuilder.sh /tmp/mytmp/
 
-run set -x; /tmp/devbuilder.sh \
-    && rm /tmp/devbuilder.sh
+run set -x; /tmp/mytmp/devbuilder.sh
 
 WORKDIR $HOME
 #ENTRYPOINT ["/usr/bin/zsh"]

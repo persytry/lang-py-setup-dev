@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # 尽量安装deb安装包
-cd /tmp/mytmp
+cd /tmp/mytmp/dev
 
 if ! type sudo >/dev/null 2>&1; then
     apt-get install -y ./sudo_1.9.5p2-3_amd64.deb
@@ -180,7 +180,7 @@ if [ -n "$DESKTOP_SESSION" ]; then
 fi
 
 # 系统清理
-cd ..
+cd /tmp
 rm -rf mytmp
 sudo apt-get autoremove -y
 sudo apt-get clean -y
