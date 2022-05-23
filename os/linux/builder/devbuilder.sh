@@ -51,6 +51,8 @@ chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
 #[ssh 登录出现Are you sure you want to continue connecting (yes/no)?解决方法](https://blog.csdn.net/mct_blog/article/details/52511314)
 sudo sed -i -e "s/^#.*StrictHostKeyChecking.*$/    StrictHostKeyChecking no/" /etc/ssh/ssh_config
 
+sudo systemctl disable wg-quick@wg0
+
 if [ ! "$ismynasenv" = 'true' ]; then
     ismynasenv=false
 fi
