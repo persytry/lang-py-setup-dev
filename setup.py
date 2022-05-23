@@ -104,15 +104,15 @@ def _copyFileItem(toSystem: bool, item: list, chmod: int) -> int:
     if _isWindows():
         if item[1] is None:
             return 0
-        sysPath = os.path.expanduser(item[1])
+        sysPath = os.path.expandvars(os.path.expanduser(item[1]))
     elif _isMac():
         if item[2] is None:
             return 0
-        sysPath = os.path.expanduser(item[2])
+        sysPath = os.path.expandvars(os.path.expanduser(item[2]))
     else:
         if item[3] is None:
             return 0
-        sysPath = os.path.expanduser(item[3])
+        sysPath = os.path.expandvars(os.path.expanduser(item[3]))
     sysPath = os.path.realpath(sysPath)
     _sysPath = glob.glob(sysPath)
     if len(_sysPath) != 0:
