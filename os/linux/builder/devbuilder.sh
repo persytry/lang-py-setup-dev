@@ -44,12 +44,17 @@ sudo sh -c "cat ./sources.list > /etc/apt/sources.list"
 sudo apt-get update
 
 # 通过apt软件源安装一些最基本的工具
-sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard
+sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
 chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
 #[ssh 登录出现Are you sure you want to continue connecting (yes/no)?解决方法](https://blog.csdn.net/mct_blog/article/details/52511314)
 sudo sed -i -e "s/^#.*StrictHostKeyChecking.*$/    StrictHostKeyChecking no/" /etc/ssh/ssh_config
+
+ufw enable
+ufw default deny
+ufw allow from 10.0.0.0/24
+ufw allow 22/tcp
 
 sudo systemctl disable wg-quick@wg0
 
@@ -98,10 +103,6 @@ make
 sudo make install
 cd ..
 
-#https://github.com/persytry/lang-go-t-lemonade
-tar -xzf lemonade-linux64.tar.gz
-sudo mv lemonade /usr/local/bin
-
 #https://github.com/protocolbuffers/protobuf
 unzip protoc-3.20.1-linux-x86_64.zip -d protoc
 sudo mv protoc/bin/protoc /usr/local/bin
@@ -117,8 +118,18 @@ sudo mv um-linux-amd64 /usr/local/bin/unlock_music
 
 sudo mv win32yank /usr/local/bin
 
+#https://github.com/persytry/lang-go-t-lemonade
+tar -xzf lemonade-linux64.tar.gz
+sudo mv lemonade /usr/local/bin
+
 #https://github.com/persytry/lang-rs-t-wsl_pathable
 sudo mv wsl_pathable /usr/local/bin
+
+#https://github.com/persytry/lang-rs-t-auto_commit
+sudo mv auto_commit /usr/local/bin
+
+#https://github.com/persytry/lang-rs-t-wg_ddns
+sudo mv wg_ddns /usr/local/bin
 
 # 下载各种源码
 git clone git@github.com:persytry/lang-py-setup-dev.git $HOME/a/git/lang/py/setup/dev
@@ -138,6 +149,7 @@ cd rinetd-0.73
 make
 sudo make install
 cd ..
+sudo systemctl disable rinetd
 
 wget https://github.com/rofl0r/proxychains-ng/releases/download/v4.16/proxychains-ng-4.16.tar.xz
 tar -xJf proxychains-ng-4.16.tar.xz
@@ -146,6 +158,9 @@ cd proxychains-ng-4.16
 make
 sudo make install
 cd ..
+
+wget https://github.com/svenstaro/miniserve/releases/download/v0.19.5/miniserve-v0.19.5-x86_64-unknown-linux-musl
+sudo mv miniserve-v0.19.5-x86_64-unknown-linux-musl /usr/local/bin/miniserve
 
 # build myprivsvr
 if [ -n "$myprivsvr" ]; then
@@ -175,6 +190,7 @@ if [ "$isdockerenv" = 'true' ]; then
     echo 'isdockerenv=true'
 else
     sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+    sudo systemctl disable docker
 fi
 
 # build桌面环境
