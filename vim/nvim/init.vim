@@ -793,6 +793,7 @@ Plug 'jeroenbourgois/vim-actionscript'
 Plug 'tpope/vim-unimpaired' " 一个映射了大量实用命令的插件, 主要前缀键是[与]
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-repeat'  " 支持重复
+Plug 'lukelbd/vim-toggle' " toggle bool, <leader>b
 call plug#end()
 
 """""common plug set begin
