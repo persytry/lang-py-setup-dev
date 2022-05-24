@@ -76,7 +76,7 @@ python setup.py -a
   sh ./install.sh
   ```
 - fbterm, tmux
-- ibus五笔输入法, 已由[ZFVimIM](https://github.com/ZSaberLv0/ZFVimIM)方案代替
+- ibus五笔输入法
 - xclip
 - fzf,[fd](https://github.com/sharkdp/fd),rg,tree
 - autojump
