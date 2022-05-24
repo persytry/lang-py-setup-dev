@@ -1,0 +1,10 @@
+[Unit]
+Description=load tty keymaps
+After=network.target
+
+[Service]
+User=root
+ExecStart=loadkeys /etc/my_keymaps_tty
+
+[Install]
+WantedBy=multi-user.target

@@ -1,5 +1,0 @@
-#!/bin/sh
-
-loadkeys /etc/my_keymaps_tty
-
-exit 0

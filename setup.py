@@ -8,7 +8,7 @@ import shutil
 import platform
 import argparse
 import glob
-
+import sys
 
 _cur_dir = os.path.dirname(os.path.realpath(__file__))
 _cur_dir = os.path.realpath(_cur_dir)
@@ -40,11 +40,11 @@ _os_file_list = [
     ['t/lazygit-config.yml', '~/.config/jesseduffield/lazygit/config.yml', '~/Library/Application Support/jesseduffield/lazygit/config.yml', '~/Library/Application Support/jesseduffield/lazygit/config.yml'],
     ['t/fbtermrc',None,None,'~/.fbtermrc'],
     ['t/tmux.conf',None,'~/.tmux.conf','~/.tmux.conf'],
-    ['os/linux/terminator/config',None,None,'~/.config/terminator/config'],
+    ['os/linux/terminator.config',None,None,'~/.config/terminator/config'],
     # ['os/linux/cmn_profile.sh',None,'~/.cmn_profile.sh','~/.cmn_profile.sh'],
     # mac和linux下不需要拷贝这个文件了,因为已经在环境变量和init.vim中配置过了
     ['vim/gtags.conf','~/.globalrc','~/.globalrc','~/.globalrc'],
-    ['os/linux/i3/config', None, None, '~/.config/i3/config'],
+    ['os/linux/i3.config', None, None, '~/.config/i3/config'],
     ['t/delta-themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig'],
     # ['t/ctags/ctags','~/.ctags','~/.ctags','~/.ctags'], # 这是Exuberant Ctags 5.8的配置
     ['t/ctags/ctags.d','~/.ctags.d','~/.ctags.d','~/.ctags.d'], # 这是Universal Ctags 5.9.0及以上的配置
@@ -53,7 +53,9 @@ _os_file_list = [
     # 不要忘记lemonade.service的存在
     ['t/lemonade/lemonade.toml','~/.config/lemonade.toml','~/.config/lemonade.toml','~/.config/lemonade.toml'],
     ['t/ripgrep.conf','~/.config/ripgrep.conf','~/.config/ripgrep.conf','~/.config/ripgrep.conf'],
-    ['t/fdignore.conf','~/.config/fd/ignore','~/.config/fd/ignore','~/.config/fd/ignore']
+    ['t/fdignore.conf','~/.config/fd/ignore','~/.config/fd/ignore','~/.config/fd/ignore'],
+    ['os/linux/etc/my_keymaps_tty', None, None, '/etc/my_keymaps_tty'],
+    ['os/linux/service/load_tty_keymaps.service', None, None, '/lib/systemd/system/load_tty_keymaps.service'],
 ]
 _os_file_map = {}
 if len(_os_file_map) != len(_os_file_list):
@@ -151,7 +153,7 @@ def copyVimCfg(toSystem: bool, isNvim: bool) -> int:
 def copyTerminalCfg(toSystem: bool) -> int:
     cnt = 0
     cnt += _copyFileItemByName(toSystem, 'os/win/terminal/settings.json')
-    cnt += _copyFileItemByName(toSystem, 'os/linux/terminator/config')
+    cnt += _copyFileItemByName(toSystem, 'os/linux/terminator.config')
     print(f'copy terminal config {cnt} files')
     return cnt
 
@@ -257,11 +259,20 @@ def copyDbgToDir(path:str) -> int:
     item[1] = item[2] = item[3] = os.path.join(path, '.vimspector.json')
     return _copyFileItem(True, item, 0)
 
+def copyService(toSystem:bool) -> int:
+    cnt = _copyFileItemByName(toSystem, 'os/linux/etc/my_keymaps_tty')
+    cnt += _copyFileItemByName(toSystem, 'os/linux/service/load_tty_keymaps.service')
+    if toSystem:
+        os.system('systemctl enable load_tty_keymaps')
+    return cnt
+
 def main() -> None:
     # [add_argument() 方法](https://docs.python.org/zh-cn/3/library/argparse.html#argparse.ArgumentParser.add_argument)
     parser = argparse.ArgumentParser(description='this is not only the configuration of vim, also have other software configuration')
     parser.add_argument('-t', '--toSystem', default=False, help='if True then copy config files from git to system path', action='store_true')
     parser.add_argument('-a', '--all', default=False, help='enable all option', action='store_true')
+    parser.add_argument('--home', default=None, nargs=1, type=str)
+    parser.add_argument('--user', default=None, nargs=1, type=str)
     parser.add_argument('--nvim', default=False, action='store_true')
     parser.add_argument('--vim', default=False, action='store_true')
     parser.add_argument('--dbg', default=False, action='store_true')
@@ -279,10 +290,17 @@ def main() -> None:
     parser.add_argument('--i3', default=False, action='store_true')
     parser.add_argument('--net', default=False, action='store_true')
     parser.add_argument('--lemonade', default=False, action='store_true')
+    parser.add_argument('--service', default=False, action='store_true')
     args = parser.parse_args()
 
+    if args.home is not None:
+        os.environ['HOME'] = args.home[0]
+    if args.user is not None:
+        os.environ['USER'] = args.user[0]
     cnt = 0
     toSystem = args.toSystem
+    if args.service and toSystem and os.geteuid():
+        os.execlp('sudo', 'sudo', sys.executable, *sys.argv, '--home', os.environ['HOME'], '--user', os.environ['USER'])
     all = args.all
     vimName = 'nvim'
     vimCnt = 0
@@ -324,12 +342,14 @@ def main() -> None:
     # if all or args.profile:
         # cnt += _copyFileItemByName(toSystem, 'os/linux/cmn_profile.sh')
     if all or args.i3:
-        cnt += _copyFileItemByName(toSystem, 'os/linux/i3/config')
+        cnt += _copyFileItemByName(toSystem, 'os/linux/i3.config')
     if all or args.net:
         cnt += _copyFileItemByName(toSystem, 'net/proxychains.conf')
         cnt += _copyFileItemByName(toSystem, 'net/lftprc.conf')
     if all or args.lemonade:
         cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.toml')
+    if args.service:
+        cnt += copyService(toSystem)
     print(f'copy total {cnt} file done')
 
 

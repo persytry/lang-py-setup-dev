@@ -44,7 +44,7 @@ sudo sh -c "cat ./sources.list > /etc/apt/sources.list"
 sudo apt-get update
 
 # 通过apt软件源安装一些最基本的工具
-sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw
+sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw htop
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
 chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
@@ -195,7 +195,7 @@ fi
 
 # build桌面环境
 if [ -n "$DESKTOP_SESSION" ]; then
-    echo 'desktop'
+    sudo apt-get install -y lightdm i3 terminator dconf-editor ibus ibus-table-wubi xdg-utils xclip
 fi
 
 # 系统清理
