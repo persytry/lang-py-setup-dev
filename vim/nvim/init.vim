@@ -783,7 +783,7 @@ Plug 'persytry/ZFVimIM_wubi_base'
 " :call ZFVimIM_DEBUG_checkHealth() 或 call ZFVimIM_DEBUG_profileInfo()     " 可查看日志输出
 " :ZFProfileStart   " 也可以用这个命令,然后重启vim可查看日志输出到的文件
 Plug 'ZSaberLv0/ZFVimUtil'
-Plug 'persytry/t-vim-git_batch', { 'dir': '~/.git_batch' }
+"Plug 'persytry/t-vim-git_batch', { 'dir': '~/.git_batch' }
 Plug 'jeroenbourgois/vim-actionscript'
 " 参考: [神级编辑器 Vim 使用 - 插件篇](https://www.hanleylee.com/usage-of-vim-editor-plugin.html)
 Plug 'tpope/vim-unimpaired' " 一个映射了大量实用命令的插件, 主要前缀键是[与]

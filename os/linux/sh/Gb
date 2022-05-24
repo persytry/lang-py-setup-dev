@@ -1,4 +1,0 @@
-#!/bin/bash
-
-#shift
-python ~/.git_batch/autoload/git_batch/python/git_batch.py $*
