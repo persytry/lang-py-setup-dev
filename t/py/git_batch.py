@@ -7,7 +7,7 @@ batch operators of git
 import subprocess
 import os
 import argparse
-
+import asyncio
 
 def isInsideWorkTree(path: str) -> bool:
     if path is None:
@@ -29,7 +29,7 @@ def hasDiff(path: str) -> bool:
     return _hasDiff(path)
 
 
-def needPush(path: str) -> bool:
+def pushable(path: str) -> bool:
     if path is None:
         path = os.getcwd()
     else:
@@ -73,21 +73,32 @@ def commitAll(comment: str, path: str) -> None:
         print(res.stdout)
         print(res.stderr)
 
+async def _asyncOne(cmd:str, repo:str):
+    print(repo)
+    proc = await asyncio.create_subprocess_shell(cmd, cwd=repo)
+    await asyncio.wait_for(proc.communicate(), timeout=60)
 
 def pullAll(path: str) -> None:
+    # for repo in walkRepo(path):
+        # print(repo)
+        # res = subprocess.run(['git', 'pull'], check=False, timeout=60, text=True, shell=False, cwd=repo, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # print(res.stdout)
+        # print(res.stderr)
+    fns = []
     for repo in walkRepo(path):
-        print(repo)
-        res = subprocess.run(['git', 'pull'], check=False, timeout=60, text=True, shell=False, cwd=repo, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        print(res.stdout)
-        print(res.stderr)
-
+        fns.append(_asyncOne('git pull', repo))
+    asyncio.run(asyncio.wait(fns))
 
 def pushAll(path: str) -> None:
+    # for repo in walkRepoPushable(path):
+        # print(repo)
+        # res = subprocess.run(['git', 'push'], check=False, timeout=60, text=True, shell=False, cwd=repo, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        # print(res.stdout)
+        # print(res.stderr)
+    fns = []
     for repo in walkRepoPushable(path):
-        print(repo)
-        res = subprocess.run(['git', 'push'], check=False, timeout=60, text=True, shell=False, cwd=repo, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-        print(res.stdout)
-        print(res.stderr)
+        fns.append(_asyncOne('git push', repo))
+    asyncio.run(asyncio.wait(fns))
 
 
 def printRepo(path: str) -> None:

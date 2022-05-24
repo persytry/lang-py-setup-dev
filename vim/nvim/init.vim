@@ -389,6 +389,10 @@ let g:EasyMotion_smartcase = 1
 " Smartsign (type `3` and match `3`&`#`)
 let g:EasyMotion_use_smartsign_us = 1
 
+" xtabline setting
+let g:xtabline_settings = {}
+let g:xtabline_settings.enable_mappings = 0
+
 " sandwich setting
 let g:sandwich_no_default_key_mappings = 1
 let g:operator_sandwich_no_default_key_mappings = 1
