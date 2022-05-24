@@ -122,6 +122,7 @@ export https_proxy=$http_proxy
 export HOMEBREW_NO_AUTO_UPDATE=true
 export GOPATH=$HOME/go
 
+unalias gba
 alias vif='nvim $(vifm --choose-file -)'
 alias vid='cd $(vifm --choose-dir -)'
 alias dtvp='sudo mount /dev/sr0 /media/cdrom0'
