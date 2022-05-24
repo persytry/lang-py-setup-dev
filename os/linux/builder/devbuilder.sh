@@ -210,6 +210,7 @@ sudo ln -s `which nvim` /usr/local/bin/vi
 sudo ln -s `which proxychains4` /usr/local/bin/pc
 sudo ln -s `which python3` /usr/local/bin/python
 sudo ln -s `which python3` /usr/local/bin/p
+sudo ln -s `which lazygit` /usr/local/bin/lg
 
 # 这个放到最后执行,因为setup.py会设置其他的代理方式,可能不大稳定
 #python3 $HOME/a/git/lang/py/setup/dev/setup.py -ta
