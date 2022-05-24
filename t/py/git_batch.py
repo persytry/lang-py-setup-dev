@@ -98,6 +98,7 @@ def pushAll(path: str) -> None:
     fns = []
     for repo in walkRepoPushable(path):
         fns.append(_asyncOne('git push', repo))
+    if len(fns) == 0: return;
     asyncio.run(asyncio.wait(fns))
 
 
