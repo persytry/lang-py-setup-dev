@@ -13,9 +13,13 @@ addToPath(){
 }
 addToPath "$HOME/bin"
 addToPath "$HOME/.local/bin"
-addToPath "$HOME/a/git/lang/py/setup/dev/os/linux/sh"
 addToPath "/opt/anaconda3/bin"
 addToPath "/opt/nodejs/bin"
+export JAVA_HOME=/opt/jdk8
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+addToPath "$JAVA_HOME/bin"
+addToPath "$HOME/a/git/lang/py/setup/dev/os/linux/sh"
 # 要保证/usr/local/bin目录在/opt/anaconda3/bin前面,因为anaconda3也有rg,而它不一定是最新的版本
 addToPath "/usr/local/bin"
 

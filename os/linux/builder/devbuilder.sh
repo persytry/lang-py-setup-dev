@@ -44,7 +44,7 @@ sudo sh -c "cat ./sources.list > /etc/apt/sources.list"
 sudo apt-get update
 
 # 通过apt软件源安装一些最基本的工具
-sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw htop
+sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw htop software-properties-common
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
 chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
@@ -80,6 +80,9 @@ sudo chsh -s `which zsh`
 
 # 安装编程语言支持
 sudo apt-get install -y python3
+
+tar -xzf jdk-8u301-linux-x64.tar.gz
+sudo mv jdk1.8.0_301 /opt/jdk8
 
 # 通过apt软件源安装一些常用办公软件(office software)
 sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep git-delta global lftp
