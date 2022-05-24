@@ -37,7 +37,7 @@ _os_file_list = [
     ['net/w3m-config-mac.conf',None,'~/.w3m/config',None],
     ['net/w3m-config-linux.conf',None,None,'~/.w3m/config'],
     ['net/lftprc.conf','~/.config/lftp/rc','~/.config/lftp/rc','~/.config/lftp/rc'],
-    ['t/lazygit-config.yml', '~/.config/jesseduffield/lazygit/config.yml', '~/Library/Application Support/jesseduffield/lazygit/config.yml', '~/Library/Application Support/jesseduffield/lazygit/config.yml'],
+    ['t/lazygit-config.yml', '~/.config/lazygit/config.yml',  '~/.config/lazygit/config.yml',  '~/.config/lazygit/config.yml'],
     ['t/fbtermrc',None,None,'~/.fbtermrc'],
     ['t/tmux.conf',None,'~/.tmux.conf','~/.tmux.conf'],
     ['os/linux/terminator.config',None,None,'~/.config/terminator/config'],
