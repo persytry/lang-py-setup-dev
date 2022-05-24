@@ -308,15 +308,15 @@ cnoremap <C-y> <C-r>+
 " C-i=Tab, M-i约等于Tab, 因为M-i只是单纯地产生Tab效果,不会被key-mapping的
 inoremap <M-i> <Tab>
 
-function! s:hlsearchToggle()
-    if &hls == 1
-        setlocal nohls
-    else
-        setlocal hls
-    endif
-    return ''
-endfunction
-noremap <silent><expr> <leader>hl <SID>hlsearchToggle()
+"function! s:hlsearchToggle()
+    "if &hls == 1
+        "setlocal nohls
+    "else
+        "setlocal hls
+    "endif
+    "return ''
+"endfunction
+"noremap <silent><expr> <leader>hl <SID>hlsearchToggle()
 
 noremap <silent><nowait> <leader>lg :<C-u>LazyGit<CR>
 " :te == :ter == :terminal
@@ -1166,21 +1166,23 @@ hi EasyMotionTarget2Second ctermbg=none ctermfg=blue
 "autocmd FileType json,markdown let g:indentLine_conceallevel = 0 " indentLine
 "autocmd FileType json,markdown let g:vim_json_syntax_conceal = 0 " vim-json
 " il-> IndentLine. is-> IndentlineSpace
-let s:my_conceallevel = &conceallevel
-let s:my_conceallevel_old = 0
-function! s:myIndentLinesToggle()
-    execute 'setlocal conceallevel=' . s:my_conceallevel_old
-    execute 'IndentLinesToggle'
-    let s:my_conceallevel_old = s:my_conceallevel
-    let s:my_conceallevel = &conceallevel
-    return ''
-endfunction
+"let s:my_conceallevel = &conceallevel
+"let s:my_conceallevel_old = 0
+"function! s:myIndentLinesToggle()
+    "execute 'setlocal conceallevel=' . s:my_conceallevel_old
+    "execute 'IndentLinesToggle'
+    "let s:my_conceallevel_old = s:my_conceallevel
+    "let s:my_conceallevel = &conceallevel
+    "return ''
+"endfunction
+"2022/05/24 22:35:01, 这两个老早就注释掉了
 "nnoremap <silent><nowait><expr> <leader>il <SID>myIndentLinesToggle()
 "xnoremap <silent><nowait><expr> <leader>il <SID>myIndentLinesToggle()
-nnoremap <silent><nowait> <leader>il :<C-u>IndentLinesToggle<CR>
-xnoremap <silent><nowait> <leader>il :<C-u>IndentLinesToggle<CR>
-nnoremap <silent><nowait> <leader>is :<C-u>LeadingSpaceToggle<CR>
-xnoremap <silent><nowait> <leader>is :<C-u>LeadingSpaceToggle<CR>
+"2022/05/24 22:35:13, 下面4个不常用,就注释掉吧
+"nnoremap <silent><nowait> <leader>il :<C-u>IndentLinesToggle<CR>
+"xnoremap <silent><nowait> <leader>il :<C-u>IndentLinesToggle<CR>
+"nnoremap <silent><nowait> <leader>is :<C-u>LeadingSpaceToggle<CR>
+"xnoremap <silent><nowait> <leader>is :<C-u>LeadingSpaceToggle<CR>
 """""""""""indentLine end
 
 """""""""""rainbow begin
@@ -1249,9 +1251,9 @@ noremap <leader>fl :<C-U><C-R>=printf("Leaderf line %s", "")<CR><CR>
 noremap <leader>fn :<C-U><C-R>=printf("Leaderf function %s", "")<CR><CR>
 noremap <leader>fN :<C-U>LeaderfFunctionAll<CR>
 noremap <leader>fh :<C-U><C-R>=printf("Leaderf help %s", "")<CR><CR>
-noremap <leader>fH :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
 noremap <leader>fw :<C-U><C-R>=printf("Leaderf window %s", "")<CR><CR>
-noremap <leader>fc :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
+noremap <leader>fc :<C-U><C-R>=printf("Leaderf cmdHistory %s", "")<CR><CR>
+noremap <leader>fC :<C-U><C-R>=printf("Leaderf command %s", "")<CR><CR>
 "a->awake之意
 noremap <leader>fa :<C-U><C-R>=printf("Leaderf! --recall %s", "")<CR><CR>
 
