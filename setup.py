@@ -56,6 +56,8 @@ _os_file_list = [
     ['t/fdignore.conf','~/.config/fd/ignore','~/.config/fd/ignore','~/.config/fd/ignore'],
     ['os/linux/etc/my_keymaps_tty', None, None, '/etc/my_keymaps_tty'],
     ['os/linux/service/load_tty_keymaps.service', None, None, '/lib/systemd/system/load_tty_keymaps.service'],
+    ['os/linux/x11/keymap/altwin', None, None, '/usr/share/X11/xkb/symbols/altwin'],
+    ['os/linux/x11/keymap/pc', None, None, '/usr/share/X11/xkb/symbols/pc'],
 ]
 _os_file_map = {}
 if len(_os_file_map) != len(_os_file_list):
@@ -264,6 +266,12 @@ def copyService(toSystem:bool) -> int:
     cnt += _copyFileItemByName(toSystem, 'os/linux/service/load_tty_keymaps.service')
     if toSystem:
         os.system('systemctl enable load_tty_keymaps')
+        if os.path.exists('/usr/share/X11/xkb/symbols/altwin'):
+            cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/altwin')
+            cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/pc')
+    else:
+        cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/altwin')
+        cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/pc')
     return cnt
 
 def main() -> None:
