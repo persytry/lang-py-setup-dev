@@ -9,7 +9,7 @@
     "coc.preferences.rootPatterns": [
         ".vimroot"
     ],
-    "coc.preferences.extensionUpdateCheck": "weekly",
+    "coc.preferences.extensionUpdateCheck": "never",
     "coc.preferences.colorSupport": true,
     //[How to jump to definition in new or existing tab](https://github.com/neoclide/coc.nvim/issues/318)
     "coc.preferences.jumpCommand": "tab drop",
