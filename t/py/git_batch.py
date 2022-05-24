@@ -36,7 +36,7 @@ def needPush(path: str) -> bool:
         path = os.path.expanduser(path)
         path = os.path.realpath(path)
         if not os.path.exists(path): return False
-    return _needPush(path)
+    return _pushable(path)
 
 
 def walkRepo(path: str):
@@ -57,9 +57,9 @@ def walkRepoDiff(path: str):
             yield repo
 
 
-def walkRepoNeedPush(path: str):
+def walkRepoPushable(path: str):
     for repo in walkRepo(path):
-        if _needPush(repo):
+        if _pushable(repo):
             yield repo
 
 
@@ -83,7 +83,7 @@ def pullAll(path: str) -> None:
 
 
 def pushAll(path: str) -> None:
-    for repo in walkRepoNeedPush(path):
+    for repo in walkRepoPushable(path):
         print(repo)
         res = subprocess.run(['git', 'push'], check=False, timeout=60, text=True, shell=False, cwd=repo, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         print(res.stdout)
@@ -100,8 +100,8 @@ def printRepoDiff(path: str) -> None:
         print(repo)
 
 
-def printRepoNeedPush(path: str) -> None:
-    for repo in walkRepoNeedPush(path):
+def printRepoPushable(path: str) -> None:
+    for repo in walkRepoPushable(path):
         print(repo)
 
 
@@ -116,7 +116,7 @@ def _hasDiff(path: str) -> bool:
     return res.returncode == 1
 
 
-def _needPush(path: str) -> bool:
+def _pushable(path: str) -> bool:
     res = subprocess.run(['git', 'cherry', '-v'], check=False, timeout=60, text=True, shell=False, cwd=path, stdout=subprocess.PIPE, universal_newlines=True, stderr=subprocess.DEVNULL)
     if res.returncode != 0: return False
     return len(res.stdout) != 0
@@ -138,7 +138,7 @@ def main() -> None:
     sub_parser = parser.add_subparsers(help='sub-commands')
     sub_parser.add_parser('repo').set_defaults(func=lambda a: printRepo(a.path))
     sub_parser.add_parser('diff').set_defaults(func=lambda a: printRepoDiff(a.path))
-    sub_parser.add_parser('needPush').set_defaults(func=lambda a: printRepoNeedPush(a.path))
+    sub_parser.add_parser('pushable').set_defaults(func=lambda a: printRepoPushable(a.path))
     sub = sub_parser.add_parser('commit')
     sub.add_argument('-m', default=None)
     sub.set_defaults(func=lambda a: commitAll(a.m, a.path))
