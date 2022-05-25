@@ -81,7 +81,7 @@ def commitAll(comment: str, path: str) -> None:
         return
     for repo in walkRepoStaged(path):
         print(repo)
-        res = subprocess.run(['git', 'commit', '-m', f'{comment}'], check=False, timeout=60, text=True, shell=False, cwd=repo, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
+        res = subprocess.run(['git', 'commit', '-m', comment], check=False, timeout=60, text=True, shell=False, cwd=repo, universal_newlines=True, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         print(res.stdout)
         print(res.stderr)
 
