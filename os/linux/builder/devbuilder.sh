@@ -184,8 +184,9 @@ if [ -n "$myprivsvr" ]; then
         chmod a+x minidlnad
         sudo mv minidlnad /usr/local/sbin
 
-        sudo apt-get install -y hd-idle
-        sudo systemctl disable hd-idle
+        sudo apt-get install -y hd-idle samba
+        sudo systemctl disable hd-idle samba
+        sudo smbpasswd -a $USER
     fi
 
     $HOME/a/git/lang/py/setup/priv_svr/install.sh
