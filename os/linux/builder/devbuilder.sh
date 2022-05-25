@@ -137,18 +137,13 @@ sudo mv auto_commit /usr/local/bin
 tar -xzf linux64-wg_ddns.tar.gz
 sudo mv wg_ddns /usr/local/bin
 
-# 下载各种源码
-git clone git@github.com:persytry/lang-py-setup-dev.git $HOME/a/git/lang/py/setup/dev
-git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
-
-# 通过wget下载并安装各种工具
-wget https://github.com/jesseduffield/lazygit/releases/download/v0.34/lazygit_0.34_Linux_x86_64.tar.gz
+#https://github.com/jesseduffield/lazygit
 mkdir lazygit
 tar -xzf lazygit_0.34_Linux_x86_64.tar.gz -C lazygit
 sudo mv lazygit/lazygit /usr/local/bin
 
+#https://github.com/samhocevar/rinetd
 #从0.70版本开始rinetd已经支持UDP转发
-wget https://github.com/samhocevar/rinetd/releases/download/v0.73/rinetd-0.73.tar.gz
 tar -xzf rinetd-0.73.tar.gz
 cd rinetd-0.73
 ./configure
@@ -157,7 +152,7 @@ sudo make install
 cd ..
 sudo systemctl disable rinetd
 
-wget https://github.com/rofl0r/proxychains-ng/releases/download/v4.16/proxychains-ng-4.16.tar.xz
+#https://github.com/rofl0r/proxychains-ng
 tar -xJf proxychains-ng-4.16.tar.xz
 cd proxychains-ng-4.16
 ./configure
@@ -165,8 +160,14 @@ make
 sudo make install
 cd ..
 
-wget https://github.com/svenstaro/miniserve/releases/download/v0.19.5/miniserve-v0.19.5-x86_64-unknown-linux-musl
+#https://github.com/svenstaro/miniserve
 sudo mv miniserve-v0.19.5-x86_64-unknown-linux-musl /usr/local/bin/miniserve
+
+# 下载各种源码
+git clone git@github.com:persytry/lang-py-setup-dev.git $HOME/a/git/lang/py/setup/dev
+git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
+
+# 通过wget下载并安装各种工具
 
 # build myprivsvr
 if [ -n "$myprivsvr" ]; then
