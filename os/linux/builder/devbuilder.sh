@@ -97,8 +97,8 @@ chmod a+x cheat
 sudo mv cheat /usr/local/bin
 
 #https://github.com/universal-ctags/ctags
-tar -xzf p5.9.20220515.0.tar.gz
-cd ctags-p5.9.20220515.0
+tar -xzf p5.9.20220522.0.tar.gz
+cd ctags-p5.9.20220522.0
 ./autogen.sh
 #ctags会放到`/usr/local/bin`下面的
 ./configure --prefix=/usr/local
@@ -126,12 +126,15 @@ tar -xzf lemonade-linux64.tar.gz
 sudo mv lemonade /usr/local/bin
 
 #https://github.com/persytry/lang-rs-t-wsl_pathable
+tar -xzf linux64-wsl_pathable.tar.gz
 sudo mv wsl_pathable /usr/local/bin
 
 #https://github.com/persytry/lang-rs-t-auto_commit
+tar -xzf linux64-auto_commit.tar.gz
 sudo mv auto_commit /usr/local/bin
 
 #https://github.com/persytry/lang-rs-t-wg_ddns
+tar -xzf linux64-wg_ddns.tar.gz
 sudo mv wg_ddns /usr/local/bin
 
 # 下载各种源码
