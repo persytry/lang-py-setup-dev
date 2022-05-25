@@ -44,7 +44,7 @@ sudo sh -c "cat ./sources.list > /etc/apt/sources.list"
 sudo apt-get update
 
 # 通过apt软件源安装一些最基本的工具
-sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw htop software-properties-common
+sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw htop software-properties-common lftp vsftpd
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
 chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
@@ -56,7 +56,7 @@ ufw default deny
 ufw allow from 10.0.0.0/24
 ufw allow 22/tcp
 
-sudo systemctl disable wg-quick@wg0
+sudo systemctl disable wg-quick@wg0 vsftpd
 
 if [ ! "$ismynasenv" = 'true' ]; then
     ismynasenv=false
@@ -85,7 +85,7 @@ tar -xzf jdk-8u301-linux-x64.tar.gz
 sudo mv jdk1.8.0_301 /opt/jdk8
 
 # 通过apt软件源安装一些常用办公软件(office software)
-sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep git-delta global lftp
+sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep git-delta global
 
 # 安装常用的工具(安装包一般比较大,又需要经常更新最新版本,lastest version)
 sudo apt-get install -y ./nvim-linux64.deb
