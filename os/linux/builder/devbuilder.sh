@@ -76,7 +76,7 @@ export apt_source_switch=$apt_source_switch\n\
 export myminiserve=$myminiserve\n\
 export myprivsvr=$myprivsvr\n\
 export ismynasenv=$ismynasenv" >> $HOME/.zshrc
-sudo chsh -s `which zsh`
+#sudo chsh -s `which zsh`
 
 # 安装编程语言支持
 sudo apt-get install -y python3
@@ -87,7 +87,7 @@ sudo mv jdk1.8.0_301 /opt/jdk8
 # 通过apt软件源安装一些常用办公软件(office software)
 sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep git-delta global
 
-# 安装常用的工具(安装包一般比较大,又需要经常更新最新版本,lastest version)
+# 安装常用的工具(安装包一般比较大,或需要经常更新到最新版本,lastest version)
 sudo apt-get install -y ./nvim-linux64.deb
 
 #https://github.com/cheat/cheat
@@ -168,6 +168,7 @@ git clone git@github.com:persytry/lang-py-setup-dev.git $HOME/a/git/lang/py/setu
 git clone https://github.com/tmux-plugins/tpm $HOME/.tmux/plugins/tpm
 
 # 通过wget下载并安装各种工具
+#nothing now
 
 # build myprivsvr
 if [ -n "$myprivsvr" ]; then
