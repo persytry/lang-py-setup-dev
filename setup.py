@@ -50,8 +50,8 @@ _os_file_list = [
     ['t/ctags/ctags.d','~/.ctags.d','~/.ctags.d','~/.ctags.d'], # 这是Universal Ctags 5.9.0及以上的配置
     ['t/vscode/settings.json','~/AppData/Roaming/Code/User/settings.json','~/Library/Application Support/Code/User/settings.json',None],
     ['t/vscode/keybindings.json','~/AppData/Roaming/Code/User/keybindings.json','~/Library/Application Support/Code/User/keybindings.json',None],
-    # 不要忘记lemonade.service的存在
     ['t/lemonade/lemonade.toml','~/.config/lemonade.toml','~/.config/lemonade.toml','~/.config/lemonade.toml'],
+    ['t/lemonade/lemonade.service', None, None, '/lib/systemd/system/lemonade.service'],
     ['t/ripgrep.conf','~/.config/ripgrep.conf','~/.config/ripgrep.conf','~/.config/ripgrep.conf'],
     ['t/fdignore.conf','~/.config/fd/ignore','~/.config/fd/ignore','~/.config/fd/ignore'],
     ['os/linux/etc/my_keymaps_tty', None, None, '/etc/my_keymaps_tty'],
@@ -264,6 +264,7 @@ def copyDbgToDir(path:str) -> int:
 def copyService(toSystem:bool) -> int:
     cnt = _copyFileItemByName(toSystem, 'os/linux/etc/my_keymaps_tty')
     cnt += _copyFileItemByName(toSystem, 'os/linux/service/load_tty_keymaps.service')
+    cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.service')
     if toSystem:
         os.system('systemctl enable load_tty_keymaps')
         if os.path.exists('/usr/share/X11/xkb/symbols/altwin'):

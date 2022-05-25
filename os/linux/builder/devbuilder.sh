@@ -184,6 +184,7 @@ if [ -n "$myprivsvr" ]; then
         mv minidlnad_v1.3.0_for_rmvb_by_persy minidlnad
         chmod a+x minidlnad
         sudo mv minidlnad /usr/local/sbin
+        sudo usermod -a -G $USER minidlna
 
         sudo apt-get install -y hd-idle samba
         sudo systemctl disable hd-idle samba

@@ -1,3 +1,5 @@
+#2022/05/25 21:41:08, 此文件已被废弃,已被`ctags.d`中的文件所取代
+
 --langdef=Go
 --langmap=Go:.go
 --regex-Go=/func([ \t]+\([^)]+\))?[ \t]+([a-zA-Z0-9_]+)/\2/f,func/
