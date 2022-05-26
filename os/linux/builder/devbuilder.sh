@@ -47,7 +47,7 @@ sudo apt-get update
 if ! type systemctl >/dev/null 2>&1; then
     sudo apt-get install -y systemd
 fi
-sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw htop software-properties-common lftp vsftpd
+sudo apt-get install -y python3 zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw htop software-properties-common lftp vsftpd
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
 chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
@@ -82,8 +82,6 @@ export ismynasenv=$ismynasenv" >> $HOME/.zshrc
 #sudo chsh -s `which zsh`
 
 # 安装编程语言支持
-sudo apt-get install -y python3
-
 tar -xzf jdk-8u301-linux-x64.tar.gz
 sudo mv jdk1.8.0_301 /opt/jdk8
 
