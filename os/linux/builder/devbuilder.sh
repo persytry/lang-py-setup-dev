@@ -17,7 +17,7 @@ sudo ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 
 # 安装一些系统基本工具(通常不需要最新版本)
 #会有`debconf: delaying package configuration, since apt-utils is not installed`的警告,但是没有关系,不用管它
-sudo apt-get install -y ./openssl_1.1.1n-0+deb11u1_amd64.deb ./apt-transport-https_2.2.4_all.deb ./ca-certificates_20210119_all.deb
+sudo apt-get install -y ./openssl_1.1.1n-0+deb11u2_amd64.deb ./apt-transport-https_2.2.4_all.deb ./ca-certificates_20210119_all.deb
 
 #[get codename](https://unix.stackexchange.com/questions/180776/how-to-get-debian-codename-without-lsb-release)
 mycodename=`grep -Po 'VERSION="[0-9]+ \(\K[^)]+' /etc/os-release`
@@ -44,6 +44,9 @@ sudo sh -c "cat ./sources.list > /etc/apt/sources.list"
 sudo apt-get update
 
 # 通过apt软件源安装一些最基本的工具
+if ! type systemctl >/dev/null 2>&1; then
+    sudo apt-get install -y systemd
+fi
 sudo apt-get install -y zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw htop software-properties-common lftp vsftpd
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
