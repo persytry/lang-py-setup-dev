@@ -968,6 +968,13 @@ nmap <silent> gr <Plug>(coc-references)
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
+" 拷贝hover之内容
+nnoremap <silent> yK :call <SID>yankHoverContent()<CR>
+
+function! s:yankHoverContent()
+    let content = CocAction('getHover')
+    let @+ = ''.join(content)
+endfunction
 
 function! s:show_documentation()
   if (index(['vim','help'], &filetype) >= 0)
