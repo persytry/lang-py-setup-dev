@@ -974,6 +974,7 @@ nnoremap <silent> yK :call <SID>yankHoverContent()<CR>
 function! s:yankHoverContent()
     let content = CocAction('getHover')
     let @+ = ''.join(content)
+    echomsg 'hover content copied to system clipboard'
 endfunction
 
 function! s:show_documentation()
