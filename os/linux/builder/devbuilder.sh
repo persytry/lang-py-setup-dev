@@ -33,6 +33,26 @@ deb-src http://deb.debian.org/debian/ $mycodename main non-free contrib \n\
 deb-src http://deb.debian.org/debian/ $mycodename-updates main non-free contrib \n\
 deb-src http://deb.debian.org/debian/ $mycodename-backports main contrib non-free \n\
 deb-src http://deb.debian.org/debian-security/ $mycodename-security main contrib non-free" > sources.list
+else if [ $apt_source_switch = 2 ];then
+echo -e "deb http://mirrors.tencentyun.com/debian $mycodename main contrib non-free \n\
+deb http://mirrors.tencentyun.com/debian $mycodename-updates main contrib non-free \n\
+deb http://mirrors.tencentyun.com/debian-security $mycodename/updates main \n\
+deb http://mirrors.tencentyun.com/debian $mycodename-backports main contrib non-free \n\
+deb http://mirrors.tencentyun.com/debian $mycodename-proposed-updates main contrib non-free \n\
+deb-src http://mirrors.tencentyun.com/debian $mycodename main contrib non-free \n\
+deb-src http://mirrors.tencentyun.com/debian $mycodename-updates main contrib non-free \n\
+deb-src http://mirrors.tencentyun.com/debian-security $mycodename/updates main \n\
+deb-src http://mirrors.tencentyun.com/debian $mycodename-backports main contrib non-free \n\
+deb-src http://mirrors.tencentyun.com/debian $mycodename-proposed-updates main contrib non-free" > sources.list
+else if [ $apt_source_switch = 3 ];then
+echo -e "deb http://mirrors.aliyun.com/debian/ $mycodename main non-free contrib \n\
+deb http://mirrors.aliyun.com/debian-security $mycodename/updates main \n\
+deb http://mirrors.aliyun.com/debian/ $mycodename-updates main non-free contrib \n\
+deb http://mirrors.aliyun.com/debian/ $mycodename-backports main non-free contrib \n\
+deb-src http://mirrors.aliyun.com/debian-security $mycodename/updates main \n\
+deb-src http://mirrors.aliyun.com/debian/ $mycodename main non-free contrib \n\
+deb-src http://mirrors.aliyun.com/debian/ $mycodename-updates main non-free contrib \n\
+deb-src http://mirrors.aliyun.com/debian/ $mycodename-backports main non-free contrib" > sources.list
 else
 echo -e "deb https://mirrors.tuna.tsinghua.edu.cn/debian/ $mycodename main contrib non-free \n\
 deb https://mirrors.tuna.tsinghua.edu.cn/debian/ $mycodename-updates main contrib non-free \n\
@@ -91,7 +111,7 @@ chmod a+x install.sh
 cd ..
 sed -i -e 's/^# ZSH_THEME_RANDOM_CANDIDATES=.*$/DISABLE_AUTO_UPDATE="true"/' $HOME/.zshrc
 echo -e "\nsource $HOME/a/git/lang/py/setup/dev/os/linux/cmn_profile.sh\n\
-#0:清华源(默认), 1:官方源\n\
+#0:清华源(默认), 1:官方源, 2:腾讯源, 3:阿里源\n\
 export apt_source_switch=$apt_source_switch\n\
 export myminiserve=$myminiserve\n\
 export myprivsvr=$myprivsvr\n\
