@@ -92,10 +92,11 @@ else
 
     sudo apt-get install -y ufw
     #在docker环境下会出错
-    sudo ufw enable
     sudo ufw default deny
     sudo ufw allow from 10.0.0.0/24
     sudo ufw allow 22/tcp
+    #sudo ufw enable
+    sudo ufw disable
 fi
 
 if [[ ! "$ismynasenv" == 'true' ]]; then
@@ -107,6 +108,7 @@ mkdir myzsh
 cd myzsh
 wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
 chmod a+x install.sh
+#安装oh-my-zsh的时候会提示是否切换到zsh, 按y确认,然后会进入到zsh的命令行界面,按<C-d>退出zsh后就能继续执行此脚本了
 ./install.sh
 cd ..
 sed -i -e 's/^# ZSH_THEME_RANDOM_CANDIDATES=.*$/DISABLE_AUTO_UPDATE="true"/' $HOME/.zshrc

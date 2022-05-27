@@ -1,8 +1,11 @@
 #!/bin/bash
 
-#要用`export`导出的变量, 才是环境变量, 被执行的脚本(比如./devbuilder.sh)才能识别该环境变量
+export ismynasenv=false
 export http_proxy=http://proxy.izds.top:63000
 export https_proxy=$http_proxy
+export apt_source_switch=0
+#export myminiserve=
+#export myprivsvr=
 
 mytmppath=/tmp/mytmp
 mkdir -p $mytmppath
