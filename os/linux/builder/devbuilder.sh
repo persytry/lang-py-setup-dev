@@ -47,19 +47,33 @@ sudo apt-get update
 if ! type systemctl >/dev/null 2>&1; then
     sudo apt-get install -y systemd
 fi
-sudo apt-get install -y python3 zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client wireguard ufw htop software-properties-common lftp vsftpd
+sudo apt-get install -y python3 zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client htop lftp vsftpd
+#在docker环境下会提示警告: W: Possible missing firmware /lib/firmware/rtl_nic/rtl8168d-1.fw for module r8169
+sudo apt-get install -y wireguard
+#在docker环境下会这样的输出,貌似没什么影响: Failed to open connection to "system" message bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
+sudo apt-get install -y software-properties-common
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
 chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
 #[ssh 登录出现Are you sure you want to continue connecting (yes/no)?解决方法](https://blog.csdn.net/mct_blog/article/details/52511314)
 sudo sed -i -e "s/^#.*StrictHostKeyChecking.*$/    StrictHostKeyChecking no/" /etc/ssh/ssh_config
 
-ufw enable
-ufw default deny
-ufw allow from 10.0.0.0/24
-ufw allow 22/tcp
-
 sudo systemctl disable wg-quick@wg0 vsftpd
+
+# docker env
+if [ "$isdockerenv" = 'true' ]; then
+    echo 'isdockerenv=true'
+else
+    sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+    sudo systemctl disable docker
+
+    sudo apt-get install -y ufw
+    #在docker环境下会出错
+    ufw enable
+    ufw default deny
+    ufw allow from 10.0.0.0/24
+    ufw allow 22/tcp
+fi
 
 if [ ! "$ismynasenv" = 'true' ]; then
     ismynasenv=false
@@ -86,7 +100,9 @@ tar -xzf jdk-8u301-linux-x64.tar.gz
 sudo mv jdk1.8.0_301 /opt/jdk8
 
 # 通过apt软件源安装一些常用办公软件(office software)
-sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep git-delta global
+sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep global
+#docker环境下竟然没有git-delta
+sudo apt-get install -y git-delta
 
 # 安装常用的工具(安装包一般比较大,或需要经常更新到最新版本,lastest version)
 sudo apt-get install -y ./nvim-linux64.deb
@@ -112,8 +128,8 @@ unzip protoc-3.20.1-linux-x86_64.zip -d protoc
 sudo mv protoc/bin/protoc /usr/local/bin
 
 #https://github.com/syncthing/syncthing
-tar -xzf syncthing-linux-amd64-v1.20.1.tar.gz
-sudo mv syncthing-linux-amd64-v1.20.1/syncthing /usr/local/bin
+tar -xzf syncthing-linux-amd64-v1.20.2-rc.1.tar.gz
+sudo mv syncthing-linux-amd64-v1.20.2-rc.1/syncthing /usr/local/bin
 sudo chown $USER:$USER /usr/local/bin/syncthing
 
 #https://github.com/unlock-music/cli
@@ -194,14 +210,6 @@ if [ -n "$myprivsvr" ]; then
 
     $HOME/a/git/lang/py/setup/priv_svr/install.sh
     python3 $HOME/a/git/lang/py/setup/priv_svr/setup.py -ta
-fi
-
-# docker env
-if [ "$isdockerenv" = 'true' ]; then
-    echo 'isdockerenv=true'
-else
-    sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
-    sudo systemctl disable docker
 fi
 
 # build桌面环境
