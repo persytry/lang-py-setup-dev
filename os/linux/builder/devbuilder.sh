@@ -33,7 +33,7 @@ deb-src http://deb.debian.org/debian/ $mycodename main non-free contrib \n\
 deb-src http://deb.debian.org/debian/ $mycodename-updates main non-free contrib \n\
 deb-src http://deb.debian.org/debian/ $mycodename-backports main contrib non-free \n\
 deb-src http://deb.debian.org/debian-security/ $mycodename-security main contrib non-free" > sources.list
-else if [ $apt_source_switch = 2 ];then
+elif [ $apt_source_switch = 2 ];then
 echo -e "deb http://mirrors.tencentyun.com/debian $mycodename main contrib non-free \n\
 deb http://mirrors.tencentyun.com/debian $mycodename-updates main contrib non-free \n\
 deb http://mirrors.tencentyun.com/debian-security $mycodename/updates main \n\
@@ -44,7 +44,7 @@ deb-src http://mirrors.tencentyun.com/debian $mycodename-updates main contrib no
 deb-src http://mirrors.tencentyun.com/debian-security $mycodename/updates main \n\
 deb-src http://mirrors.tencentyun.com/debian $mycodename-backports main contrib non-free \n\
 deb-src http://mirrors.tencentyun.com/debian $mycodename-proposed-updates main contrib non-free" > sources.list
-else if [ $apt_source_switch = 3 ];then
+elif [ $apt_source_switch = 3 ];then
 echo -e "deb http://mirrors.aliyun.com/debian/ $mycodename main non-free contrib \n\
 deb http://mirrors.aliyun.com/debian-security $mycodename/updates main \n\
 deb http://mirrors.aliyun.com/debian/ $mycodename-updates main non-free contrib \n\
