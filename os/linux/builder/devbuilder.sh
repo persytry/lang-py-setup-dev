@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# techs
+#在wsl上给root设置密码: `sudo passwd root`
+
 # 尽量安装deb安装包
 cd /tmp/mytmp/dev
 
@@ -69,10 +72,10 @@ else
 
     sudo apt-get install -y ufw
     #在docker环境下会出错
-    ufw enable
-    ufw default deny
-    ufw allow from 10.0.0.0/24
-    ufw allow 22/tcp
+    sudo ufw enable
+    sudo ufw default deny
+    sudo ufw allow from 10.0.0.0/24
+    sudo ufw allow 22/tcp
 fi
 
 if [ ! "$ismynasenv" = 'true' ]; then
