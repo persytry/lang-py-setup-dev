@@ -8,7 +8,7 @@ cd /tmp/mytmp/dev
 
 if ! type sudo >/dev/null 2>&1; then
     apt-get install -y ./sudo_1.9.5p2-3_amd64.deb
-    if [ ! $USER == root ]; then
+    if [[ ! $USER == root ]]; then
         sudo usermod -a -G sudo $USER
         sudo sh -c 'echo -e "\n$USER ALL=(ALL:ALL) ALL" >> /etc/sudoers'
     fi
@@ -24,7 +24,7 @@ sudo apt-get install -y ./openssl_1.1.1n-0+deb11u2_amd64.deb ./apt-transport-htt
 
 #[get codename](https://unix.stackexchange.com/questions/180776/how-to-get-debian-codename-without-lsb-release)
 mycodename=`grep -Po 'VERSION="[0-9]+ \(\K[^)]+' /etc/os-release`
-if [ $apt_source_switch == 1 ]; then
+if [[ $apt_source_switch == 1 ]]; then
 echo -e "deb http://deb.debian.org/debian/ $mycodename main non-free contrib \n\
 deb http://deb.debian.org/debian/ $mycodename-updates main non-free contrib \n\
 deb http://deb.debian.org/debian/ $mycodename-backports main contrib non-free \n\
@@ -33,7 +33,7 @@ deb-src http://deb.debian.org/debian/ $mycodename main non-free contrib \n\
 deb-src http://deb.debian.org/debian/ $mycodename-updates main non-free contrib \n\
 deb-src http://deb.debian.org/debian/ $mycodename-backports main contrib non-free \n\
 deb-src http://deb.debian.org/debian-security/ $mycodename-security main contrib non-free" > sources.list
-elif [ $apt_source_switch == 2 ]; then
+elif [[ $apt_source_switch == 2 ]]; then
 echo -e "deb http://mirrors.tencentyun.com/debian $mycodename main contrib non-free \n\
 deb http://mirrors.tencentyun.com/debian $mycodename-updates main contrib non-free \n\
 deb http://mirrors.tencentyun.com/debian-security $mycodename/updates main \n\
@@ -44,7 +44,7 @@ deb-src http://mirrors.tencentyun.com/debian $mycodename-updates main contrib no
 deb-src http://mirrors.tencentyun.com/debian-security $mycodename/updates main \n\
 deb-src http://mirrors.tencentyun.com/debian $mycodename-backports main contrib non-free \n\
 deb-src http://mirrors.tencentyun.com/debian $mycodename-proposed-updates main contrib non-free" > sources.list
-elif [ $apt_source_switch == 3 ]; then
+elif [[ $apt_source_switch == 3 ]]; then
 echo -e "deb http://mirrors.aliyun.com/debian/ $mycodename main non-free contrib \n\
 deb http://mirrors.aliyun.com/debian-security $mycodename/updates main \n\
 deb http://mirrors.aliyun.com/debian/ $mycodename-updates main non-free contrib \n\
@@ -84,7 +84,7 @@ sudo sed -i -e "s/^#.*StrictHostKeyChecking.*$/    StrictHostKeyChecking no/" /e
 sudo systemctl disable wg-quick@wg0 vsftpd
 
 # docker env
-if [ "$isdockerenv" == 'true' ]; then
+if [[ "$isdockerenv" == 'true' ]]; then
     echo 'isdockerenv=true'
 else
     sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
@@ -98,7 +98,7 @@ else
     sudo ufw allow 22/tcp
 fi
 
-if [ ! "$ismynasenv" == 'true' ]; then
+if [[ ! "$ismynasenv" == 'true' ]]; then
     ismynasenv=false
 fi
 #这种方式不大好,可能不会通过代理访问网络吧
@@ -218,7 +218,7 @@ if [ -n "$myprivsvr" ]; then
     tar -xzf gitblit-1.8.0.tar.gz
     sudo mv gitblit-1.8.0 /opt/gitblit
 
-    if [ "$ismynasenv" == 'true' ]; then
+    if [[ "$ismynasenv" == 'true' ]]; then
         #minidlna
         #sudo apt-get install -y gettext autopoint libflac-dev
         mv minidlnad_v1.3.0_for_rmvb_by_persy minidlnad
