@@ -19,10 +19,11 @@ fi
 
 if [ -f dev.tar.gz ]; then
     tar -xzf dev.tar.gz -C $mytmppath
+    mypwd=$PWD
     if [ ! -f devbuilder.sh ]; then
         cd $mytmppath
     fi
-    ./devbuilder.sh | tee devbuilder.log
+    ./devbuilder.sh | tee $mypwd/devbuilder.log
 else
     echo "error: cannot find the file: dev.tar.gz"
     rm -rf $mytmppath
