@@ -10,11 +10,11 @@ export apt_source_switch=0
 
 mytmppath=/tmp/mytmp
 mkdir -p $mytmppath
-if type wget >/dev/null 2>&1; then
+if [ -f "./dev.tar.gz" ]; then
+    cp dev.tar.gz $mytmppath
+elif type wget >/dev/null 2>&1; then
     wget $myminiserve/sys/dev.tar.gz
     mv dev.tar.gz $mytmppath
-else
-    cp dev.tar.gz $mytmppath
 fi
 
 if [ -f "$mytmppath/dev.tar.gz" ]; then
