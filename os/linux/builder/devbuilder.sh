@@ -267,4 +267,4 @@ sudo ln -s `which lazygit` /usr/local/bin/lg
 sudo ln -s `which fdfind` /usr/local/bin/fd
 
 # 这个放到最后执行,因为setup.py会设置其他的代理方式,可能不大稳定
-#python3 $HOME/a/git/lang/py/setup/dev/setup.py -ta
+python3 $HOME/a/git/lang/py/setup/dev/setup.py -ta --service
