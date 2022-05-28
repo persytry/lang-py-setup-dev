@@ -310,9 +310,12 @@ def main() -> None:
         os.environ['USER'] = args.user[0]
     cnt = 0
     toSystem = args.toSystem
-    if args.service and toSystem and os.geteuid():
-        os.execlp('sudo', 'sudo', sys.executable, *sys.argv, '--home', os.environ['HOME'], '--user', os.environ['USER'])
     all = args.all
+    if args.service and toSystem and os.geteuid():
+        if all:
+            print('all and service option can not use together, because root privilege problem')
+            return
+        os.execlp('sudo', 'sudo', sys.executable, *sys.argv, '--home', os.environ['HOME'], '--user', os.environ['USER'])
     vimName = 'nvim'
     vimCnt = 0
     if args.vim:
