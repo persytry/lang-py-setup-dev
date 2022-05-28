@@ -14,7 +14,7 @@ if [ -f "./dev.tar.gz" ]; then
     cp dev.tar.gz $mytmppath
 elif type wget >/dev/null 2>&1; then
     wget $myminiserve/sys/dev.tar.gz
-    mv dev.tar.gz $mytmppath
+    cp dev.tar.gz $mytmppath
 fi
 
 if [ -f "$mytmppath/dev.tar.gz" ]; then
