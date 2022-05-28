@@ -10,17 +10,17 @@ export apt_source_switch=0
 
 mytmppath=/tmp/mytmp
 mkdir -p $mytmppath
-if [ -f "./dev.tar.gz" ]; then
-    cp dev.tar.gz $mytmppath
-elif type wget >/dev/null 2>&1; then
-    wget $myminiserve/sys/dev.tar.gz
-    cp dev.tar.gz $mytmppath
+
+if [ ! -f dev.tar.gz ]; then
+    if type wget >/dev/null 2>&1; then
+        wget $myminiserve/sys/dev.tar.gz
+    fi
 fi
 
-if [ -f "$mytmppath/dev.tar.gz" ]; then
-    tar -xzf $mytmppath/dev.tar.gz -C $mytmppath
+if [ -f dev.tar.gz ]; then
+    tar -xzf dev.tar.gz -C $mytmppath
     ./devbuilder.sh | tee devbuilder.log
 else
-    echo "error: cannot find the file: $mytmppath/dev.tar.gz"
+    echo "error: cannot find the file: dev.tar.gz"
     rm -rf $mytmppath
 fi
