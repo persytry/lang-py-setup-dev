@@ -123,6 +123,11 @@ export ismynasenv=$ismynasenv" >> $HOME/.zshrc
 #sudo chsh -s `which zsh`
 
 # 安装编程语言支持
+sudo apt-get install -y python3-pip nodejs npm
+pip install pynvim
+
+sudo npm install -g yarn neovim bash-language-server
+
 tar -xzf jdk-8u301-linux-x64.tar.gz
 sudo mv jdk1.8.0_301 /opt/jdk8
 
@@ -203,6 +208,8 @@ cd proxychains-ng-4.16
 make
 sudo make install
 cd ..
+sudo touch /usr/local/etc/proxychains.conf
+sudo chown $USER:$USER /usr/local/etc/proxychains.conf
 
 #https://github.com/svenstaro/miniserve
 sudo mv miniserve-v0.19.5-x86_64-unknown-linux-musl /usr/local/bin/miniserve
@@ -257,6 +264,7 @@ sudo ln -s `which proxychains4` /usr/local/bin/pc
 sudo ln -s `which python3` /usr/local/bin/python
 sudo ln -s `which python3` /usr/local/bin/p
 sudo ln -s `which lazygit` /usr/local/bin/lg
+sudo ln -s `which fdfind` /usr/local/bin/fd
 
 # 这个放到最后执行,因为setup.py会设置其他的代理方式,可能不大稳定
 #python3 $HOME/a/git/lang/py/setup/dev/setup.py -ta
