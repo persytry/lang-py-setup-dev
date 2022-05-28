@@ -234,6 +234,7 @@ def copyGitCfg(toSystem: bool, vimName: str) -> int:
         cnt += _setGitCfgItem('include.path ~/.config/delta/themes.gitconfig')
         cnt += _setGitCfgItem('delta.features coracias-caudatus')
         cnt += _setGitCfgItem('delta.navigate true')
+        cnt += _setGitCfgItem('credential.helper store')
     print(f'copy lazygit or git config {cnt} files or items')
     return cnt
 

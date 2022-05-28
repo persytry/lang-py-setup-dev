@@ -247,8 +247,6 @@ if [ -n "$myprivsvr" ]; then
     fi
 
     $HOME/a/git/lang/py/setup/priv_svr/install.sh
-    #还是手动执行吧
-    #python3 $HOME/a/git/lang/py/setup/priv_svr/setup.py -ta
 fi
 
 # build桌面环境
@@ -271,5 +269,7 @@ sudo ln -s `which python3` /usr/local/bin/p
 sudo ln -s `which lazygit` /usr/local/bin/lg
 sudo ln -s `which fdfind` /usr/local/bin/fd
 
-# 这个还是不要自动执行了,还是手动执行吧, 因为某些程序会在最一次运行的时候进行一些初始化
-#python3 $HOME/a/git/lang/py/setup/dev/setup.py -ta --service
+# 这个还是不要自动执行了,还是手动执行吧, 因为某些程序会在最一次运行的时候进行一些初始化. 重启完系统再执行以下的命令
+#python3 $HOME/a/git/lang/py/setup/dev/setup.py -ta
+#python3 $HOME/a/git/lang/py/setup/dev/setup.py -t --service
+#python3 $HOME/a/git/lang/py/setup/priv_svr/setup.py -ta
