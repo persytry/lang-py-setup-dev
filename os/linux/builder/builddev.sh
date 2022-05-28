@@ -19,6 +19,9 @@ fi
 
 if [ -f dev.tar.gz ]; then
     tar -xzf dev.tar.gz -C $mytmppath
+    if [ ! -f devbuilder.sh ]; then
+        cd $mytmppath
+    fi
     ./devbuilder.sh | tee devbuilder.log
 else
     echo "error: cannot find the file: dev.tar.gz"
