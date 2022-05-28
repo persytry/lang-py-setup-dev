@@ -89,8 +89,10 @@ sudo systemctl disable wg-quick@wg0 vsftpd
 if [[ "$isdockerenv" == 'true' ]]; then
     echo 'isdockerenv=true'
 else
-    sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
-    sudo systemctl disable docker
+    if ! type docker >/dev/null 2>&1; then
+        sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+        sudo systemctl disable docker
+    fi
 
     sudo apt-get install -y ufw
     #在docker环境下会出错
