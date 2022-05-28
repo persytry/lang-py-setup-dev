@@ -44,6 +44,7 @@ _os_file_list = [
     # ['os/linux/cmn_profile.sh',None,'~/.cmn_profile.sh','~/.cmn_profile.sh'],
     # mac和linux下不需要拷贝这个文件了,因为已经在环境变量和init.vim中配置过了
     ['vim/gtags.conf','~/.globalrc','~/.globalrc','~/.globalrc'],
+    ['os/linux/lightdm.conf', None, None, '/etc/lightdm/lightdm.conf'],
     ['os/linux/i3.config', None, None, '~/.config/i3/config'],
     ['t/delta-themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig'],
     # ['t/ctags/ctags','~/.ctags','~/.ctags','~/.ctags'], # 这是Exuberant Ctags 5.8的配置
@@ -265,6 +266,7 @@ def copyService(toSystem:bool) -> int:
     cnt = _copyFileItemByName(toSystem, 'os/linux/etc/my_keymaps_tty')
     cnt += _copyFileItemByName(toSystem, 'os/linux/service/load_tty_keymaps.service')
     cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.service')
+    cnt += _copyFileItemByName(toSystem, 'os/linux/lightdm.conf')
     if toSystem:
         os.system('systemctl enable load_tty_keymaps')
         if os.path.exists('/usr/share/X11/xkb/symbols/altwin'):
@@ -357,7 +359,7 @@ def main() -> None:
         cnt += _copyFileItemByName(toSystem, 'net/lftprc.conf')
     if all or args.lemonade:
         cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.toml')
-    if args.service:
+    if (all and not toSystem) or args.service:
         cnt += copyService(toSystem)
     print(f'copy total {cnt} file done')
 
