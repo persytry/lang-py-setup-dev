@@ -315,7 +315,7 @@ def main() -> None:
     all = args.all
     vimName = 'nvim'
     vimCnt = 0
-    if all or args.vim:
+    if args.vim:
         cnt += copyVimCfg(toSystem, False)
         vimName = 'vim'
         vimCnt += 1
