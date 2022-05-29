@@ -84,6 +84,7 @@ chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
 sudo sed -i -e "s/^#.*StrictHostKeyChecking.*$/    StrictHostKeyChecking no/" /etc/ssh/ssh_config
 
 git config --global http.sslVerify false
+git config --global credential.helper store
 
 sudo systemctl disable wg-quick@wg0 vsftpd
 
