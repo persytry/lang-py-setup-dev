@@ -10,9 +10,10 @@ import argparse
 import glob
 from typing import Optional, List, Dict
 import filecmp
+import subprocess
 
 class FileItem:
-    def __init__(self, f:str, win:Optional[str]=None, mac:Optional[str]=None, linux:Optional[str]=None, all:Optional[str]=None, unixLike:Optional[str]=None, root:bool=False, needCreate:bool=False, ignored:Optional[List[str]]=None, seds:Optional[Dict[str, Dict[str, str]]]=None):
+    def __init__(self, f:str, win:Optional[str]=None, mac:Optional[str]=None, linux:Optional[str]=None, all:Optional[str]=None, unixLike:Optional[str]=None, root:bool=False, needCreate:bool=False, ignored:Optional[List[str]]=None, seds:Optional[Dict[str, Dict[str, str]]]=None, linuxVirt:Optional[str]=None):
         self.f = f
         self.win = win or all
         self.mac = mac or unixLike or all
@@ -22,6 +23,7 @@ class FileItem:
         self.needCreate = needCreate
         self.ignored = ignored
         self.seds = seds
+        self.linuxVirt = linuxVirt
 
 _sedsPort:Dict[str, Dict[str, str]] = {
     'hk': {'63001':'63000', '63051':'63050'},
@@ -70,10 +72,10 @@ _os_file_list:List[FileItem] = [
     FileItem('t/lemonade/lemonade.service', linux='/lib/systemd/system/lemonade.service', root=True, needCreate=True),
     FileItem('t/ripgrep.conf', all='~/.config/ripgrep.conf', needCreate=True),
     FileItem('t/fdignore.conf', all='~/.config/fd/ignore', needCreate=True),
-    FileItem('os/linux/etc/my_keymaps_tty', linux='/etc/my_keymaps_tty', root=True, needCreate=True),
-    FileItem('os/linux/service/load_tty_keymaps.service', linux='/lib/systemd/system/load_tty_keymaps.service', root=True, needCreate=True),
-    FileItem('os/linux/x11/keymap/altwin', linux='/usr/share/X11/xkb/symbols/altwin', root=True),
-    FileItem('os/linux/x11/keymap/pc', linux='/usr/share/X11/xkb/symbols/pc', root=True),
+    FileItem('os/linux/etc/my_keymaps_tty', linux='/etc/my_keymaps_tty', root=True, needCreate=True, linuxVirt='none'),
+    FileItem('os/linux/service/load_tty_keymaps.service', linux='/lib/systemd/system/load_tty_keymaps.service', root=True, needCreate=True, linuxVirt='none'),
+    FileItem('os/linux/x11/keymap/altwin', linux='/usr/share/X11/xkb/symbols/altwin', root=True, linuxVirt='none'),
+    FileItem('os/linux/x11/keymap/pc', linux='/usr/share/X11/xkb/symbols/pc', root=True, linuxVirt='none'),
 ]
 _os_file_map:Dict[str, int] = {}
 if len(_os_file_map) != len(_os_file_list):
@@ -87,6 +89,14 @@ def _isWindows() -> bool:
 def _isMac() -> bool:
     return platform.system() == 'Darwin'
 
+_linuxVirt:Optional[str] = None
+def _getLinuxVirt() -> str:
+    global _linuxVirt
+    if _linuxVirt: return _linuxVirt
+    #[Linux下如何判断服务器是虚拟机还是物理机](https://blog.csdn.net/chen1415886044/article/details/107947062)
+    res = subprocess.run('systemd-detect-virt', check=False, text=True, shell=False, stdout=subprocess.PIPE, universal_newlines=True, stderr=subprocess.DEVNULL)
+    _linuxVirt = res.stdout.strip()
+    return _linuxVirt
 
 def _makedirs(name:str) -> None:
     paths:List[str] = []
@@ -158,6 +168,8 @@ def _copyFileItem(toSystem: bool, item: FileItem) -> int:
         sysPath = os.path.expandvars(os.path.expanduser(item.mac))
     else:
         if item.linux is None:
+            return 0
+        if item.linuxVirt and _getLinuxVirt() != item.linuxVirt:
             return 0
         sysPath = os.path.expandvars(os.path.expanduser(item.linux))
     sysPath = os.path.realpath(sysPath)
