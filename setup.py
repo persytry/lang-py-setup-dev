@@ -3,67 +3,75 @@
 @author Persy
 @date 2021/8/15 12:57
 '''
-import os
+import os, stat
 import shutil
 import platform
 import argparse
 import glob
 import sys
+from typing import Optional
 
-_cur_dir = os.path.dirname(os.path.realpath(__file__))
+class FileItem:
+    f:str
+
+    def __init__(self, f:str, win:Optional[str]=None, mac:Optional[str]=None, linux:Optional[str]=None, all:Optional[str]=None, unixLike:Optional[str]=None):
+        self.f = f
+        self.win = win or all
+        self.mac = mac or unixLike or all
+        self.linux = linux or unixLike or all
+        assert self.win or self.mac or self.linux
+
+_cur_dir:str = os.path.dirname(os.path.realpath(__file__))
 _cur_dir = os.path.realpath(_cur_dir)
-# name  win mac linux
-_os_file_list = [
-    ['vim/nvim', '~/AppData/Local/nvim', '~/.config/nvim', '~/.config/nvim'],
-    ['vim/nvim/init.vim', '~/.vimrc', '~/.vimrc', '~/.vimrc'],
-    ['vim/nvim/coc-settings.json', '~/vimfiles/coc-settings.json', '~/.vim/coc-settings.json', '~/.vim/coc-settings.json'],
-    ['vim/nvim/autoload', '~/vimfiles/autoload', '~/.vim/autoload', '~/.vim/autoload'],
-    ['vim/nvim/mycmd', '~/vimfiles/mycmd', '~/.vim/mycmd', '~/.vim/mycmd'],
-    ['vim/vimspector.json', os.path.join(_cur_dir, '../../../../.vimspector.json'), os.path.join(_cur_dir, '../../../../.vimspector.json'), os.path.join(_cur_dir, '../../../../.vimspector.json')],
-    ['os/win/terminal/settings.json', '~/AppData/Local/Packages/Microsoft.WindowsTerminal_*/LocalState/settings.json', None, None],
-    ['t/vifm/cmn.vifm', '~/AppData/Roaming/Vifm/cmn.vifm', '~/.config/vifm/cmn.vifm', '~/.config/vifm/cmn.vifm'],
-    ['t/vifm/vifmrc-win', '~/AppData/Roaming/Vifm/vifmrc', None, None],
-    ['t/vifm/vifmrc-osx', None, '~/.config/vifm/vifmrc', None],
-    ['t/vifm/vifmrc-linux', None, None, '~/.config/vifm/vifmrc'],
-    ['t/vifm/colors/Default.vifm', '~/AppData/Roaming/Vifm/colors/Default.vifm', '~/.config/vifm/colors/Default.vifm', None],
-    ['t/vifm/colors/Default-linux.vifm', None, None, '~/.config/vifm/colors/Default.vifm'],
-    ['t/vifm/colors/solarized-light.vifm', '~/AppData/Roaming/Vifm/colors/solarized-light.vifm', '~/.config/vifm/colors/solarized-light.vifm', '~/.config/vifm/colors/solarized-light.vifm'],
+_os_file_list:list[FileItem] = [
+    FileItem('vim/nvim', win='~/AppData/Local/nvim', unixLike='~/.config/nvim'),
+    FileItem('vim/nvim/init.vim', all='~/.vimrc'),
+    FileItem('vim/nvim/coc-settings.json', win='~/vimfiles/coc-settings.json', unixLike='~/.vim/coc-settings.json'),
+    FileItem('vim/nvim/autoload', win='~/vimfiles/autoload', unixLike='~/.vim/autoload'),
+    FileItem('vim/nvim/mycmd', win='~/vimfiles/mycmd', unixLike='~/.vim/mycmd'),
+    FileItem('vim/vimspector.json', all=os.path.join(_cur_dir, '../../../../.vimspector.json')),
+    FileItem('os/win/terminal/settings.json', win='~/AppData/Local/Packages/Microsoft.WindowsTerminal_*/LocalState/settings.json'),
+    FileItem('t/vifm/cmn.vifm', win='~/AppData/Roaming/Vifm/cmn.vifm', unixLike='~/.config/vifm/cmn.vifm'),
+    FileItem('t/vifm/vifmrc-win', win='~/AppData/Roaming/Vifm/vifmrc'),
+    FileItem('t/vifm/vifmrc-osx', mac='~/.config/vifm/vifmrc'),
+    FileItem('t/vifm/vifmrc-linux', linux='~/.config/vifm/vifmrc'),
+    FileItem('t/vifm/colors/Default.vifm', win='~/AppData/Roaming/Vifm/colors/Default.vifm', mac='~/.config/vifm/colors/Default.vifm'),
+    FileItem('t/vifm/colors/Default-linux.vifm', linux='~/.config/vifm/colors/Default.vifm'),
+    FileItem('t/vifm/colors/solarized-light.vifm', win='~/AppData/Roaming/Vifm/colors/solarized-light.vifm', unixLike='~/.config/vifm/colors/solarized-light.vifm'),
     # 需要拷贝文件: $HOME/.ssh/authorized_keys
-    ['net/ssh/sshd_config.conf', 'C:/ProgramData/ssh/sshd_config', None, None],
-    ['net/ssh/config.conf', None, '~/.ssh/config', '~/.ssh/config'],
-    ['net/ssh/config_win.conf', '~/.ssh/config', None, None],
+    FileItem('net/ssh/sshd_config.conf', win='C:/ProgramData/ssh/sshd_config'),
+    FileItem('net/ssh/config.conf', unixLike='~/.ssh/config'),
+    FileItem('net/ssh/config_win.conf', win='~/.ssh/config'),
     # https://github.com/shunf4/proxychains-windows
-    ['net/proxychains.conf', '~/.proxychains/proxychains.conf', '/usr/local/etc/proxychains.conf', '/usr/local/etc/proxychains.conf'],
-    ['net/w3m-config-mac.conf',None,'~/.w3m/config',None],
-    ['net/w3m-config-linux.conf',None,None,'~/.w3m/config'],
-    ['net/lftprc.conf','~/.config/lftp/rc','~/.config/lftp/rc','~/.config/lftp/rc'],
-    ['t/lazygit-config.yml', '%APPDATA%/lazygit/config.yml',  '~/Library/Application Support/lazygit/config.yml',  '~/.config/lazygit/config.yml'],
-    ['t/fbtermrc',None,None,'~/.fbtermrc'],
-    ['t/tmux.conf',None,'~/.tmux.conf','~/.tmux.conf'],
-    ['os/linux/terminator.config',None,None,'~/.config/terminator/config'],
-    # ['os/linux/cmn_profile.sh',None,'~/.cmn_profile.sh','~/.cmn_profile.sh'],
+    FileItem('net/proxychains.conf', win='~/.proxychains/proxychains.conf', unixLike='/usr/local/etc/proxychains.conf'),
+    FileItem('net/w3m-config-mac.conf', mac='~/.w3m/config'),
+    FileItem('net/w3m-config-linux.conf', linux='~/.w3m/config'),
+    FileItem('net/lftprc.conf', all='~/.config/lftp/rc'),
+    FileItem('t/lazygit-config.yml', win='%APPDATA%/lazygit/config.yml', mac='~/Library/Application Support/lazygit/config.yml', linux='~/.config/lazygit/config.yml'),
+    FileItem('t/fbtermrc', linux='~/.fbtermrc'),
+    FileItem('t/tmux.conf', unixLike='~/.tmux.conf'),
+    FileItem('os/linux/terminator.config', linux='~/.config/terminator/config'),
     # mac和linux下不需要拷贝这个文件了,因为已经在环境变量和init.vim中配置过了
-    ['vim/gtags.conf','~/.globalrc','~/.globalrc','~/.globalrc'],
-    ['os/linux/lightdm.conf', None, None, '/etc/lightdm/lightdm.conf'],
-    ['os/linux/i3.config', None, None, '~/.config/i3/config'],
-    ['t/delta-themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig','~/.config/delta/themes.gitconfig'],
-    # ['t/ctags/ctags','~/.ctags','~/.ctags','~/.ctags'], # 这是Exuberant Ctags 5.8的配置
-    ['t/ctags/ctags.d','~/.ctags.d','~/.ctags.d','~/.ctags.d'], # 这是Universal Ctags 5.9.0及以上的配置
-    ['t/vscode/settings.json','~/AppData/Roaming/Code/User/settings.json','~/Library/Application Support/Code/User/settings.json',None],
-    ['t/vscode/keybindings.json','~/AppData/Roaming/Code/User/keybindings.json','~/Library/Application Support/Code/User/keybindings.json',None],
-    ['t/lemonade/lemonade.toml','~/.config/lemonade.toml','~/.config/lemonade.toml','~/.config/lemonade.toml'],
-    ['t/lemonade/lemonade.service', None, None, '/lib/systemd/system/lemonade.service'],
-    ['t/ripgrep.conf','~/.config/ripgrep.conf','~/.config/ripgrep.conf','~/.config/ripgrep.conf'],
-    ['t/fdignore.conf','~/.config/fd/ignore','~/.config/fd/ignore','~/.config/fd/ignore'],
-    ['os/linux/etc/my_keymaps_tty', None, None, '/etc/my_keymaps_tty'],
-    ['os/linux/service/load_tty_keymaps.service', None, None, '/lib/systemd/system/load_tty_keymaps.service'],
-    ['os/linux/x11/keymap/altwin', None, None, '/usr/share/X11/xkb/symbols/altwin'],
-    ['os/linux/x11/keymap/pc', None, None, '/usr/share/X11/xkb/symbols/pc'],
+    FileItem('vim/gtags.conf', all='~/.globalrc'),
+    FileItem('os/linux/lightdm.conf', linux='/etc/lightdm/lightdm.conf'),
+    FileItem('os/linux/i3.config', linux='~/.config/i3/config'),
+    FileItem('t/delta-themes.gitconfig', all='~/.config/delta/themes.gitconfig'),
+    FileItem('t/ctags/ctags.d', all='~/.ctags.d'), # 这是Universal Ctags 5.9.0及以上的配置
+    FileItem('t/vscode/settings.json', win='~/AppData/Roaming/Code/User/settings.json', mac='~/Library/Application Support/Code/User/settings.json'),
+    FileItem('t/vscode/keybindings.json', win='~/AppData/Roaming/Code/User/keybindings.json', mac='~/Library/Application Support/Code/User/keybindings.json'),
+    FileItem('t/lemonade/lemonade.toml', all='~/.config/lemonade.toml'),
+    FileItem('t/lemonade/lemonade.service', linux='/lib/systemd/system/lemonade.service'),
+    FileItem('t/ripgrep.conf', all='~/.config/ripgrep.conf'),
+    FileItem('t/fdignore.conf', all='~/.config/fd/ignore'),
+    FileItem('os/linux/etc/my_keymaps_tty', linux='/etc/my_keymaps_tty'),
+    FileItem('os/linux/service/load_tty_keymaps.service', linux='/lib/systemd/system/load_tty_keymaps.service'),
+    FileItem('os/linux/x11/keymap/altwin', linux='/usr/share/X11/xkb/symbols/altwin'),
+    FileItem('os/linux/x11/keymap/pc', linux='/usr/share/X11/xkb/symbols/pc'),
 ]
-_os_file_map = {}
+_os_file_map:dict[str, int] = {}
 if len(_os_file_map) != len(_os_file_list):
     for i, v in enumerate(_os_file_list):
-        _os_file_map[v[0]] = i
+        _os_file_map[v.f] = i
 
 def _isWindows() -> bool:
     return platform.system() == 'Windows'
@@ -104,38 +112,37 @@ def _copyFileImpl(srcPath: str, dstPath: str) -> int:
     return cnt
 
 
-def _copyFileItem(toSystem: bool, item: list, chmod: int) -> int:
-    assert len(item) == 4
+def _copyFileItem(toSystem: bool, item: FileItem) -> int:
     if _isWindows():
-        if item[1] is None:
+        if item.win is None:
             return 0
-        sysPath = os.path.expandvars(os.path.expanduser(item[1]))
+        sysPath = os.path.expandvars(os.path.expanduser(item.win))
     elif _isMac():
-        if item[2] is None:
+        if item.mac is None:
             return 0
-        sysPath = os.path.expandvars(os.path.expanduser(item[2]))
+        sysPath = os.path.expandvars(os.path.expanduser(item.mac))
     else:
-        if item[3] is None:
+        if item.linux is None:
             return 0
-        sysPath = os.path.expandvars(os.path.expanduser(item[3]))
+        sysPath = os.path.expandvars(os.path.expanduser(item.linux))
     sysPath = os.path.realpath(sysPath)
     _sysPath = glob.glob(sysPath)
     if len(_sysPath) != 0:
         sysPath = _sysPath[0]
-    curPath = os.path.realpath(os.path.join(_cur_dir, item[0]))
+    curPath = os.path.realpath(os.path.join(_cur_dir, item.f))
     if toSystem:
         cnt = _copyFileImpl(curPath, sysPath)
-        if chmod > 0:
-            os.system(f'chmod {chmod} {sysPath}')
-            print(f'chmod {chmod} {sysPath}')
+        # if chmod > 0:
+            # os.chmod(sysPath, chmod)
+            # print(f'chmod {chmod} {sysPath}')
     else:
         cnt = _copyFileImpl(sysPath, curPath)
     return cnt
 
 
-def _copyFileItemByName(toSystem: bool, itemName: str, chmod: int = 0) -> int:
+def _copyFileItemByName(toSystem: bool, itemName: str) -> int:
     item = _os_file_list[_os_file_map[itemName]]
-    return _copyFileItem(toSystem, item, chmod)
+    return _copyFileItem(toSystem, item)
 
 
 def copyVimCfg(toSystem: bool, isNvim: bool) -> int:
@@ -183,7 +190,7 @@ def copySshdCfg(toSystem: bool) -> int:
 
 def copySshCfg(toSystem: bool) -> int:
     cnt = 0
-    cnt += _copyFileItemByName(toSystem, 'net/ssh/config.conf', 600)
+    cnt += _copyFileItemByName(toSystem, 'net/ssh/config.conf')
     cnt += _copyFileItemByName(toSystem, 'net/ssh/config_win.conf')
     print(f'copy ssh config {cnt} files')
     return cnt
@@ -259,9 +266,7 @@ def copyDbgToDir(path:str) -> int:
     elif not os.path.exists(path):
         print(f'the path is not exists: {path}')
         return 0
-    item = _os_file_list[_os_file_map['vim/vimspector.json']][:]
-    item[1] = item[2] = item[3] = os.path.join(path, '.vimspector.json')
-    return _copyFileItem(True, item, 0)
+    return _copyFileItem(True, FileItem('vim/vimspector.json', all=os.path.join(path, '.vimspector.json')))
 
 def copyService(toSystem:bool) -> int:
     cnt = _copyFileItemByName(toSystem, 'os/linux/etc/my_keymaps_tty')
