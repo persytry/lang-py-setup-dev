@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# techs
+# techs & notes
 #在wsl上给root设置密码: `sudo passwd root`
 
 # 尽量安装deb安装包
@@ -13,6 +13,8 @@ if ! type sudo >/dev/null 2>&1; then
         sudo sh -c 'echo -e "\n$USER ALL=(ALL:ALL) ALL" >> /etc/sudoers'
     fi
 fi
+
+sudo sed -i -e "s/^.*deb cdrom:.*$//" /etc/apt/sources.list
 
 # 修改时区
 sudo sh -c 'echo "Asia/Shanghai" > /etc/timezone'

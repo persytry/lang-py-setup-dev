@@ -14,6 +14,8 @@ mkdir -p $mytmppath
 if [ ! -f dev.tar.gz ]; then
     if type wget >/dev/null 2>&1; then
         wget $myminiserve/sys/dev.tar.gz
+    else
+        echo "wget is not installed"
     fi
 fi
 
