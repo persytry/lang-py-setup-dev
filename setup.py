@@ -23,7 +23,7 @@ class FileItem:
         self.ignored = ignored
         self.seds = seds
 
-_seds:Dict[str, Dict[str, str]] = {
+_sedsPort:Dict[str, Dict[str, str]] = {
     'hk': {'63001':'63000', '63051':'63050'},
     'usagate': {'63000':'63001', '63050':'63051'},
 }
@@ -47,11 +47,11 @@ _os_file_list:List[FileItem] = [
     FileItem('t/vifm/colors/solarized-light.vifm', win='~/AppData/Roaming/Vifm/colors/solarized-light.vifm', unixLike='~/.config/vifm/colors/solarized-light.vifm', needCreate=True),
     # 需要拷贝文件: $HOME/.ssh/authorized_keys
     FileItem('net/ssh/sshd_config.conf', win='C:/ProgramData/ssh/sshd_config'),
-    FileItem('net/ssh/config.conf', unixLike='~/.ssh/config', needCreate=True, seds=_seds),
-    FileItem('net/ssh/config_win.conf', win='~/.ssh/config', needCreate=True, seds=_seds),
+    FileItem('net/ssh/config.conf', unixLike='~/.ssh/config', needCreate=True, seds=_sedsPort),
+    FileItem('net/ssh/config_win.conf', win='~/.ssh/config', needCreate=True, seds=_sedsPort),
     # https://github.com/shunf4/proxychains-windows
-    FileItem('net/proxychains.conf', win='~/.proxychains/proxychains.conf', unixLike='/usr/local/etc/proxychains.conf', root=True, needCreate=True, seds=_seds),
-    FileItem('os/linux/cmn_profile.sh', win=_dummypath, seds=_seds),
+    FileItem('net/proxychains.conf', win='~/.proxychains/proxychains.conf', unixLike='/usr/local/etc/proxychains.conf', root=True, needCreate=True, seds=_sedsPort),
+    FileItem('os/linux/cmn_profile.sh', win=_dummypath, seds=_sedsPort),
     FileItem('net/w3m-config-mac.conf', mac='~/.w3m/config'),
     FileItem('net/w3m-config-linux.conf', linux='~/.w3m/config'),
     FileItem('net/lftprc.conf', all='~/.config/lftp/rc', needCreate=True),
@@ -61,7 +61,7 @@ _os_file_list:List[FileItem] = [
     FileItem('os/linux/terminator.config', linux='~/.config/terminator/config', needCreate=True),
     FileItem('vim/gtags.conf', all='~/.globalrc', needCreate=True),
     FileItem('os/linux/lightdm.conf', linux='/etc/lightdm/lightdm.conf', root=True),
-    FileItem('os/linux/i3.config', linux='~/.config/i3/config', seds=_seds),
+    FileItem('os/linux/i3.config', linux='~/.config/i3/config', seds=_sedsPort),
     FileItem('t/delta-themes.gitconfig', all='~/.config/delta/themes.gitconfig', needCreate=True),
     FileItem('t/ctags/ctags.d', all='~/.ctags.d', needCreate=True), # 这是Universal Ctags 5.9.0及以上的配置
     FileItem('t/vscode/settings.json', win='~/AppData/Roaming/Code/User/settings.json', mac='~/Library/Application Support/Code/User/settings.json'),

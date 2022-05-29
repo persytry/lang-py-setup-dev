@@ -255,6 +255,12 @@ fi
 # build桌面环境
 if [ -n "$DESKTOP_SESSION" ]; then
     sudo apt-get install -y lightdm i3 terminator dconf-editor ibus ibus-table-wubi xdg-utils xclip
+
+    #wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
+    #[安装chrome谷歌浏览器依赖Fonts-Liberation的问题](https://cloud.tencent.com/developer/article/1667871)
+    sudo apt-get install -y fonts-liberation
+    sudo apt-get update
+    sudo apt-get install -y fonts-liberation ./google-chrome-stable_current_amd64.deb
 fi
 
 # 系统清理
