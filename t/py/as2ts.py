@@ -6,6 +6,7 @@
 import argparse
 import os
 import re
+from typing import Optional
 
 _verbose:bool = True;
 
@@ -77,12 +78,12 @@ class JsonParser:
         return path
 
 class AsClass:
-    _modules:dict
+    _modules:set
     name:str
     base:str
 
     def __init__(self, name:str, base:str):
-        self._modules = {}
+        self._modules = set()
         self.name = name
         self.base = base
         self.vars = []
@@ -99,19 +100,20 @@ class AsClass:
 
     def addModule(self, type:str):
         if jsonParser.isModule(type) or jsonParser.hasModulePath(type):
-            arr = self._modules.get(type)
-            if arr is None:
-                self._modules[type] = [type]
-                return
-            if type not in arr:
-                arr.append(type)
+            self._modules.add(type)
 
-    def writeTo(self, f, spaceN:int):
-        hasImport = False
-        for module, arrClasses in self._modules.items():
-            f.write(f'import {{ {",".join(arrClasses)} }} from "{jsonParser.getModulePath(module)}";\n')
-            hasImport = True
-        if hasImport is True:
+    def writeTo(self, f, spaceN:int, isModule:bool):
+        modulePaths = {}
+        for module in self._modules:
+            modulePath = jsonParser.getModulePath(module)
+            arr = modulePaths.get(modulePath)
+            if arr is None:
+                modulePaths[modulePath] = [module]
+                continue
+            arr.append(module)
+        for modulePath, arrClasses in modulePaths.items():
+            f.write(f'import {{ {", ".join(arrClasses)} }} from "{modulePath}";\n')
+        if isModule is True:
             f.write('\n')
             default = 'default '
         else:
@@ -129,9 +131,8 @@ class AsClass:
         f.write(f'{" " * spaceN}}}\n\n')
 
     def getType(self, type:str) -> str:
-        for _, arrClasses in self._modules.items():
-            if type in arrClasses:
-                return type
+        if type in self._modules:
+            return type
         return jsonParser.getGlobalType(type)
 
 class AsVar:
@@ -186,17 +187,13 @@ class AsMethod_createChildren(AsMethodBase):
         for t in self.components:
             cls.addModule(t[1])
 
-def parseAsMethod(line:str, method:AsMethodBase) -> AsMethodBase:
+def parseAsMethod(line:str, method:Optional[AsMethodBase]) -> Optional[AsMethodBase]:
     func = re.findall(r'^.*function\s+(\w+)', line)
     if len(func) != 1: return method
     func = func[0]
     if func == 'createChildren':
         return AsMethod_createChildren()
     return method
-
-AsClassNull = AsClass('', '')
-ArrayNull = []
-AsMethodNull = AsMethodBase()
 
 class AsParser:
     packages:dict
@@ -205,10 +202,11 @@ class AsParser:
         self.packages = {}
 
     def parseFile(self, path:str) -> bool:
-        arrClasses = ArrayNull
+        arrClasses:Optional[list[AsClass]] = None
         hasPackage = False
-        theCls = AsClassNull
-        methodOld = method = AsMethodNull
+        theCls:Optional[AsClass] = None
+        methodOld:Optional[AsMethodBase] = None
+        method:Optional[AsMethodBase] = None
         isParseMethod = False
         with open(path, 'r', encoding='utf-8') as f:
             for line in f.readlines():
@@ -223,20 +221,23 @@ class AsParser:
                 if len(cls) == 1:
                     cls = cls[0]
                     theCls = AsClass(cls[0], cls[1])
-                    arrClasses.append(theCls)
+                    if arrClasses:
+                        arrClasses.append(theCls)
                     isParseMethod = jsonParser.isModule(theCls.name)
                     continue
                 var = re.findall(r'^\s*(\w+)\s+var\s+(\w+)\s*:\s*(\w+)', line)
                 if len(var) == 1:
                     var = var[0]
-                    theCls.vars.append(AsVar(var[0], var[1], var[2]))
+                    if theCls:
+                        theCls.vars.append(AsVar(var[0], var[1], var[2]))
                     continue
                 if isParseMethod:
                     method = parseAsMethod(line, method)
-                    if method is not AsMethodNull:
+                    if method is not None:
                         if method is not methodOld:
                             methodOld = method
-                            theCls.methods.append(method)
+                            if theCls:
+                                theCls.methods.append(method)
                         if method.parseLine(line):
                             continue
         return hasPackage
@@ -254,7 +255,7 @@ class AsParser:
                     classesBundle.append(cls)
             for module in modules:
                 with open(f'{os.path.join(path, module.name)}.ts', 'w', encoding='utf-8') as f:
-                    module.writeTo(f, 0)
+                    module.writeTo(f, 0, True)
             if _verbose:
                 print(f'generated module count:{len(modules)}')
             if len(classesBundle) == 0:
@@ -262,7 +263,7 @@ class AsParser:
             with open(f'{os.path.join(path, package.split(".")[-1])}.d.ts', 'w', encoding='utf-8') as f:
                 f.write(f'declare namespace {package}\n{{\n')
                 for cls in classesBundle:
-                    cls.writeTo(f, 4)
+                    cls.writeTo(f, 4, False)
                 f.write('}')
                 if _verbose:
                     print(f'generated package:{package}, class count:{len(classesBundle)}')
