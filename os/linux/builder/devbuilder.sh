@@ -237,15 +237,22 @@ if [ -n "$myprivsvr" ]; then
     if [[ "$ismynasenv" == 'true' ]]; then
         #[minidlna](https://sourceforge.net/projects/minidlna/)
         #[MiniDLNA 1.2.1编译 添加对rmvb格式的支持](https://www.cxybb.com/article/JOYIST/79191765)
-        #sudo apt-get install -y gettext autopoint libflac-dev
+        sudo apt-get install -y minidlna
+        sudo systemctl disable minidlna
         tar -xzf minidlna-1.3.0.tar.gz
         cd minidlna-1.3.0
         python3 $HOME/a/git/lang/py/setup/dev/setup.py --minidlna_src .
+        sudo apt-get install -y autopoint
+        sudo apt-get update
+        sudo apt-get install -y autopoint gettext libflac-dev libavutil-dev libavcodec-dev libavformat-dev libjpeg-dev libsqlite3-dev libexif-dev libid3tag0-dev libvorbis-dev
         ./autogen.sh
         ./configure
         make
         sudo make install
         cd ..
+        python3 $HOME/a/git/lang/py/setup/priv_svr/setup.py -t --minidlna
+        # 第一次启动使用-d –v选项看有没有出错
+        #sudo /usr/local/sbin/minidlnad -d -v
         sudo usermod -a -G $USER minidlna
 
         sudo apt-get install -y hd-idle samba
