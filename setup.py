@@ -3,72 +3,72 @@
 @author Persy
 @date 2021/8/15 12:57
 '''
-import os, stat
+import os
 import shutil
 import platform
 import argparse
 import glob
-import sys
-from typing import Optional
+from typing import Optional, List, Dict
+import filecmp
 
 class FileItem:
-    f:str
-
-    def __init__(self, f:str, win:Optional[str]=None, mac:Optional[str]=None, linux:Optional[str]=None, all:Optional[str]=None, unixLike:Optional[str]=None):
+    def __init__(self, f:str, win:Optional[str]=None, mac:Optional[str]=None, linux:Optional[str]=None, all:Optional[str]=None, unixLike:Optional[str]=None, root:bool=False, needCreate:bool=False, ignored:Optional[List[str]]=None):
         self.f = f
         self.win = win or all
         self.mac = mac or unixLike or all
         self.linux = linux or unixLike or all
         assert self.win or self.mac or self.linux
+        self.root = root
+        self.needCreate = needCreate
+        self.ignored = ignored
 
 _cur_dir:str = os.path.dirname(os.path.realpath(__file__))
 _cur_dir = os.path.realpath(_cur_dir)
-_os_file_list:list[FileItem] = [
-    FileItem('vim/nvim', win='~/AppData/Local/nvim', unixLike='~/.config/nvim'),
-    FileItem('vim/nvim/init.vim', all='~/.vimrc'),
-    FileItem('vim/nvim/coc-settings.json', win='~/vimfiles/coc-settings.json', unixLike='~/.vim/coc-settings.json'),
-    FileItem('vim/nvim/autoload', win='~/vimfiles/autoload', unixLike='~/.vim/autoload'),
-    FileItem('vim/nvim/mycmd', win='~/vimfiles/mycmd', unixLike='~/.vim/mycmd'),
-    FileItem('vim/vimspector.json', all=os.path.join(_cur_dir, '../../../../.vimspector.json')),
+_os_file_list:List[FileItem] = [
+    FileItem('vim/nvim', win='~/AppData/Local/nvim', unixLike='~/.config/nvim', needCreate=True, ignored=['plugged']),
+    FileItem('vim/nvim/init.vim', all='~/.vimrc', needCreate=True),
+    FileItem('vim/nvim/coc-settings.json', win='~/vimfiles/coc-settings.json', unixLike='~/.vim/coc-settings.json', needCreate=True),
+    FileItem('vim/nvim/autoload', win='~/vimfiles/autoload', unixLike='~/.vim/autoload', needCreate=True),
+    FileItem('vim/nvim/mycmd', win='~/vimfiles/mycmd', unixLike='~/.vim/mycmd', needCreate=True),
+    FileItem('vim/vimspector.json', all=os.path.join(_cur_dir, '../../../../.vimspector.json'), needCreate=True),
     FileItem('os/win/terminal/settings.json', win='~/AppData/Local/Packages/Microsoft.WindowsTerminal_*/LocalState/settings.json'),
-    FileItem('t/vifm/cmn.vifm', win='~/AppData/Roaming/Vifm/cmn.vifm', unixLike='~/.config/vifm/cmn.vifm'),
-    FileItem('t/vifm/vifmrc-win', win='~/AppData/Roaming/Vifm/vifmrc'),
-    FileItem('t/vifm/vifmrc-osx', mac='~/.config/vifm/vifmrc'),
-    FileItem('t/vifm/vifmrc-linux', linux='~/.config/vifm/vifmrc'),
-    FileItem('t/vifm/colors/Default.vifm', win='~/AppData/Roaming/Vifm/colors/Default.vifm', mac='~/.config/vifm/colors/Default.vifm'),
-    FileItem('t/vifm/colors/Default-linux.vifm', linux='~/.config/vifm/colors/Default.vifm'),
-    FileItem('t/vifm/colors/solarized-light.vifm', win='~/AppData/Roaming/Vifm/colors/solarized-light.vifm', unixLike='~/.config/vifm/colors/solarized-light.vifm'),
+    FileItem('t/vifm/cmn.vifm', win='~/AppData/Roaming/Vifm/cmn.vifm', unixLike='~/.config/vifm/cmn.vifm', needCreate=True),
+    FileItem('t/vifm/vifmrc-win', win='~/AppData/Roaming/Vifm/vifmrc', needCreate=True),
+    FileItem('t/vifm/vifmrc-osx', mac='~/.config/vifm/vifmrc', needCreate=True),
+    FileItem('t/vifm/vifmrc-linux', linux='~/.config/vifm/vifmrc', needCreate=True),
+    FileItem('t/vifm/colors/Default.vifm', win='~/AppData/Roaming/Vifm/colors/Default.vifm', mac='~/.config/vifm/colors/Default.vifm', needCreate=True),
+    FileItem('t/vifm/colors/Default-linux.vifm', linux='~/.config/vifm/colors/Default.vifm', needCreate=True),
+    FileItem('t/vifm/colors/solarized-light.vifm', win='~/AppData/Roaming/Vifm/colors/solarized-light.vifm', unixLike='~/.config/vifm/colors/solarized-light.vifm', needCreate=True),
     # 需要拷贝文件: $HOME/.ssh/authorized_keys
     FileItem('net/ssh/sshd_config.conf', win='C:/ProgramData/ssh/sshd_config'),
-    FileItem('net/ssh/config.conf', unixLike='~/.ssh/config'),
-    FileItem('net/ssh/config_win.conf', win='~/.ssh/config'),
+    FileItem('net/ssh/config.conf', unixLike='~/.ssh/config', needCreate=True),
+    FileItem('net/ssh/config_win.conf', win='~/.ssh/config', needCreate=True),
     # https://github.com/shunf4/proxychains-windows
-    FileItem('net/proxychains.conf', win='~/.proxychains/proxychains.conf', unixLike='/usr/local/etc/proxychains.conf'),
+    FileItem('net/proxychains.conf', win='~/.proxychains/proxychains.conf', unixLike='/usr/local/etc/proxychains.conf', root=True, needCreate=True),
     FileItem('net/w3m-config-mac.conf', mac='~/.w3m/config'),
     FileItem('net/w3m-config-linux.conf', linux='~/.w3m/config'),
-    FileItem('net/lftprc.conf', all='~/.config/lftp/rc'),
-    FileItem('t/lazygit-config.yml', win='%APPDATA%/lazygit/config.yml', mac='~/Library/Application Support/lazygit/config.yml', linux='~/.config/lazygit/config.yml'),
-    FileItem('t/fbtermrc', linux='~/.fbtermrc'),
-    FileItem('t/tmux.conf', unixLike='~/.tmux.conf'),
-    FileItem('os/linux/terminator.config', linux='~/.config/terminator/config'),
-    # mac和linux下不需要拷贝这个文件了,因为已经在环境变量和init.vim中配置过了
-    FileItem('vim/gtags.conf', all='~/.globalrc'),
-    FileItem('os/linux/lightdm.conf', linux='/etc/lightdm/lightdm.conf'),
+    FileItem('net/lftprc.conf', all='~/.config/lftp/rc', needCreate=True),
+    FileItem('t/lazygit-config.yml', win='%APPDATA%/lazygit/config.yml', mac='~/Library/Application Support/lazygit/config.yml', linux='~/.config/lazygit/config.yml', needCreate=True),
+    FileItem('t/fbtermrc', linux='~/.fbtermrc', needCreate=True),
+    FileItem('t/tmux.conf', unixLike='~/.tmux.conf', needCreate=True),
+    FileItem('os/linux/terminator.config', linux='~/.config/terminator/config', needCreate=True),
+    FileItem('vim/gtags.conf', all='~/.globalrc', needCreate=True),
+    FileItem('os/linux/lightdm.conf', linux='/etc/lightdm/lightdm.conf', root=True),
     FileItem('os/linux/i3.config', linux='~/.config/i3/config'),
-    FileItem('t/delta-themes.gitconfig', all='~/.config/delta/themes.gitconfig'),
-    FileItem('t/ctags/ctags.d', all='~/.ctags.d'), # 这是Universal Ctags 5.9.0及以上的配置
+    FileItem('t/delta-themes.gitconfig', all='~/.config/delta/themes.gitconfig', needCreate=True),
+    FileItem('t/ctags/ctags.d', all='~/.ctags.d', needCreate=True), # 这是Universal Ctags 5.9.0及以上的配置
     FileItem('t/vscode/settings.json', win='~/AppData/Roaming/Code/User/settings.json', mac='~/Library/Application Support/Code/User/settings.json'),
     FileItem('t/vscode/keybindings.json', win='~/AppData/Roaming/Code/User/keybindings.json', mac='~/Library/Application Support/Code/User/keybindings.json'),
-    FileItem('t/lemonade/lemonade.toml', all='~/.config/lemonade.toml'),
-    FileItem('t/lemonade/lemonade.service', linux='/lib/systemd/system/lemonade.service'),
-    FileItem('t/ripgrep.conf', all='~/.config/ripgrep.conf'),
-    FileItem('t/fdignore.conf', all='~/.config/fd/ignore'),
-    FileItem('os/linux/etc/my_keymaps_tty', linux='/etc/my_keymaps_tty'),
-    FileItem('os/linux/service/load_tty_keymaps.service', linux='/lib/systemd/system/load_tty_keymaps.service'),
-    FileItem('os/linux/x11/keymap/altwin', linux='/usr/share/X11/xkb/symbols/altwin'),
-    FileItem('os/linux/x11/keymap/pc', linux='/usr/share/X11/xkb/symbols/pc'),
+    FileItem('t/lemonade/lemonade.toml', all='~/.config/lemonade.toml', needCreate=True),
+    FileItem('t/lemonade/lemonade.service', linux='/lib/systemd/system/lemonade.service', root=True, needCreate=True),
+    FileItem('t/ripgrep.conf', all='~/.config/ripgrep.conf', needCreate=True),
+    FileItem('t/fdignore.conf', all='~/.config/fd/ignore', needCreate=True),
+    FileItem('os/linux/etc/my_keymaps_tty', linux='/etc/my_keymaps_tty', root=True, needCreate=True),
+    FileItem('os/linux/service/load_tty_keymaps.service', linux='/lib/systemd/system/load_tty_keymaps.service', root=True, needCreate=True),
+    FileItem('os/linux/x11/keymap/altwin', linux='/usr/share/X11/xkb/symbols/altwin', root=True),
+    FileItem('os/linux/x11/keymap/pc', linux='/usr/share/X11/xkb/symbols/pc', root=True),
 ]
-_os_file_map:dict[str, int] = {}
+_os_file_map:Dict[str, int] = {}
 if len(_os_file_map) != len(_os_file_list):
     for i, v in enumerate(_os_file_list):
         _os_file_map[v.f] = i
@@ -81,34 +81,62 @@ def _isMac() -> bool:
     return platform.system() == 'Darwin'
 
 
-def _copyFileImpl(srcPath: str, dstPath: str) -> int:
+def _makedirs(name:str) -> None:
+    paths:List[str] = []
+    uid = gid = mode = 0
+    while True:
+        if os.path.exists(name):
+            s = os.stat(name)
+            mode = s.st_mode
+            uid = s.st_uid
+            gid = s.st_gid
+            break
+        if name not in paths:
+            paths.append(name)
+        _name = os.path.dirname(name)
+        if _name == name:
+            break
+        name = _name
+    assert mode != 0
+    assert len(paths) > 0
+    paths.reverse()
+    for v in paths:
+        os.mkdir(v, mode)
+        os.chown(v, uid=uid, gid=gid)
+
+def _copy(srcPath: str, dstPath: str, item:FileItem, toSystem:bool) -> int:
+    if filecmp.cmp(srcPath, dstPath): return 0
+    if item.root and toSystem:
+        os.system(f'rootrun cp {srcPath} {dstPath}')
+    else:
+        shutil.copy(srcPath, dstPath)
+    print(f"file src:{srcPath}, dst:{dstPath}")
+    return 1
+
+def _copyFileImpl(srcPath: str, dstPath: str, item:FileItem, toSystem:bool) -> int:
     if not os.path.exists(srcPath):
         return 0
     if os.path.isfile(srcPath):
         dstDir = os.path.dirname(dstPath)
         if not os.path.exists(dstDir):
-            os.makedirs(dstDir)
-        shutil.copy(srcPath, dstPath)
-        print(f"file src:{srcPath}, dst:{dstPath}")
-        return 1
+            _makedirs(dstDir)
+        return _copy(srcPath, dstPath, item, toSystem)
     if not os.path.exists(dstPath):
-        os.makedirs(dstPath)
+        _makedirs(dstPath)
     srcList = os.listdir(srcPath)
 
     cnt = 0
     for src in srcList:
-        if src == 'plugged':
+        if item.ignored and src in item.ignored:
             continue
         p = os.path.join(srcPath, src)
         dst = os.path.join(dstPath, src)
         if os.path.isdir(p):
-            cnt += _copyFileImpl(p, dst)
+            cnt += _copyFileImpl(p, dst, item, toSystem)
         else:
             if src.startswith('.') and src not in _os_file_map:
                 continue
-            shutil.copy(p, dst)
-            print(f"file src:{p}, dst:{dst}")
-            cnt += 1
+            cnt += _copy(p, dst, item, toSystem)
     return cnt
 
 
@@ -131,12 +159,10 @@ def _copyFileItem(toSystem: bool, item: FileItem) -> int:
         sysPath = _sysPath[0]
     curPath = os.path.realpath(os.path.join(_cur_dir, item.f))
     if toSystem:
-        cnt = _copyFileImpl(curPath, sysPath)
-        # if chmod > 0:
-            # os.chmod(sysPath, chmod)
-            # print(f'chmod {chmod} {sysPath}')
+        if not item.needCreate and not os.path.exists(sysPath): return 0
+        cnt = _copyFileImpl(curPath, sysPath, item, toSystem)
     else:
-        cnt = _copyFileImpl(sysPath, curPath)
+        cnt = _copyFileImpl(sysPath, curPath, item, toSystem)
     return cnt
 
 
@@ -250,7 +276,6 @@ def copyToolCfg(toSystem: bool, vimName: str) -> int:
     cnt = 0
     cnt += _copyFileItemByName(toSystem, 't/fbtermrc')
     cnt += _copyFileItemByName(toSystem, 't/tmux.conf')
-    # cnt += _copyFileItemByName(toSystem, 't/ctags/ctags')
     cnt += _copyFileItemByName(toSystem, 't/ctags/ctags.d')
     cnt += _copyFileItemByName(toSystem, 't/vscode/settings.json')
     cnt += _copyFileItemByName(toSystem, 't/vscode/keybindings.json')
@@ -266,30 +291,13 @@ def copyDbgToDir(path:str) -> int:
     elif not os.path.exists(path):
         print(f'the path is not exists: {path}')
         return 0
-    return _copyFileItem(True, FileItem('vim/vimspector.json', all=os.path.join(path, '.vimspector.json')))
-
-def copyService(toSystem:bool) -> int:
-    cnt = _copyFileItemByName(toSystem, 'os/linux/etc/my_keymaps_tty')
-    cnt += _copyFileItemByName(toSystem, 'os/linux/service/load_tty_keymaps.service')
-    cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.service')
-    cnt += _copyFileItemByName(toSystem, 'os/linux/lightdm.conf')
-    if toSystem:
-        os.system('systemctl enable load_tty_keymaps')
-        if os.path.exists('/usr/share/X11/xkb/symbols/altwin'):
-            cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/altwin')
-            cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/pc')
-    else:
-        cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/altwin')
-        cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/pc')
-    return cnt
+    return _copyFileItem(True, FileItem('vim/vimspector.json', all=os.path.join(path, '.vimspector.json'), needCreate=True))
 
 def main() -> None:
     # [add_argument() 方法](https://docs.python.org/zh-cn/3/library/argparse.html#argparse.ArgumentParser.add_argument)
     parser = argparse.ArgumentParser(description='this is not only the configuration of vim, also have other software configuration')
     parser.add_argument('-t', '--toSystem', default=False, help='if True then copy config files from git to system path', action='store_true')
     parser.add_argument('-a', '--all', default=False, help='enable all option', action='store_true')
-    parser.add_argument('--home', default=None, nargs=1, type=str)
-    parser.add_argument('--user', default=None, nargs=1, type=str)
     parser.add_argument('--nvim', default=False, action='store_true')
     parser.add_argument('--vim', default=False, action='store_true')
     parser.add_argument('--dbg', default=False, action='store_true')
@@ -303,25 +311,16 @@ def main() -> None:
     parser.add_argument('--tmux', default=False, action='store_true')
     parser.add_argument('--fbterm', default=False, action='store_true')
     parser.add_argument('--w3m', default=False, action='store_true')
-    # parser.add_argument('--profile', default=False, action='store_true')
+    parser.add_argument('--lightdm', default=False, action='store_true')
     parser.add_argument('--i3', default=False, action='store_true')
     parser.add_argument('--net', default=False, action='store_true')
     parser.add_argument('--lemonade', default=False, action='store_true')
-    parser.add_argument('--service', default=False, action='store_true')
+    parser.add_argument('--keymap', default=False, action='store_true')
     args = parser.parse_args()
 
-    if args.home is not None:
-        os.environ['HOME'] = args.home[0]
-    if args.user is not None:
-        os.environ['USER'] = args.user[0]
     cnt = 0
     toSystem = args.toSystem
     all = args.all
-    if args.service and toSystem and os.geteuid():
-        if all:
-            print('all and service option can not use together, because root privilege problem')
-            return
-        os.execlp('sudo', 'sudo', sys.executable, *sys.argv, '--home', os.environ['HOME'], '--user', os.environ['USER'])
     vimName = 'nvim'
     vimCnt = 0
     if args.vim:
@@ -359,17 +358,23 @@ def main() -> None:
     if all or args.w3m:
         cnt += _copyFileItemByName(toSystem, 'net/w3m-config-mac.conf')
         cnt += _copyFileItemByName(toSystem, 'net/w3m-config-linux.conf')
-    # if all or args.profile:
-        # cnt += _copyFileItemByName(toSystem, 'os/linux/cmn_profile.sh')
     if all or args.i3:
         cnt += _copyFileItemByName(toSystem, 'os/linux/i3.config')
+    if all or args.lightdm:
+        cnt += _copyFileItemByName(toSystem, 'os/linux/lightdm.conf')
     if all or args.net:
         cnt += _copyFileItemByName(toSystem, 'net/proxychains.conf')
         cnt += _copyFileItemByName(toSystem, 'net/lftprc.conf')
     if all or args.lemonade:
         cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.toml')
-    if (all and not toSystem) or args.service:
-        cnt += copyService(toSystem)
+        cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.service')
+    if all or args.keymap:
+        cnt += _copyFileItemByName(toSystem, 'os/linux/service/load_tty_keymaps.service')
+        cnt += _copyFileItemByName(toSystem, 'os/linux/etc/my_keymaps_tty')
+        cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/altwin')
+        cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/pc')
+        if toSystem:
+            os.system('systemctl enable load_tty_keymaps')
     print(f'copy total {cnt} file done')
 
 
