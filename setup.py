@@ -105,7 +105,7 @@ def _makedirs(name:str) -> None:
         os.chown(v, uid=uid, gid=gid)
 
 def _copy(srcPath: str, dstPath: str, item:FileItem, toSystem:bool) -> int:
-    if filecmp.cmp(srcPath, dstPath): return 0
+    if os.path.exists(srcPath) and os.path.exists(dstPath) and filecmp.cmp(srcPath, dstPath): return 0
     if item.root and toSystem:
         os.system(f'rootrun cp {srcPath} {dstPath}')
     else:
