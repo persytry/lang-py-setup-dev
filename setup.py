@@ -415,7 +415,7 @@ def main() -> None:
     if all or args.lemonade:
         cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.toml')
         cnt += _copyFileItemByName(toSystem, 't/lemonade/lemonade.service')
-    if all or args.keymap:
+    if args.keymap:
         cnt += _copyFileItemByName(toSystem, 'os/linux/service/load_tty_keymaps.service')
         cnt += _copyFileItemByName(toSystem, 'os/linux/etc/my_keymaps_tty')
         cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/altwin')
