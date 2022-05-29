@@ -12,7 +12,7 @@ from typing import Optional, List, Dict
 import filecmp
 
 class FileItem:
-    def __init__(self, f:str, win:Optional[str]=None, mac:Optional[str]=None, linux:Optional[str]=None, all:Optional[str]=None, unixLike:Optional[str]=None, root:bool=False, needCreate:bool=False, ignored:Optional[List[str]]=None):
+    def __init__(self, f:str, win:Optional[str]=None, mac:Optional[str]=None, linux:Optional[str]=None, all:Optional[str]=None, unixLike:Optional[str]=None, root:bool=False, needCreate:bool=False, ignored:Optional[List[str]]=None, seds:Optional[Dict[str, Dict[str, str]]]=None):
         self.f = f
         self.win = win or all
         self.mac = mac or unixLike or all
@@ -21,7 +21,13 @@ class FileItem:
         self.root = root
         self.needCreate = needCreate
         self.ignored = ignored
+        self.seds = seds
 
+_seds:Dict[str, Dict[str, str]] = {
+    'hk': {'63001':'63000', '63051':'63050'},
+    'usagate': {'63000':'63001', '63050':'63051'},
+}
+_dummypath = '/dummypath'
 _cur_dir:str = os.path.dirname(os.path.realpath(__file__))
 _cur_dir = os.path.realpath(_cur_dir)
 _os_file_list:List[FileItem] = [
@@ -41,10 +47,11 @@ _os_file_list:List[FileItem] = [
     FileItem('t/vifm/colors/solarized-light.vifm', win='~/AppData/Roaming/Vifm/colors/solarized-light.vifm', unixLike='~/.config/vifm/colors/solarized-light.vifm', needCreate=True),
     # 需要拷贝文件: $HOME/.ssh/authorized_keys
     FileItem('net/ssh/sshd_config.conf', win='C:/ProgramData/ssh/sshd_config'),
-    FileItem('net/ssh/config.conf', unixLike='~/.ssh/config', needCreate=True),
-    FileItem('net/ssh/config_win.conf', win='~/.ssh/config', needCreate=True),
+    FileItem('net/ssh/config.conf', unixLike='~/.ssh/config', needCreate=True, seds=_seds),
+    FileItem('net/ssh/config_win.conf', win='~/.ssh/config', needCreate=True, seds=_seds),
     # https://github.com/shunf4/proxychains-windows
-    FileItem('net/proxychains.conf', win='~/.proxychains/proxychains.conf', unixLike='/usr/local/etc/proxychains.conf', root=True, needCreate=True),
+    FileItem('net/proxychains.conf', win='~/.proxychains/proxychains.conf', unixLike='/usr/local/etc/proxychains.conf', root=True, needCreate=True, seds=_seds),
+    FileItem('os/linux/cmn_profile.sh', win=_dummypath, seds=_seds),
     FileItem('net/w3m-config-mac.conf', mac='~/.w3m/config'),
     FileItem('net/w3m-config-linux.conf', linux='~/.w3m/config'),
     FileItem('net/lftprc.conf', all='~/.config/lftp/rc', needCreate=True),
@@ -54,7 +61,7 @@ _os_file_list:List[FileItem] = [
     FileItem('os/linux/terminator.config', linux='~/.config/terminator/config', needCreate=True),
     FileItem('vim/gtags.conf', all='~/.globalrc', needCreate=True),
     FileItem('os/linux/lightdm.conf', linux='/etc/lightdm/lightdm.conf', root=True),
-    FileItem('os/linux/i3.config', linux='~/.config/i3/config'),
+    FileItem('os/linux/i3.config', linux='~/.config/i3/config', seds=_seds),
     FileItem('t/delta-themes.gitconfig', all='~/.config/delta/themes.gitconfig', needCreate=True),
     FileItem('t/ctags/ctags.d', all='~/.ctags.d', needCreate=True), # 这是Universal Ctags 5.9.0及以上的配置
     FileItem('t/vscode/settings.json', win='~/AppData/Roaming/Code/User/settings.json', mac='~/Library/Application Support/Code/User/settings.json'),
@@ -293,11 +300,36 @@ def copyDbgToDir(path:str) -> int:
         return 0
     return _copyFileItem(True, FileItem('vim/vimspector.json', all=os.path.join(path, '.vimspector.json'), needCreate=True))
 
+def sedConfig(sed:str) -> None:
+    cnt = 0
+    for item in _os_file_list:
+        if item.seds is None: continue
+        sedItem = item.seds.get(sed)
+        if sedItem is None: continue
+        changed = 0
+        with open(os.path.join(_cur_dir, item.f), 'r+', encoding='utf-8') as f:
+            lines = f.readlines()
+            for i, line in enumerate(lines):
+                for k, v in sedItem.items():
+                    newLine = line.replace(k, v)
+                    if newLine != line:
+                        lines[i] = newLine
+                        line = newLine
+                        changed = 1
+            if changed > 0:
+                f.seek(0)
+                f.truncate()
+                f.writelines(lines)
+                cnt += 1
+                print(f'sed the config file: {item.f}')
+    print(f'sed config file total count: {cnt}')
+
 def main() -> None:
     # [add_argument() 方法](https://docs.python.org/zh-cn/3/library/argparse.html#argparse.ArgumentParser.add_argument)
     parser = argparse.ArgumentParser(description='this is not only the configuration of vim, also have other software configuration')
     parser.add_argument('-t', '--toSystem', default=False, help='if True then copy config files from git to system path', action='store_true')
     parser.add_argument('-a', '--all', default=False, help='enable all option', action='store_true')
+    parser.add_argument('--sed', default=None, nargs='?', choices=('hk', 'usagate'), const='hk')
     parser.add_argument('--nvim', default=False, action='store_true')
     parser.add_argument('--vim', default=False, action='store_true')
     parser.add_argument('--dbg', default=False, action='store_true')
@@ -317,6 +349,9 @@ def main() -> None:
     parser.add_argument('--lemonade', default=False, action='store_true')
     parser.add_argument('--keymap', default=False, action='store_true')
     args = parser.parse_args()
+
+    if args.sed:
+        sedConfig(args.sed)
 
     cnt = 0
     toSystem = args.toSystem
