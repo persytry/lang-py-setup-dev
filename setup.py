@@ -336,6 +336,74 @@ def sedConfig(sed:str) -> None:
                 print(f'sed the config file: {item.f}')
     print(f'sed config file total count: {cnt}')
 
+def changeMinidlnaSrc(srcPath:str) -> int:
+    fileCnt = 0
+    with open(os.path.join(srcPath, 'metadata.c'), 'r+', encoding='utf-8') as f:
+        lines = f.readlines()
+        newLines:List[str] = []
+        cnt = 0
+        for i, line in enumerate(lines):
+            newLines.append(line)
+            if line.find('x-flv') < 0: continue
+            cnt += 1
+            newLines.append(
+r'''
+/*by persy, for rmvb*/
+else if( strcmp(ctx->iformat->name, "rm") == 0 )
+    xasprintf(&m.mime, "video/x-pn-realvideo");
+else if( strcmp(ctx->iformat->name, "rmvb") == 0 )
+    xasprintf(&m.mime, "video/x-pn-realvideo");
+''')
+        assert cnt == 2
+        if cnt > 0:
+            f.seek(0)
+            f.truncate()
+            f.writelines(newLines)
+            fileCnt += 1
+
+    with open(os.path.join(srcPath, 'upnpglobalvars.h'), 'r+', encoding='utf-8') as f:
+        lines = f.readlines()
+        newLines:List[str] = []
+        cnt = 0
+        for i, line in enumerate(lines):
+            if line.find('ogg:') < 0:
+                newLines.append(line)
+                continue
+            cnt += 1
+            newLines.append(
+r'''  "http-get:*:application/ogg:*," \
+"http-get:*:video/x-pn-realvideo:*"
+/*by persy, for rmvb*/
+''')
+        assert cnt == 1
+        if cnt > 0:
+            f.seek(0)
+            f.truncate()
+            f.writelines(newLines)
+            fileCnt += 1
+
+    with open(os.path.join(srcPath, 'utils.c'), 'r+', encoding='utf-8') as f:
+        lines = f.readlines()
+        newLines:List[str] = []
+        cnt = 0
+        for i, line in enumerate(lines):
+            newLines.append(line)
+            if line.find('xvid') < 0: continue
+            cnt += 1
+            newLines.append(
+r'''
+/*by persy, for rmvb*/
+ends_with(file, ".rm")  || ends_with(file, ".rmvb")  ||
+''')
+        assert cnt == 1
+        if cnt > 0:
+            f.seek(0)
+            f.truncate()
+            f.writelines(newLines)
+            fileCnt += 1
+    assert fileCnt == 3
+    return fileCnt
+
 def main() -> None:
     # [add_argument() 方法](https://docs.python.org/zh-cn/3/library/argparse.html#argparse.ArgumentParser.add_argument)
     parser = argparse.ArgumentParser(description='this is not only the configuration of vim, also have other software configuration')
@@ -360,6 +428,7 @@ def main() -> None:
     parser.add_argument('--net', default=False, action='store_true')
     parser.add_argument('--lemonade', default=False, action='store_true')
     parser.add_argument('--keymap', default=False, action='store_true')
+    parser.add_argument('--minidlna_src', default=False, nargs=1, help='input minidlna code source path')
     args = parser.parse_args()
 
     if args.sed:
@@ -422,6 +491,8 @@ def main() -> None:
         cnt += _copyFileItemByName(toSystem, 'os/linux/x11/keymap/pc')
         if toSystem:
             os.system('systemctl enable load_tty_keymaps')
+    if args.minidlna_src:
+        cnt += changeMinidlnaSrc(args.minidlna_src[0])
     print(f'copy total {cnt} file done')
 
 

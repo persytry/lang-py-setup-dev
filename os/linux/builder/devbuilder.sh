@@ -215,8 +215,6 @@ cd proxychains-ng-4.16
 make
 sudo make install
 cd ..
-sudo touch /usr/local/etc/proxychains.conf
-sudo chown $USER:$USER /usr/local/etc/proxychains.conf
 
 #https://github.com/svenstaro/miniserve
 sudo mv miniserve-v0.19.5-x86_64-unknown-linux-musl /usr/local/bin/miniserve
@@ -237,11 +235,17 @@ if [ -n "$myprivsvr" ]; then
     sudo mv gitblit-1.8.0 /opt/gitblit
 
     if [[ "$ismynasenv" == 'true' ]]; then
-        #minidlna
+        #[minidlna](https://sourceforge.net/projects/minidlna/)
+        #[MiniDLNA 1.2.1编译 添加对rmvb格式的支持](https://www.cxybb.com/article/JOYIST/79191765)
         #sudo apt-get install -y gettext autopoint libflac-dev
-        mv minidlnad_v1.3.0_for_rmvb_by_persy minidlnad
-        chmod a+x minidlnad
-        sudo mv minidlnad /usr/local/sbin
+        tar -xzf minidlna-1.3.0.tar.gz
+        cd minidlna-1.3.0
+        python3 $HOME/a/git/lang/py/setup/dev/setup.py --minidlna_src .
+        ./autogen.sh
+        ./configure
+        make
+        sudo make install
+        cd ..
         sudo usermod -a -G $USER minidlna
 
         sudo apt-get install -y hd-idle samba
