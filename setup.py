@@ -342,7 +342,7 @@ def changeMinidlnaSrc(srcPath:str) -> int:
         lines = f.readlines()
         newLines:List[str] = []
         cnt = 0
-        for i, line in enumerate(lines):
+        for line in lines:
             newLines.append(line)
             if line.find('x-flv') < 0: continue
             cnt += 1
@@ -365,7 +365,7 @@ else if( strcmp(ctx->iformat->name, "rmvb") == 0 )
         lines = f.readlines()
         newLines:List[str] = []
         cnt = 0
-        for i, line in enumerate(lines):
+        for line in lines:
             if line.find('ogg:') < 0:
                 newLines.append(line)
                 continue
@@ -386,7 +386,7 @@ r'''  "http-get:*:application/ogg:*," \
         lines = f.readlines()
         newLines:List[str] = []
         cnt = 0
-        for i, line in enumerate(lines):
+        for line in lines:
             newLines.append(line)
             if line.find('xvid') < 0: continue
             cnt += 1
