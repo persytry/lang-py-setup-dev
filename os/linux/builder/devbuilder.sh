@@ -9,7 +9,7 @@ cd /tmp/mytmp/dev
 if ! type sudo >/dev/null 2>&1; then
     apt-get install -y ./sudo_1.9.5p2-3_amd64.deb
 fi
-if [ ! -n "`sudo grep $USER\s*ALL /etc/sudoers`" ]; then
+if [ ! -n "`sudo grep \"$USER\s*ALL\" /etc/sudoers`" ]; then
     sudo usermod -a -G sudo $USER
     sudo sed -i -e "s/^root.*ALL.*$/root    ALL=(ALL:ALL) ALL\n$USER   ALL=(ALL:ALL) ALL/" /etc/sudoers
 fi
