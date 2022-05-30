@@ -135,10 +135,13 @@ export ismynasenv=$ismynasenv" >> $HOME/.zshrc
 fi
 
 # 安装编程语言支持
+#https://github.com/nodesource/distributions/blob/master/README.md#debinstall
+wget https://deb.nodesource.com/setup_18.x
+sudo ./setup_18.x
 sudo apt-get install -y python3-pip nodejs npm
 pip install pynvim
 
-sudo npm install -g yarn neovim bash-language-server
+sudo npm install -g yarn neovim bash-language-server wsl-open
 
 tar -xzf jdk-8u301-linux-x64.tar.gz
 sudo mv jdk1.8.0_301 /opt/jdk8
