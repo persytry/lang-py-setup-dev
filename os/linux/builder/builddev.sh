@@ -25,7 +25,7 @@ if [ -f dev.tar.gz ]; then
     if [ ! -f devbuilder.sh ]; then
         cd $mytmppath
     fi
-    ./devbuilder.sh | tee $mypwd/devbuilder.log
+    ./devbuilder.sh 2>&1 | tee $mypwd/devbuilder.log
 else
     echo "error: cannot find the file: dev.tar.gz"
     rm -rf $mytmppath

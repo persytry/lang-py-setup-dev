@@ -142,6 +142,10 @@ sudo npm install -g yarn neovim bash-language-server
 
 tar -xzf jdk-8u301-linux-x64.tar.gz
 sudo mv jdk1.8.0_301 /opt/jdk8
+export JAVA_HOME=/opt/jdk8
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+export PATH=$PATH:$JAVA_HOME/bin
 
 # 通过apt软件源安装一些常用办公软件(office software)
 sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep global
@@ -182,22 +186,27 @@ sudo chown $USER:$USER /usr/local/bin/syncthing
 chmod a+x um-linux-amd64
 sudo mv um-linux-amd64 /usr/local/bin/unlock_music
 
+chmod a+x win32yank
 sudo mv win32yank /usr/local/bin
 
 #https://github.com/persytry/lang-go-t-lemonade
 tar -xzf lemonade-linux64.tar.gz
+chmod a+x lemonade
 sudo mv lemonade /usr/local/bin
 
 #https://github.com/persytry/lang-rs-t-wsl_pathable
 tar -xzf linux64-wsl_pathable.tar.gz
+chmod a+x wsl_pathable
 sudo mv wsl_pathable /usr/local/bin
 
 #https://github.com/persytry/lang-rs-t-auto_commit
 tar -xzf linux64-auto_commit.tar.gz
+chmod a+x auto_commit
 sudo mv auto_commit /usr/local/bin
 
 #https://github.com/persytry/lang-rs-t-wg_ddns
 tar -xzf linux64-wg_ddns.tar.gz
+chmod a+x wg_ddns
 sudo mv wg_ddns /usr/local/bin
 
 #https://github.com/jesseduffield/lazygit
@@ -227,6 +236,7 @@ sudo ln -s `which proxychains4` /usr/local/bin/pc
 
 #https://github.com/svenstaro/miniserve
 sudo mv miniserve-v0.19.5-x86_64-unknown-linux-musl /usr/local/bin/miniserve
+chmod a+x /usr/local/bin/miniserve
 
 # 下载各种源码
 git clone git@github.com:persytry/lang-py-setup-dev.git $HOME/a/git/lang/py/setup/dev
