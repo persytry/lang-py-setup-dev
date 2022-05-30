@@ -14,7 +14,7 @@ import subprocess
 
 class FileItem:
     def __init__(self, f:str, win:Optional[str]=None, mac:Optional[str]=None, linux:Optional[str]=None, all:Optional[str]=None, unixLike:Optional[str]=None, root:bool=False, needCreate:bool=False, ignored:Optional[List[str]]=None, seds:Optional[Dict[str, Dict[str, str]]]=None, linuxVirt:Optional[str]=None):
-        self.f = f
+        self._f = f
         self.win = win or all
         self.mac = mac or unixLike or all
         self.linux = linux or unixLike or all
@@ -24,6 +24,10 @@ class FileItem:
         self.ignored = ignored
         self.seds = seds
         self.linuxVirt = linuxVirt
+
+    def file(self) -> str:
+        if os.path.isabs(self._f): return self._f
+        return os.path.realpath(os.path.join(_cur_dir, self._f))
 
 _sedsPort:Dict[str, Dict[str, str]] = {
     'hk': {'63001':'63000', '63051':'63050'},
@@ -80,7 +84,7 @@ _os_file_list:List[FileItem] = [
 _os_file_map:Dict[str, int] = {}
 if len(_os_file_map) != len(_os_file_list):
     for i, v in enumerate(_os_file_list):
-        _os_file_map[v.f] = i
+        _os_file_map[v._f] = i
 
 def _isWindows() -> bool:
     return platform.system() == 'Windows'
@@ -176,7 +180,7 @@ def _copyFileItem(toSystem: bool, item: FileItem) -> int:
     _sysPath = glob.glob(sysPath)
     if len(_sysPath) != 0:
         sysPath = _sysPath[0]
-    curPath = os.path.realpath(os.path.join(_cur_dir, item.f))
+    curPath = item.file()
     if toSystem:
         if not item.needCreate and not os.path.exists(sysPath): return 0
         cnt = _copyFileImpl(curPath, sysPath, item, toSystem)
@@ -319,7 +323,7 @@ def sedConfig(sed:str) -> None:
         sedItem = item.seds.get(sed)
         if sedItem is None: continue
         changed = 0
-        with open(os.path.join(_cur_dir, item.f), 'r+', encoding='utf-8') as f:
+        with open(item.file(), 'r+', encoding='utf-8') as f:
             lines = f.readlines()
             for i, line in enumerate(lines):
                 for k, v in sedItem.items():
@@ -333,7 +337,7 @@ def sedConfig(sed:str) -> None:
                 f.truncate()
                 f.writelines(lines)
                 cnt += 1
-                print(f'sed the config file: {item.f}')
+                print(f'sed the config file: {item.file()}')
     print(f'sed config file total count: {cnt}')
 
 def changeMinidlnaSrc(srcPath:str) -> int:
