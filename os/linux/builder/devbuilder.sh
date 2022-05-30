@@ -90,6 +90,9 @@ git config --global credential.helper store
 
 sudo systemctl disable wg-quick@wg0 vsftpd
 
+sudo ln -s `which python3` /usr/local/bin/python
+sudo ln -s `which python3` /usr/local/bin/p
+
 # docker env
 if [[ "$isdockerenv" == 'true' ]]; then
     echo 'isdockerenv=true'
@@ -142,11 +145,13 @@ sudo mv jdk1.8.0_301 /opt/jdk8
 
 # 通过apt软件源安装一些常用办公软件(office software)
 sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep global
+sudo ln -s `which fdfind` /usr/local/bin/fd
 #docker环境下竟然没有git-delta
 sudo apt-get install -y git-delta
 
 # 安装常用的工具(安装包一般比较大,或需要经常更新到最新版本,lastest version)
 sudo apt-get install -y ./nvim-linux64.deb
+sudo ln -s `which nvim` /usr/local/bin/vi
 
 #https://github.com/cheat/cheat
 gzip -d cheat-linux-amd64.gz
@@ -199,6 +204,7 @@ sudo mv wg_ddns /usr/local/bin
 mkdir lazygit
 tar -xzf lazygit_0.34_Linux_x86_64.tar.gz -C lazygit
 sudo mv lazygit/lazygit /usr/local/bin
+sudo ln -s `which lazygit` /usr/local/bin/lg
 
 #https://github.com/samhocevar/rinetd
 #从0.70版本开始rinetd已经支持UDP转发
@@ -217,6 +223,7 @@ cd proxychains-ng-4.16
 make
 sudo make install
 cd ..
+sudo ln -s `which proxychains4` /usr/local/bin/pc
 
 #https://github.com/svenstaro/miniserve
 sudo mv miniserve-v0.19.5-x86_64-unknown-linux-musl /usr/local/bin/miniserve
@@ -283,13 +290,5 @@ rm -rf mytmp
 sudo apt-get autoremove -y
 sudo apt-get clean -y
 sudo rm -rf /var/lib/apt/lists/*
-
-# 建立各种软链接
-sudo ln -s `which nvim` /usr/local/bin/vi
-sudo ln -s `which proxychains4` /usr/local/bin/pc
-sudo ln -s `which python3` /usr/local/bin/python
-sudo ln -s `which python3` /usr/local/bin/p
-sudo ln -s `which lazygit` /usr/local/bin/lg
-sudo ln -s `which fdfind` /usr/local/bin/fd
 
 python3 $HOME/a/git/lang/py/setup/dev/setup.py -ta
