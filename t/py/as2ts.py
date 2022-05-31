@@ -196,7 +196,7 @@ def parseAsMethod(line:str, method:Optional[AsMethodBase]) -> Optional[AsMethodB
     return method
 
 class AsParser:
-    packages:dict
+    packages:dict[str, list[AsClass]]
 
     def __init__(self):
         self.packages = {}
@@ -221,14 +221,14 @@ class AsParser:
                 if len(cls) == 1:
                     cls = cls[0]
                     theCls = AsClass(cls[0], cls[1])
-                    if arrClasses:
+                    if arrClasses is not None:
                         arrClasses.append(theCls)
                     isParseMethod = jsonParser.isModule(theCls.name)
                     continue
                 var = re.findall(r'^\s*(\w+)\s+var\s+(\w+)\s*:\s*(\w+)', line)
                 if len(var) == 1:
                     var = var[0]
-                    if theCls:
+                    if theCls is not None:
                         theCls.vars.append(AsVar(var[0], var[1], var[2]))
                     continue
                 if isParseMethod:
@@ -236,7 +236,7 @@ class AsParser:
                     if method is not None:
                         if method is not methodOld:
                             methodOld = method
-                            if theCls:
+                            if theCls is not None:
                                 theCls.methods.append(method)
                         if method.parseLine(line):
                             continue
