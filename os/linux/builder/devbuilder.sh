@@ -153,12 +153,13 @@ export PATH=$PATH:$JAVA_HOME/bin
 # 通过apt软件源安装一些常用办公软件(office software)
 sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep global
 sudo ln -s `which fdfind` /usr/local/bin/fd
-#docker环境下竟然没有git-delta
-sudo apt-get install -y git-delta
 
 # 安装常用的工具(安装包一般比较大,或需要经常更新到最新版本,lastest version)
 sudo apt-get install -y ./nvim-linux64.deb
 sudo ln -s `which nvim` /usr/local/bin/vi
+
+#https://github.com/dandavison/delta
+sudo apt-get install -y ./git-delta_0.13.0_amd64.deb
 
 #https://github.com/cheat/cheat
 gzip -d cheat-linux-amd64.gz
