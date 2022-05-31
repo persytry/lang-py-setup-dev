@@ -71,6 +71,7 @@
     minus-style = "#ff0080"
     plus-emph-style = "#008a81" bold "#00ffbf"
     plus-style = syntax "#cffff3"
+    #2022/05/31 08:25:55, 这个主题感觉没有必要
     #syntax-theme = Github
 
 [delta "hoopoe"]
