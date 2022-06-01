@@ -111,11 +111,8 @@ class AsClass:
                 modulePaths[modulePath] = [module]
                 continue
             arr.append(module)
-        arrModulePaths:list[tuple[str, list[str]]] = []
         for modulePath, arrClasses in modulePaths.items():
-            arrModulePaths.append((modulePath, arrClasses))
-        arrModulePaths.sort(key=lambda a:a[0])
-        for modulePath, arrClasses in arrModulePaths:
+            arrClasses.sort()
             f.write(f'import {{ {", ".join(arrClasses)} }} from "{modulePath}";\n')
         if isModule is True:
             f.write('\n')
