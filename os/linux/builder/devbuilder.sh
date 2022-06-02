@@ -145,6 +145,8 @@ sudo ./setup_18.x
 sudo apt-get update
 #sudo apt-get install -y nodejs npm
 sudo apt-get install -y ./nodejs_18.2.0-deb-1nodesource1_amd64.deb ./npm_7.5.2+ds-2_all.deb
+#需要再执行一遍
+sudo ./setup_18.x
 sudo npm install -g yarn neovim bash-language-server wsl-open
 
 tar -xzf jdk-8u301-linux-x64.tar.gz
