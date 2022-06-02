@@ -2,6 +2,7 @@
 
 # techs & notes
 #在wsl上给root设置密码: `sudo passwd root`
+#wsl注销后需要重启Windows系统
 
 # 尽量安装deb安装包
 cd /tmp/mytmp/dev
