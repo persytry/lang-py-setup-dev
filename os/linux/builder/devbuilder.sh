@@ -7,6 +7,10 @@
 # 尽量安装deb安装包
 cd /tmp/mytmp/dev
 
+if [[ ! "$ismynasenv" == 'true' ]]; then
+    ismynasenv=false
+fi
+
 if ! type sudo >/dev/null 2>&1; then
     apt-get install -y ./sudo_1.9.5p2-3_amd64.deb
 fi
@@ -128,10 +132,6 @@ else
     sudo ufw allow 22/tcp
     #sudo ufw enable
     sudo ufw disable
-fi
-
-if [[ ! "$ismynasenv" == 'true' ]]; then
-    ismynasenv=false
 fi
 
 # 通过apt软件源安装一些常用办公软件(office software)
