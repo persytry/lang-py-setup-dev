@@ -94,6 +94,24 @@ sudo systemctl disable wg-quick@wg0 vsftpd
 sudo ln -s `which python3` /usr/local/bin/python
 sudo ln -s `which python3` /usr/local/bin/p
 
+# 安装编程语言支持
+sudo apt-get install -y python3-pip
+pip install pynvim
+
+#https://github.com/nodesource/distributions/blob/master/README.md#debinstall
+#wget https://deb.nodesource.com/setup_18.x
+#sudo ./setup_18.x
+#sudo apt-get install -y nodejs npm
+sudo apt-get install -y ./nodejs_18.2.0-deb-1nodesource1_amd64.deb
+sudo npm install -g yarn neovim bash-language-server wsl-open
+
+tar -xzf jdk-8u301-linux-x64.tar.gz
+sudo mv jdk1.8.0_301 /opt/jdk8
+export JAVA_HOME=/opt/jdk8
+export JRE_HOME=${JAVA_HOME}/jre
+export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
+export PATH=$PATH:$JAVA_HOME/bin
+
 # docker env
 if [[ "$isdockerenv" == 'true' ]]; then
     echo 'isdockerenv=true'
@@ -115,46 +133,6 @@ fi
 if [[ ! "$ismynasenv" == 'true' ]]; then
     ismynasenv=false
 fi
-if [ ! -d "$ZSH" ]; then
-    #这种方式不大好,可能不会通过代理访问网络吧
-    #sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-    mkdir myzsh
-    cd myzsh
-    wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
-    chmod a+x install.sh
-    #安装oh-my-zsh的时候会提示是否切换到zsh, 按y确认,然后会进入到zsh的命令行界面,按<C-d>退出zsh后就能继续执行此脚本了
-    ./install.sh
-    cd ..
-    sed -i -e 's/^# ZSH_THEME_RANDOM_CANDIDATES=.*$/DISABLE_AUTO_UPDATE="true"/' $HOME/.zshrc
-    echo -e "\nsource $HOME/a/git/lang/py/setup/dev/os/linux/cmn_profile.sh\n\
-#0:清华源(默认), 1:官方源, 2:腾讯源, 3:阿里源\n\
-export apt_source_switch=$apt_source_switch\n\
-export myminiserve=$myminiserve\n\
-export myprivsvr=$myprivsvr\n\
-export ismynasenv=$ismynasenv" >> $HOME/.zshrc
-    #sudo chsh -s `which zsh`
-fi
-
-# 安装编程语言支持
-sudo apt-get install -y python3-pip
-pip install pynvim
-
-#https://github.com/nodesource/distributions/blob/master/README.md#debinstall
-#wget https://deb.nodesource.com/setup_18.x
-sudo ./setup_18.x
-sudo apt-get update
-#sudo apt-get install -y nodejs npm
-sudo apt-get install -y ./nodejs_18.2.0-deb-1nodesource1_amd64.deb ./npm_7.5.2+ds-2_all.deb
-#需要再执行一遍
-sudo ./setup_18.x
-sudo npm install -g yarn neovim bash-language-server wsl-open
-
-tar -xzf jdk-8u301-linux-x64.tar.gz
-sudo mv jdk1.8.0_301 /opt/jdk8
-export JAVA_HOME=/opt/jdk8
-export JRE_HOME=${JAVA_HOME}/jre
-export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
-export PATH=$PATH:$JAVA_HOME/bin
 
 # 通过apt软件源安装一些常用办公软件(office software)
 sudo apt-get install -y fzf tmux tree autojump vifm fd-find ripgrep global
@@ -302,6 +280,26 @@ if [ -n "$DESKTOP_SESSION" ]; then
     sudo apt-get install -y fonts-liberation
     sudo apt-get update
     sudo apt-get install -y fonts-liberation ./google-chrome-stable_current_amd64.deb
+fi
+
+if [ ! -d "$ZSH" ]; then
+    #这种方式不大好,可能不会通过代理访问网络吧
+    #sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+    mkdir myzsh
+    cd myzsh
+    wget https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh
+    chmod a+x install.sh
+    #安装oh-my-zsh的时候会提示是否切换到zsh, 按y确认,然后会进入到zsh的命令行界面,按<C-d>退出zsh后就能继续执行此脚本了
+    ./install.sh
+    cd ..
+    sed -i -e 's/^# ZSH_THEME_RANDOM_CANDIDATES=.*$/DISABLE_AUTO_UPDATE="true"/' $HOME/.zshrc
+    echo -e "\nsource $HOME/a/git/lang/py/setup/dev/os/linux/cmn_profile.sh\n\
+#0:清华源(默认), 1:官方源, 2:腾讯源, 3:阿里源\n\
+export apt_source_switch=$apt_source_switch\n\
+export myminiserve=$myminiserve\n\
+export myprivsvr=$myprivsvr\n\
+export ismynasenv=$ismynasenv" >> $HOME/.zshrc
+    #sudo chsh -s `which zsh`
 fi
 
 # 系统清理
