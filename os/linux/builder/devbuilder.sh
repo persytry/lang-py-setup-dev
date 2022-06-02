@@ -136,12 +136,15 @@ export ismynasenv=$ismynasenv" >> $HOME/.zshrc
 fi
 
 # 安装编程语言支持
-#https://github.com/nodesource/distributions/blob/master/README.md#debinstall
-wget https://deb.nodesource.com/setup_18.x
-sudo ./setup_18.x
-sudo apt-get install -y python3-pip nodejs npm
+sudo apt-get install -y python3-pip
 pip install pynvim
 
+#https://github.com/nodesource/distributions/blob/master/README.md#debinstall
+#wget https://deb.nodesource.com/setup_18.x
+#sudo ./setup_18.x
+#sudo apt-get update
+#sudo apt-get install -y nodejs npm
+sudo apt-get install -y ./nodejs_18.2.0-deb-1nodesource1_amd64.deb ./npm_7.5.2+ds-2_all.deb
 sudo npm install -g yarn neovim bash-language-server wsl-open
 
 tar -xzf jdk-8u301-linux-x64.tar.gz
