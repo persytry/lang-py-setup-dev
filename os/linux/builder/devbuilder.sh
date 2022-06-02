@@ -282,6 +282,7 @@ if [ -n "$DESKTOP_SESSION" ]; then
     sudo apt-get install -y fonts-liberation ./google-chrome-stable_current_amd64.deb
 fi
 
+#oh-my-zsh放到最后再执行,因为它改变了某些系统环境,有可能导致其它软件包安装不成功,比如nodejs
 if [ ! -d "$ZSH" ]; then
     #这种方式不大好,可能不会通过代理访问网络吧
     #sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
