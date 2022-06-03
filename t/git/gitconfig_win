@@ -1,0 +1,39 @@
+[http]
+	sslVerify = false
+[core]
+	editor = nvim
+	pager = delta
+[diff]
+	tool = nvim
+[difftool]
+	prompt = false
+[mergetool]
+	prompt = false
+	keepBackup = false
+[merge]
+	tool = gdiff
+[mergetool "nvim"]
+	trustExitCode = true
+	cmd = nvim -d $BASE $LOCAL $REMOTE $MERGED -c '$wincmd w' -c 'wincmd J' -c '$wincmd w' -c 'wincmd ='
+[mergetool "gdiff"]
+	trustExitCode = true
+	cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+[user]
+	name = persy
+	email = persytry@outlook.com
+[pull]
+	rebase = false
+[difftool "nvim"]
+	cmd = nvim -d $REMOTE $LOCAL
+[pager]
+	diff = delta
+	log = delta
+	reflog = delta
+	show = delta
+[include]
+	path = ~/.config/delta/themes.gitconfig
+[delta]
+	features = coracias-caudatus
+	navigate = true
+[credential]
+	helper = store
