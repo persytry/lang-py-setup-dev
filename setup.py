@@ -33,6 +33,10 @@ _sedsPort:Dict[str, Dict[str, str]] = {
     'hk': {'63001':'63000', '63051':'63050'},
     'usagate': {'63000':'63001', '63050':'63051'},
 }
+_sedsGit:Dict[str, Dict[str, str]] = {
+    'vim': {'nvim':'vim'},
+    'nvim': {' vim':' nvim', '"vim"':'"nvim"'},
+}
 _dummypath = '/dummypath'
 _cur_dir:str = os.path.dirname(os.path.realpath(__file__))
 _cur_dir = os.path.realpath(_cur_dir)
@@ -80,6 +84,8 @@ _os_file_list:List[FileItem] = [
     FileItem('os/linux/service/load_tty_keymaps.service', linux='/lib/systemd/system/load_tty_keymaps.service', root=True, needCreate=True, linuxVirt='none'),
     FileItem('os/linux/x11/keymap/altwin', linux='/usr/share/X11/xkb/symbols/altwin', root=True, linuxVirt='none'),
     FileItem('os/linux/x11/keymap/pc', linux='/usr/share/X11/xkb/symbols/pc', root=True, linuxVirt='none'),
+    FileItem('t/git/gitconfig', unixLike='~/.gitconfig', needCreate=True, seds=_sedsGit),
+    FileItem('t/git/gitconfig_win', win='~/.gitconfig', needCreate=True, seds=_sedsGit),
 ]
 _os_file_map:Dict[str, int] = {}
 if len(_os_file_map) != len(_os_file_list):
@@ -258,7 +264,9 @@ def copyGitCfg(toSystem: bool, vimName: str) -> int:
     cnt = 0
     cnt += _copyFileItemByName(toSystem, 't/lazygit-config.yml')
     cnt += _copyFileItemByName(toSystem, 't/delta-themes.gitconfig')
-    if toSystem:
+    cnt += _copyFileItemByName(toSystem, 't/git/gitconfig')
+    cnt += _copyFileItemByName(toSystem, 't/git/gitconfig_win')
+    if toSystem is None: # 2022/06/03 21:30:16, 已废弃该方式
         cnt += _setGitCfgItem(f'http.sslVerify false')
         cnt += _setGitCfgItem(f'core.editor {vimName}')
         cnt += _setGitCfgItem(f'diff.tool {vimName}')
@@ -413,7 +421,7 @@ def main() -> None:
     parser = argparse.ArgumentParser(description='this is not only the configuration of vim, also have other software configuration')
     parser.add_argument('-t', '--toSystem', default=False, help='if True then copy config files from git to system path', action='store_true')
     parser.add_argument('-a', '--all', default=False, help='enable all option', action='store_true')
-    parser.add_argument('--sed', default=None, nargs='?', choices=('hk', 'usagate'), const='hk')
+    parser.add_argument('--sed', default=None, nargs='?', choices=('hk', 'usagate', 'vim', 'nvim'), const='hk')
     parser.add_argument('--nvim', default=False, action='store_true')
     parser.add_argument('--vim', default=False, action='store_true')
     parser.add_argument('--dbg', default=False, action='store_true')
