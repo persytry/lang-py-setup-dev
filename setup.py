@@ -303,14 +303,14 @@ def copyGitCfg(toSystem: bool, vimName: str) -> int:
     return cnt
 
 
-def copyToolCfg(toSystem: bool, vimName: str) -> int:
+def copyToolCfg(toSystem: bool) -> int:
     cnt = 0
     cnt += _copyFileItemByName(toSystem, 't/fbtermrc')
     cnt += _copyFileItemByName(toSystem, 't/tmux.conf')
     cnt += _copyFileItemByName(toSystem, 't/ctags/ctags.d')
     cnt += _copyFileItemByName(toSystem, 't/vscode/settings.json')
     cnt += _copyFileItemByName(toSystem, 't/vscode/keybindings.json')
-    cnt += copyGitCfg(toSystem, vimName)
+    # cnt += copyGitCfg(toSystem, vimName)
     cnt += _copyFileItemByName(toSystem, 't/ripgrep.conf')
     cnt += _copyFileItemByName(toSystem, 't/fdignore.conf')
     print(f'copy tool config {cnt} files or items')
@@ -478,7 +478,7 @@ def main() -> None:
     if all or args.git:
         cnt += copyGitCfg(toSystem, vimName)
     if all or args.tool:
-        cnt += copyToolCfg(toSystem, vimName)
+        cnt += copyToolCfg(toSystem)
     if all or args.tmux:
         cnt += _copyFileItemByName(toSystem, 't/tmux.conf')
     if all or args.fbterm:
