@@ -106,15 +106,24 @@ pip install pynvim
 #wget https://deb.nodesource.com/setup_18.x
 #sudo ./setup_18.x
 #sudo apt-get install -y nodejs npm
-sudo apt-get install -y ./nodejs_18.2.0-deb-1nodesource1_amd64.deb
-sudo npm install -g typescript yarn neovim bash-language-server wsl-open
+#用这种方式安装的话, coc-sh启动bash-language-server会失败3次,非常奇怪,搞不明白
+#sudo apt-get install -y ./nodejs_18.2.0-deb-1nodesource1_amd64.deb
+if ! type node >/dev/null 2>&1; then
+    #https://nodejs.org/zh-cn/download/
+    mkdir -p /tmp/mytmp/nodejs
+    tar -xJf node-v16.15.1-linux-x64.tar.xz -C /tmp/mytmp/nodejs
+    sudo mv /tmp/mytmp/nodejs/node-v16.15.1-linux-x64 /opt/nodejs
+fi
+export PATH=/opt/nodejs/bin:$PATH
+
+npm install -g typescript yarn neovim bash-language-server wsl-open
 
 tar -xzf jdk-8u301-linux-x64.tar.gz
 sudo mv jdk1.8.0_301 /opt/jdk8
 export JAVA_HOME=/opt/jdk8
 export JRE_HOME=${JAVA_HOME}/jre
 export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib
-export PATH=$PATH:$JAVA_HOME/bin
+export PATH=$JAVA_HOME/bin:$PATH
 
 # docker env
 if [[ "$isdockerenv" == 'true' ]]; then
