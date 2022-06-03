@@ -79,7 +79,7 @@ sudo apt-get update
 if ! type systemctl >/dev/null 2>&1; then
     sudo apt-get install -y systemd
 fi
-sudo apt-get install -y python3 zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client htop lftp vsftpd
+sudo apt-get install -y python3 zsh curl wget git netcat gcc make autoconf automake pkg-config openssh-server openssh-client htop lftp vsftpd gnupg2
 #在docker环境下会提示警告: W: Possible missing firmware /lib/firmware/rtl_nic/rtl8168d-1.fw for module r8169
 sudo apt-get install -y wireguard
 #在docker环境下会这样的输出,貌似没什么影响: Failed to open connection to "system" message bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
@@ -107,7 +107,7 @@ pip install pynvim
 #sudo ./setup_18.x
 #sudo apt-get install -y nodejs npm
 sudo apt-get install -y ./nodejs_18.2.0-deb-1nodesource1_amd64.deb
-sudo npm install -g yarn neovim bash-language-server wsl-open
+sudo npm install -g typescript yarn neovim bash-language-server wsl-open
 
 tar -xzf jdk-8u301-linux-x64.tar.gz
 sudo mv jdk1.8.0_301 /opt/jdk8
@@ -121,7 +121,15 @@ if [[ "$isdockerenv" == 'true' ]]; then
     echo 'isdockerenv=true'
 else
     if ! type docker >/dev/null 2>&1; then
-        sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+        #下面这一条命令即可安装docker
+        #sudo curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
+        #[如何在 debian 10 中安装和使用 Docker](https://kalasearch.cn/community/tutorials/how-to-install-and-use-docker-on-debian-10/)
+        #wget https://download.docker.com/linux/debian/gpg
+        #sudo apt-key add gpg
+        #sudo add-apt-repository "deb https://download.docker.com/linux/debian $(lsb_release -cs) stable"
+        #sudo apt-get update
+        #sudo apt-get install -y docker-ce
+        sudo apt-get install -y ./containerd.io_1.6.4-1_amd64.deb ./docker-ce-cli_5%3a20.10.16~3-0~debian-bullseye_amd64.deb ./docker-ce_5%3a20.10.16~3-0~debian-bullseye_amd64.deb
         sudo systemctl disable docker
     fi
 
