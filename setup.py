@@ -46,6 +46,7 @@ _os_file_list:List[FileItem] = [
     FileItem('vim/nvim/coc-settings.json', win='~/vimfiles/coc-settings.json', unixLike='~/.vim/coc-settings.json', needCreate=True),
     FileItem('vim/nvim/autoload', win='~/vimfiles/autoload', unixLike='~/.vim/autoload', needCreate=True),
     FileItem('vim/nvim/mycmd', win='~/vimfiles/mycmd', unixLike='~/.vim/mycmd', needCreate=True),
+    FileItem('vim/nvim/after', win='~/vimfiles/after', unixLike='~/.vim/after', needCreate=True),
     FileItem('vim/vimspector.json', all=os.path.join(_cur_dir, '../../../../.vimspector.json'), needCreate=True),
     FileItem('os/win/terminal/settings.json', win='~/AppData/Local/Packages/Microsoft.WindowsTerminal_*/LocalState/settings.json'),
     FileItem('t/vifm/cmn.vifm', win='~/AppData/Roaming/Vifm/cmn.vifm', unixLike='~/.config/vifm/cmn.vifm', needCreate=True),
@@ -211,6 +212,7 @@ def copyVimCfg(toSystem: bool, isNvim: bool) -> int:
         cnt += _copyFileItemByName(toSystem, 'vim/nvim/coc-settings.json')
         cnt += _copyFileItemByName(toSystem, 'vim/nvim/autoload')
         cnt += _copyFileItemByName(toSystem, 'vim/nvim/mycmd')
+        cnt += _copyFileItemByName(toSystem, 'vim/nvim/after')
         print(f'copy vim config {cnt} files')
     return cnt
 

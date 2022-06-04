@@ -1252,6 +1252,7 @@ nnoremap <silent><nowait> <leader>ou :<C-u>Vista!!<cr>
 autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <C-p> :<c-u>call vista#cursor#TogglePreview()<CR>
 autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <C-j> j
 autocmd FileType vista,vista_kind nnoremap <buffer> <silent> <C-k> k
+" 2022/06/04 11:00:45, 查看当前的filetype :echo &filetype
 """""""""""vista end
 
 """""""""""LeaderF begin
