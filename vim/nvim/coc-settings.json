@@ -52,181 +52,183 @@
         "<C-j>": "normal:j",
         "<C-k>": "normal:k",
         "q": "do:exit"
-    },
-    "languageserver": {
-        "python": {
-            "enable": false,
-            "rootPatterns": [
-                ".vimroot"
-            ],
-            "command": "python",
-            "args": [
-                "-mpyls",
-                "-vv",
-                "--log-file",
-                "/tmp/lsp_python.log"
-            ],
-            "trace.server": "verbose",
-            "filetypes": [
-                "python"
-            ],
-            "settings": {
-                "pyls": {
-                    "enable": true,
-                    "trace": {
-                        "server": "verbose"
-                    },
-                    "commandPath": "",
-                    "configurationSources": [
-                        "pycodestyle"
-                    ],
-                    "plugins": {
-                        "jedi_completion": {
-                            "enabled": true
-                        },
-                        "jedi_hover": {
-                            "enabled": true
-                        },
-                        "jedi_references": {
-                            "enabled": true
-                        },
-                        "jedi_signature_help": {
-                            "enabled": true
-                        },
-                        "jedi_symbols": {
-                            "enabled": true,
-                            "all_scopes": true
-                        },
-                        "mccabe": {
-                            "enabled": true,
-                            "threshold": 15
-                        },
-                        "preload": {
-                            "enabled": true
-                        },
-                        "pycodestyle": {
-                            "enabled": true
-                        },
-                        "pydocstyle": {
-                            "enabled": false,
-                            "match": "(?!test_).*\\.py",
-                            "matchDir": "[^\\.].*"
-                        },
-                        "pyflakes": {
-                            "enabled": true
-                        },
-                        "rope_completion": {
-                            "enabled": true
-                        },
-                        "yapf": {
-                            "enabled": true
-                        }
-                    }
-                }
-            }
-        },
-        "bash": {
-            "command": "bash-language-server",
-            "args": [
-                "start"
-            ],
-            "filetypes": [
-                "sh"
-            ]
-        },
-        "coc-clangd": {
-            "command": "clangd",
-            "rootPatterns": [
-                "compile_flags.txt",
-                "compile_commands.json"
-            ],
-            "filetypes": [
-                "c",
-                "cc",
-                "cpp",
-                "c++",
-                "objc",
-                "objcpp",
-                "hpp"
-            ]
-        },
-        //"ccls": {
-        //  "command": "ccls",
-        //  "filetypes": [ "c", "cc", "cpp", "c++", "objc", "objcpp" ],
-        //  "rootPatterns": [ ".ccls", "compile_commands.json", ".git/", ".svn/", ".hg/"],
-        //  "initializationOptions": {
-        //      "cache": {
-        //          "directory": "/tmp/ccls"
-        //      }
-        //  }
-        //},
-        "cmake": {
-            "command": "cmake-language-server",
-            "filetypes": [
-                "cmake"
-            ],
-            "rootPatterns": [
-                "build/"
-            ],
-            "initializationOptions": {
-                "buildDirectory": "build"
-            }
-        },
-        "golang": {
-            "command": "gopls",
-            "rootPatterns": [
-                "go.mod"
-            ],
-            "filetypes": [
-                "go"
-            ]
-        },
-        "kotlin": {
-            "command": "~/lsp/kotlin/server/bin/kotlin-language-server",
-            "filetypes": [
-                "kotlin"
-            ]
-        },
-        "groovy": {
-            "command": "java",
-            "args": [
-                "-jar",
-                "/path/to/groovy-language-server-all.jar"
-            ],
-            "filetypes": [
-                "groovy"
-            ]
-        },
-        "java": {
-            "command": "jdtls",
-            "filetypes": [
-                "java",
-                "class"
-            ],
-            "rootPatterns": [
-                "maven",
-                ".git",
-                ".svn",
-                ".vimroot"
-            ]
-        },
-        "lua": {
-            "command": "lua-lsp",
-            "filetypes": [
-                "lua"
-            ]
-        },
-        "sql": {
-            "command": "sql-language-server",
-            "args": [
-                "up",
-                "--method",
-                "stdio"
-            ],
-            "filetypes": [
-                "sql",
-                "mysql"
-            ]
-        }
     }
+    //2022/06/04 16:25:30, 建议用coc-xxx之类的插件替代下面的languageserver配置
+    //,"languageserver": {
+    //    "python": {
+    //        "enable": false,
+    //        "rootPatterns": [
+    //            ".vimroot"
+    //        ],
+    //        "command": "python",
+    //        "args": [
+    //            "-mpyls",
+    //            "-vv",
+    //            "--log-file",
+    //            "/tmp/lsp_python.log"
+    //        ],
+    //        "trace.server": "verbose",
+    //        "filetypes": [
+    //            "python"
+    //        ],
+    //        "settings": {
+    //            "pyls": {
+    //                "enable": true,
+    //                "trace": {
+    //                    "server": "verbose"
+    //                },
+    //                "commandPath": "",
+    //                "configurationSources": [
+    //                    "pycodestyle"
+    //                ],
+    //                "plugins": {
+    //                    "jedi_completion": {
+    //                        "enabled": true
+    //                    },
+    //                    "jedi_hover": {
+    //                        "enabled": true
+    //                    },
+    //                    "jedi_references": {
+    //                        "enabled": true
+    //                    },
+    //                    "jedi_signature_help": {
+    //                        "enabled": true
+    //                    },
+    //                    "jedi_symbols": {
+    //                        "enabled": true,
+    //                        "all_scopes": true
+    //                    },
+    //                    "mccabe": {
+    //                        "enabled": true,
+    //                        "threshold": 15
+    //                    },
+    //                    "preload": {
+    //                        "enabled": true
+    //                    },
+    //                    "pycodestyle": {
+    //                        "enabled": true
+    //                    },
+    //                    "pydocstyle": {
+    //                        "enabled": false,
+    //                        "match": "(?!test_).*\\.py",
+    //                        "matchDir": "[^\\.].*"
+    //                    },
+    //                    "pyflakes": {
+    //                        "enabled": true
+    //                    },
+    //                    "rope_completion": {
+    //                        "enabled": true
+    //                    },
+    //                    "yapf": {
+    //                        "enabled": true
+    //                    }
+    //                }
+    //            }
+    //        }
+    //    },
+    //    "bash": {
+    //        "command": "bash-language-server",
+    //        "args": [
+    //            "start"
+    //        ],
+    //        "filetypes": [
+    //            "sh"
+    //        ]
+    //    },
+    //    "coc-clangd": {
+    //        "command": "clangd",
+    //        "rootPatterns": [
+    //            "compile_flags.txt",
+    //            "compile_commands.json"
+    //        ],
+    //        "filetypes": [
+    //            "c",
+    //            "cc",
+    //            "cpp",
+    //            "c++",
+    //            "objc",
+    //            "objcpp",
+    //            "hpp"
+    //        ]
+    //    },
+    //    //"ccls": {
+    //    //  "command": "ccls",
+    //    //  "filetypes": [ "c", "cc", "cpp", "c++", "objc", "objcpp" ],
+    //    //  "rootPatterns": [ ".ccls", "compile_commands.json", ".git/", ".svn/", ".hg/"],
+    //    //  "initializationOptions": {
+    //    //      "cache": {
+    //    //          "directory": "/tmp/ccls"
+    //    //      }
+    //    //  }
+    //    //},
+    //    "cmake": {
+    //        "command": "cmake-language-server",
+    //        "filetypes": [
+    //            "cmake"
+    //        ],
+    //        "rootPatterns": [
+    //            "build/"
+    //        ],
+    //        "initializationOptions": {
+    //            "buildDirectory": "build"
+    //        }
+    //    },
+    //    "golang": {
+    //        "command": "gopls",
+    //        "rootPatterns": [
+    //            "go.mod"
+    //        ],
+    //        "filetypes": [
+    //            "go"
+    //        ]
+    //    },
+    //    "kotlin": {
+    //        "command": "~/lsp/kotlin/server/bin/kotlin-language-server",
+    //        "filetypes": [
+    //            "kotlin"
+    //        ]
+    //    },
+    //    "groovy": {
+    //        "command": "java",
+    //        "args": [
+    //            "-jar",
+    //            "/path/to/groovy-language-server-all.jar"
+    //        ],
+    //        "filetypes": [
+    //            "groovy"
+    //        ]
+    //    },
+    //    "java": {
+    //        "command": "jdtls",
+    //        "filetypes": [
+    //            "java",
+    //            "class"
+    //        ],
+    //        "rootPatterns": [
+    //            "maven",
+    //            ".git",
+    //            ".svn",
+    //            ".vimroot"
+    //        ]
+    //    },
+    //    //2022/06/04 16:19:46, 被coc-lua所替代
+    //    //"lua": {
+    //    //    "command": "lua-lsp",
+    //    //    "filetypes": [
+    //    //        "lua"
+    //    //    ]
+    //    //},
+    //    "sql": {
+    //        "command": "sql-language-server",
+    //        "args": [
+    //            "up",
+    //            "--method",
+    //            "stdio"
+    //        ],
+    //        "filetypes": [
+    //            "sql",
+    //            "mysql"
+    //        ]
+    //    }
+    //}
 }
