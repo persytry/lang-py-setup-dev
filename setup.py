@@ -33,6 +33,7 @@ _sedsPort:Dict[str, Dict[str, str]] = {
     'hk': {'63001':'63000', '63051':'63050'},
     'usagate': {'63000':'63001', '63050':'63051'},
 }
+_sedsPortSsh:Optional[Dict[str, Dict[str, str]]] = None
 _sedsGit:Dict[str, Dict[str, str]] = {
     'vim': {'nvim':'vim'},
     'nvim': {' vim':' nvim', '"vim"':'"nvim"'},
@@ -62,8 +63,8 @@ _os_file_list:List[FileItem] = [
     # 需要拷贝文件: $HOME/.ssh/authorized_keys
     FileItem('net/ssh/sshd_config_win.conf', win='C:/ProgramData/ssh/sshd_config'),
     FileItem('net/ssh/sshd_config.conf', linux='/etc/ssh/sshd_config', root=True),
-    FileItem('net/ssh/config.conf', unixLike='~/.ssh/config', needCreate=True, seds=_sedsPort),
-    FileItem('net/ssh/config_win.conf', win='~/.ssh/config', needCreate=True, seds=_sedsPort),
+    FileItem('net/ssh/config.conf', unixLike='~/.ssh/config', needCreate=True, seds=_sedsPortSsh),
+    FileItem('net/ssh/config_win.conf', win='~/.ssh/config', needCreate=True, seds=_sedsPortSsh),
     # https://github.com/shunf4/proxychains-windows
     FileItem('net/proxychains.conf', win='~/.proxychains/proxychains.conf', unixLike='/usr/local/etc/proxychains.conf', root=True, needCreate=True, seds=_sedsPort),
     FileItem('os/linux/cmn_profile.sh', win=_dummypath, seds=_sedsPort),
