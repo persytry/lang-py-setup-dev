@@ -65,7 +65,8 @@ function! coc#list#create(position, height, name, numberSelect)
     setl number
   else
     setl nonumber
-    setl norelativenumber
+    "2022/06/04 15:29:29, 我想要显示相对行号, 所以把norelativenumber去掉了
+    "setl norelativenumber
     setl signcolumn=yes
   endif
   return [bufnr('%'), win_getid(), tabpagenr()]
@@ -84,7 +85,9 @@ endfunction
 function! coc#list#setup(source)
   let b:list_status = {}
   setl buftype=nofile nobuflisted nofen nowrap
-  setl norelativenumber bufhidden=wipe cursorline winfixheight
+  "2022/06/04 15:29:29, 我想要显示相对行号, 所以把norelativenumber去掉了
+  "setl norelativenumber bufhidden=wipe cursorline winfixheight
+  setl bufhidden=wipe cursorline winfixheight
   setl tabstop=1 nolist nocursorcolumn undolevels=-1
   setl signcolumn=auto
   if has('nvim-0.5.0') || has('patch-8.1.0864')

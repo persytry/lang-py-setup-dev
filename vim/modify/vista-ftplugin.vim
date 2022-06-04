@@ -10,9 +10,9 @@
 " So we could just use a function to set the buffer local settings.
 
 function! vista#ftplugin#Set() abort
+  "2022/06/04 15:29:29, 我想要显示相对行号, 所以把norelativenumber去掉了
   setlocal
     \ nonumber
-    \ norelativenumber
     \ nopaste
     \ nomodeline
     \ noswapfile
