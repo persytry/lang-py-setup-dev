@@ -60,7 +60,8 @@ _os_file_list:List[FileItem] = [
     FileItem('t/vifm/colors/Default-linux.vifm', linux='~/.config/vifm/colors/Default.vifm', needCreate=True),
     FileItem('t/vifm/colors/solarized-light.vifm', win='~/AppData/Roaming/Vifm/colors/solarized-light.vifm', unixLike='~/.config/vifm/colors/solarized-light.vifm', needCreate=True),
     # 需要拷贝文件: $HOME/.ssh/authorized_keys
-    FileItem('net/ssh/sshd_config.conf', win='C:/ProgramData/ssh/sshd_config'),
+    FileItem('net/ssh/sshd_config_win.conf', win='C:/ProgramData/ssh/sshd_config'),
+    FileItem('net/ssh/sshd_config.conf', linux='/etc/ssh/sshd_config', root=True),
     FileItem('net/ssh/config.conf', unixLike='~/.ssh/config', needCreate=True, seds=_sedsPort),
     FileItem('net/ssh/config_win.conf', win='~/.ssh/config', needCreate=True, seds=_sedsPort),
     # https://github.com/shunf4/proxychains-windows
@@ -246,6 +247,7 @@ def copyVifmCfg(toSystem: bool) -> int:
 
 def copySshdCfg(toSystem: bool) -> int:
     cnt = 0
+    cnt += _copyFileItemByName(toSystem, 'net/ssh/sshd_config_win.conf')
     cnt += _copyFileItemByName(toSystem, 'net/ssh/sshd_config.conf')
     print(f'copy sshd config {cnt} files')
     return cnt
