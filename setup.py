@@ -44,6 +44,7 @@ _os_file_list:List[FileItem] = [
     FileItem('vim/nvim', win='~/AppData/Local/nvim', unixLike='~/.config/nvim', needCreate=True, ignored=['plugged']),
     FileItem('vim/modify/vista-ftplugin.vim', win='~/AppData/Local/nvim/plugged/vista.vim/autoload/vista/ftplugin.vim', unixLike='~/.config/nvim/plugged/vista.vim/autoload/vista/ftplugin.vim'),
     FileItem('vim/modify/coc-list.vim', win='~/AppData/Local/nvim/plugged/coc.nvim/autoload/coc/list.vim', unixLike='~/.config/nvim/plugged/coc.nvim/autoload/coc/list.vim'),
+    FileItem('vim/modify/lua-lazygit.lua', win='~/AppData/Local/nvim/plugged/lazygit.nvim/lua/lazygit.lua', unixLike='~/.config/nvim/plugged/lazygit.nvim/lua/lazygit.lua'),
     FileItem('vim/nvim/init.vim', all='~/.vimrc', needCreate=True),
     FileItem('vim/nvim/coc-settings.json', win='~/vimfiles/coc-settings.json', unixLike='~/.vim/coc-settings.json', needCreate=True),
     FileItem('vim/nvim/autoload', win='~/vimfiles/autoload', unixLike='~/.vim/autoload', needCreate=True),
@@ -210,6 +211,7 @@ def copyVimCfg(toSystem: bool, isNvim: bool) -> int:
         cnt += _copyFileItemByName(toSystem, 'vim/nvim')
         cnt += _copyFileItemByName(toSystem, 'vim/modify/vista-ftplugin.vim')
         cnt += _copyFileItemByName(toSystem, 'vim/modify/coc-list.vim')
+        cnt += _copyFileItemByName(toSystem, 'vim/modify/lua-lazygit.lua')
         print(f'copy nvim config {cnt} files')
     else:
         cnt += _copyFileItemByName(toSystem, 'vim/nvim/init.vim')
