@@ -121,7 +121,7 @@ fi
 export EDITOR="nvim"
 export PAGER=less
 export LESS=-R
-export http_proxy=http://proxy.izds.top:63001
+export http_proxy=http://proxy.izds.top:63000
 export https_proxy=$http_proxy
 export HOMEBREW_NO_AUTO_UPDATE=true
 export GOPATH=$HOME/go

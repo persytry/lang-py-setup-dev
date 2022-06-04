@@ -490,7 +490,7 @@ let g:open_url_default_mappings = 0
 let g:coc_global_extensions = [
     \ 'coc-highlight', 'coc-vimlsp', 'coc-sh',
     \ 'coc-json', 'coc-marketplace', 'coc-clangd', 'coc-cmake',
-    \ 'coc-pyright', 'coc-rust-analyzer', 'coc-go', 'coc-tsserver',
+    \ 'coc-pyright', 'coc-rust-analyzer', 'coc-go', 'coc-tsserver', 'coc-lua',
     \ 'coc-protobuf', 'coc-html-css-support']
 " 也是为了解决: python.analysis.extraPaths, 会报这样的错误: [Pyright reportMissingImports] [E] Import "xxx" could not be resolved
 " [Using workspaceFolders](https://github.com/neoclide/coc.nvim/wiki/Using-workspaceFolders#resolve-workspace-folder)
@@ -1128,6 +1128,8 @@ function! MyCocDefaultAction(coc)
     "echomsg a:coc
     if a:coc.name == 'commands'
         return 'run'
+    elseif  a:coc.name == 'lists'
+        return 'open'
     endif
     return 'drop'
 endfunction
