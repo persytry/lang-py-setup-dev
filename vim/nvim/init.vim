@@ -1315,6 +1315,8 @@ noremap <leader>gj :<C-U><C-R>=printf("Leaderf gtags --next %s", "")<CR><CR>
 noremap <leader>gk :<C-U><C-R>=printf("Leaderf gtags --previous %s", "")<CR><CR>
 "恢复窗口,a->awake
 noremap <leader>ga :<C-U><C-R>=printf("Leaderf! gtags --recall %s", "")<CR><CR>
+
+autocmd FileType leaderf setlocal relativenumber
 """""""""""LeaderF end
 
 """""""""""open-url begin

@@ -42,6 +42,8 @@ _cur_dir:str = os.path.dirname(os.path.realpath(__file__))
 _cur_dir = os.path.realpath(_cur_dir)
 _os_file_list:List[FileItem] = [
     FileItem('vim/nvim', win='~/AppData/Local/nvim', unixLike='~/.config/nvim', needCreate=True, ignored=['plugged']),
+    FileItem('vim/modify/vista-ftplugin.vim', win='~/AppData/Local/nvim/plugged/vista.vim/autoload/vista/ftplugin.vim', unixLike='~/.config/nvim/plugged/vista.vim/autoload/vista/ftplugin.vim'),
+    FileItem('vim/modify/coc-list.vim', win='~/AppData/Local/nvim/plugged/coc.nvim/autoload/coc/list.vim', unixLike='~/.config/nvim/plugged/coc.nvim/autoload/coc/list.vim'),
     FileItem('vim/nvim/init.vim', all='~/.vimrc', needCreate=True),
     FileItem('vim/nvim/coc-settings.json', win='~/vimfiles/coc-settings.json', unixLike='~/.vim/coc-settings.json', needCreate=True),
     FileItem('vim/nvim/autoload', win='~/vimfiles/autoload', unixLike='~/.vim/autoload', needCreate=True),
@@ -206,6 +208,8 @@ def copyVimCfg(toSystem: bool, isNvim: bool) -> int:
     cnt += _copyFileItemByName(toSystem, 'vim/gtags.conf')
     if isNvim:
         cnt += _copyFileItemByName(toSystem, 'vim/nvim')
+        cnt += _copyFileItemByName(toSystem, 'vim/modify/vista-ftplugin.vim')
+        cnt += _copyFileItemByName(toSystem, 'vim/modify/coc-list.vim')
         print(f'copy nvim config {cnt} files')
     else:
         cnt += _copyFileItemByName(toSystem, 'vim/nvim/init.vim')

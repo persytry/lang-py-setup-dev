@@ -1,8 +1,18 @@
+" Copyright (c) 2019 Liu-Cheng Xu
+" MIT License
+" vim: ts=2 sw=2 sts=2 et
 
-"2022/06/04 13:12:03, 去掉了norelativenumber,其他的都是从原函数拷贝过来的
+" If we use ftplugin/vista.vim, ftplugin/vista_kind.vim, etc, everytime we'll
+" need this:
+"
+" No usual did_ftplugin check here
+"
+" So we could just use a function to set the buffer local settings.
+
 function! vista#ftplugin#Set() abort
   setlocal
     \ nonumber
+    \ norelativenumber
     \ nopaste
     \ nomodeline
     \ noswapfile
