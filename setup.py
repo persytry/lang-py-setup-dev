@@ -33,7 +33,7 @@ _sedsPort:Dict[str, Dict[str, str]] = {
     'hk': {'63001':'63000', '63051':'63050'},
     'usagate': {'63000':'63001', '63050':'63051'},
 }
-_sedsPortSsh:Optional[Dict[str, Dict[str, str]]] = None
+_sedsPortSsh:Optional[Dict[str, Dict[str, str]]] = _sedsPort
 _sedsGit:Dict[str, Dict[str, str]] = {
     'vim': {'nvim':'vim'},
     'nvim': {' vim':' nvim', '"vim"':'"nvim"'},
