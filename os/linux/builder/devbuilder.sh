@@ -85,8 +85,12 @@ sudo apt-get install -y wireguard
 #在docker环境下会这样的输出,貌似没什么影响: Failed to open connection to "system" message bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory
 sudo apt-get install -y software-properties-common
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
-chown $USER:$USER $HOME/.ssh $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config $HOME/.ssh/authorized_keys $HOME/.ssh/known_hosts
-chmod 600 $HOME/.ssh/id_rsa $HOME/.ssh/id_rsa.pub $HOME/.ssh/config
+#下面这两行命令用来创建新用户
+#useradd username
+#passwd username
+chown -R $USER:$USER $HOME/.ssh
+chmod 600 $HOME/.ssh/*
+chmod 700 $HOME/.ssh
 #[ssh 登录出现Are you sure you want to continue connecting (yes/no)?解决方法](https://blog.csdn.net/mct_blog/article/details/52511314)
 sudo sed -i -e "s/^#.*StrictHostKeyChecking.*$/    StrictHostKeyChecking no/" /etc/ssh/ssh_config
 
