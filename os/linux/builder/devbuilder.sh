@@ -87,7 +87,7 @@ sudo apt-get install -y software-properties-common
 wget $myminiserve/sys/ssh.tar.gz -O - | tar -xz -C $HOME/
 #下面这两行命令用来创建新用户
 #useradd username
-#passwd username
+#passwd username 接下来需要: 1. apt install sudo && vi /etc/sudoers 2. cp /root/somefile /home/username 3. chown -R username:username /home/username 4. chsh -s /bin/bash
 chown -R $USER:$USER $HOME/.ssh
 chmod 600 $HOME/.ssh/*
 chmod 700 $HOME/.ssh
