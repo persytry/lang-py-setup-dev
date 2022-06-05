@@ -122,6 +122,7 @@ export PATH=/opt/nodejs/bin:$PATH
 
 npm install -g typescript yarn neovim bash-language-server wsl-open
 
+#https://www.oracle.com/cn/java/technologies/javase/javase8-archive-downloads.html
 tar -xzf jdk-8u301-linux-x64.tar.gz
 sudo mv jdk1.8.0_301 /opt/jdk8
 export JAVA_HOME=/opt/jdk8
