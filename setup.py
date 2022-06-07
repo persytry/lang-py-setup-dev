@@ -92,6 +92,7 @@ _os_file_list:List[FileItem] = [
     FileItem('os/linux/x11/keymap/pc', linux='/usr/share/X11/xkb/symbols/pc', root=True, linuxVirt='none'),
     FileItem('t/git/gitconfig', unixLike='~/.gitconfig', needCreate=True, seds=_sedsGit),
     FileItem('t/git/gitconfig_win', win='~/.gitconfig', needCreate=True, seds=_sedsGit),
+    FileItem('os/linux/etc/environment', linux='/etc/environment'),
 ]
 _os_file_map:Dict[str, int] = {}
 if len(_os_file_map) != len(_os_file_list):
@@ -452,6 +453,7 @@ def main() -> None:
     parser.add_argument('--lemonade', default=False, action='store_true')
     parser.add_argument('--keymap', default=False, action='store_true')
     parser.add_argument('--minidlna_src', default=False, nargs=1, help='input minidlna code source path')
+    parser.add_argument('--etc', default=False, action='store_true')
     args = parser.parse_args()
 
     if args.sed:
@@ -516,6 +518,8 @@ def main() -> None:
             os.system('systemctl enable load_tty_keymaps')
     if args.minidlna_src:
         cnt += changeMinidlnaSrc(args.minidlna_src[0])
+    if all or args.etc:
+        cnt += _copyFileItemByName(toSystem, 'os/linux/etc/environment')
     print(f'copy total {cnt} file done')
 
 
