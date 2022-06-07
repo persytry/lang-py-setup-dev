@@ -106,8 +106,8 @@ sudo ln -s `which python3` /usr/local/bin/p
 sudo apt-get install -y python3-pip
 sudo ln -s `which pip3` /usr/local/bin/pip
 pip install pynvim
-pip install numpy -i https://pypi.douban.com/simple
-pip install pandas -i https://pypi.douban.com/simple
+#pip install numpy -i https://pypi.douban.com/simple
+#pip install pandas -i https://pypi.douban.com/simple
 
 #https://github.com/nodesource/distributions/blob/master/README.md#debinstall
 #wget https://deb.nodesource.com/setup_18.x
