@@ -3,7 +3,7 @@ Description=lemonade by persy
 After=network.target
 
 [Service]
-User=root
+User=persy
 ExecStart=lemonade server --port=59500
 
 [Install]
