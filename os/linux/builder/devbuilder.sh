@@ -104,6 +104,7 @@ sudo ln -s `which python3` /usr/local/bin/p
 
 # 安装编程语言支持
 sudo apt-get install -y python3-pip
+sudo ln -s `which pip3` /usr/local/bin/pip
 pip install pynvim
 
 #https://github.com/nodesource/distributions/blob/master/README.md#debinstall
