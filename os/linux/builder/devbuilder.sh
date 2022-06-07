@@ -106,6 +106,8 @@ sudo ln -s `which python3` /usr/local/bin/p
 sudo apt-get install -y python3-pip
 sudo ln -s `which pip3` /usr/local/bin/pip
 pip install pynvim
+#2022/06/07 13:01:31, 最好用apt的方式去安装pandas, 而不是用pip的方式,因为有的服务器用pip的方式安装不成功. pandas依赖numpy,所以安装pandas也会把numpy安装上的. [Install Python Pandas on Windows, Linux & Mac OS](https://sparkbyexamples.com/pandas/install-python-pandas-on-windows-linux-mac-os/)
+#sudo apt-get install -y python3-pandas
 #pip install numpy -i https://pypi.douban.com/simple
 #pip install pandas -i https://pypi.douban.com/simple
 
