@@ -92,7 +92,7 @@ _os_file_list:List[FileItem] = [
     FileItem('os/linux/x11/keymap/pc', linux='/usr/share/X11/xkb/symbols/pc', root=True, linuxVirt='none'),
     FileItem('t/git/gitconfig', unixLike='~/.gitconfig', needCreate=True, seds=_sedsGit),
     FileItem('t/git/gitconfig_win', win='~/.gitconfig', needCreate=True, seds=_sedsGit),
-    FileItem('os/linux/etc/environment', linux='/etc/environment'),
+    FileItem('os/linux/etc/environment', linux='/etc/environment', root=True),
 ]
 _os_file_map:Dict[str, int] = {}
 if len(_os_file_map) != len(_os_file_list):
