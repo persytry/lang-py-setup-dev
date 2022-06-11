@@ -411,6 +411,10 @@ let g:AutoPairsMoveCharacter = ''
 " vim-textobj-comment setting
 let g:loaded_textobj_comment = 1
 
+" vim-toggle setting
+let g:toggle_words_on  = ["true", "on", "yes", "define", "in", "up", "left", "north", "east", "null"]
+let g:toggle_words_off = ["false", "off", "no", "undef", "out", "down", "right", "south", "west", "undefined"]
+
 " unimpaired setting
 let g:nremap = { '[y': 0, ']y': 0, '[C': 0, ']C': 0, '[u': 0, ']u': 0, '[x': 0, ']x': 0 }
 let g:xremap = g:nremap
