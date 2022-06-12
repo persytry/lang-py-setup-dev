@@ -8,9 +8,10 @@ import os
 import re
 from typing import Optional
 
-_verbose:bool = True;
+_verbose = True;
+_isModule = True;
 
-def handlePaths(paths) -> None:
+def handlePaths(paths:tuple[str,str]) -> None:
     if len(paths) != 2:
         print('must input two path, second path is input as3 file or directory, first path is output directory')
         return
@@ -27,20 +28,23 @@ def handlePath(inPath: str) -> int:
     if os.path.isfile(inPath):
         return handleFile(inPath)
     cnt:int = 0
+    inPath = os.path.normpath(inPath)
     for root, _, files in os.walk(inPath):
+        root = os.path.normpath(root)
+        relpath = os.path.relpath(inPath, root)
         for f in files:
-            cnt += handleFile(os.path.join(root, f))
+            cnt += handleFile(os.path.join(root, f), relpath)
     return cnt
 
-def handleFile(inFile: str) -> int:
-    if not asParser.parseFile(inFile):
+def handleFile(inFile: str, relpath: Optional[str] = None) -> int:
+    if not asParser.parseFile(inFile, relpath):
         print(f'parse the file has error: {inFile}')
         return 0
     return 1
 
 class JsonParser:
-    globals:dict
-    mudulePath:dict
+    globals:dict[str, str]
+    mudulePath:dict[str, str]
 
     def __init__(self):
         self.globals = {}
@@ -78,14 +82,13 @@ class JsonParser:
         return path
 
 class AsClass:
-    _modules:set
-    name:str
-    base:str
+    _modules:set[str]
 
-    def __init__(self, name:str, base:str):
+    def __init__(self, name:str, base:str, relpath:Optional[str]):
         self._modules = set()
         self.name = name
         self.base = base
+        self.relpath = relpath
         self.vars = []
         self.methods = []
 
@@ -202,7 +205,7 @@ class AsParser:
     def __init__(self):
         self.packages = {}
 
-    def parseFile(self, path:str) -> bool:
+    def parseFile(self, path:str, relpath:Optional[str]) -> bool:
         arrClasses:Optional[list[AsClass]] = None
         hasPackage = False
         theCls:Optional[AsClass] = None
@@ -221,10 +224,10 @@ class AsParser:
                 cls = re.findall(r'^\s*(?:public\s+)?class\s+(\w+)\s+extends\s+(\w+)', line)
                 if len(cls) == 1:
                     cls = cls[0]
-                    theCls = AsClass(cls[0], cls[1])
+                    theCls = AsClass(cls[0], cls[1], relpath)
                     if arrClasses is not None:
                         arrClasses.append(theCls)
-                    isParseMethod = jsonParser.isModule(theCls.name)
+                    isParseMethod = _isModule or jsonParser.isModule(theCls.name)
                     continue
                 var = re.findall(r'^\s*(\w+)\s+var\s+(\w+)\s*:\s*(\w+)', line)
                 if len(var) == 1:
@@ -261,13 +264,18 @@ class AsParser:
                 print(f'generated module count:{len(modules)}')
             if len(classesBundle) == 0:
                 continue
-            with open(f'{os.path.join(path, package.split(".")[-1])}.d.ts', 'w', encoding='utf-8') as f:
-                f.write(f'declare namespace {package}\n{{\n')
+            if _isModule is True:
                 for cls in classesBundle:
-                    cls.writeTo(f, 4, False)
-                f.write('}')
-                if _verbose:
-                    print(f'generated package:{package}, class count:{len(classesBundle)}')
+                    with open(f'{os.path.join(path, cls.name)}.ts', 'w', encoding='utf-8') as f:
+                        cls.writeTo(f, 0, True)
+            else:
+                with open(f'{os.path.join(path, package.split(".")[-1])}.d.ts', 'w', encoding='utf-8') as f:
+                    f.write(f'declare namespace {package}\n{{\n')
+                    for cls in classesBundle:
+                        cls.writeTo(f, 4, False)
+                    f.write('}')
+                    if _verbose:
+                        print(f'generated package:{package}, class count:{len(classesBundle)}')
         if _verbose:
             print(f'generated package count:{len(self.packages)}, class total count:{clsCnt}')
 
@@ -275,13 +283,15 @@ asParser = AsParser()
 jsonParser = JsonParser()
 
 def main() -> None:
-    global _verbose
+    global _verbose, _isModule
     parser = argparse.ArgumentParser(description='generate .d.ts file from as3 files')
     parser.add_argument('paths', metavar='path', nargs='+', default='', help='the second path is inputed as3 file or directory, and the first path is output directory')
     parser.add_argument('-v', '--verbose', default=_verbose, help='if verbose', action='store_true')
     parser.add_argument('-j', '--json', default='', help='input json file as as3 type map to typescript type')
+    parser.add_argument('-m', '--module', default=_isModule, action='store_true')
     args = parser.parse_args()
     _verbose = args.verbose
+    _isModule = args.module
     if args.json != '' and jsonParser.parse(args.json) is not True:
         return
     handlePaths(args.paths)
