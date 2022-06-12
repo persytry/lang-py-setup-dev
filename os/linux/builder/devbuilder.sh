@@ -99,6 +99,8 @@ git config --global credential.helper store
 
 sudo systemctl disable wg-quick@wg0 vsftpd
 
+#官方软件源中的软件都比较旧,而清华软件源的比较新
+#sudo apt-get install -y --only-upgrade python3
 sudo ln -s `which python3` /usr/local/bin/python
 sudo ln -s `which python3` /usr/local/bin/p
 
