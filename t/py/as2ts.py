@@ -113,7 +113,7 @@ class AsClass:
             self._modules.add(type)
 
     def writeTo(self, f, spaceN:int, isModule:bool):
-        modulePaths = {}
+        modulePaths:dict[str, list[str]] = {}
         for module in self._modules:
             modulePath = jsonParser.getModulePath(module)
             arr = modulePaths.get(modulePath)
@@ -121,8 +121,12 @@ class AsClass:
                 modulePaths[modulePath] = [module]
                 continue
             arr.append(module)
+        arrModulePaths:list[tuple[str, list[str]]] = []
         for modulePath, arrClasses in modulePaths.items():
             arrClasses.sort()
+            arrModulePaths.append((modulePath, arrClasses))
+        arrModulePaths.sort(key=lambda a:a[0])
+        for modulePath, arrClasses in arrModulePaths:
             f.write(f'import {{ {", ".join(arrClasses)} }} from "{modulePath}";\n')
         if isModule is True:
             f.write('\n')
