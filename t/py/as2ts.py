@@ -31,7 +31,7 @@ def handlePath(inPath: str) -> int:
     inPath = os.path.normpath(inPath)
     for root, _, files in os.walk(inPath):
         root = os.path.normpath(root)
-        relpath = os.path.relpath(inPath, root)
+        relpath = os.path.relpath(root, inPath)
         for f in files:
             cnt += handleFile(os.path.join(root, f), relpath)
     return cnt
@@ -45,6 +45,8 @@ def handleFile(inFile: str, relpath: Optional[str] = None) -> int:
 class JsonParser:
     globals:dict[str, str]
     mudulePath:dict[str, str]
+    modulePath:dict[str, str]
+    modules:list[str]
 
     def __init__(self):
         self.globals = {}
@@ -66,6 +68,7 @@ class JsonParser:
         return True
 
     def getGlobalType(self, astype:str) -> str:
+        if _isModule is True and self.hasModulePath(astype): return astype
         res = self.globals.get(astype)
         if res is None: return astype
         return res
@@ -92,8 +95,12 @@ class AsClass:
         self.vars = []
         self.methods = []
 
+    def getPath(self) -> str:
+        if self.relpath is None: return self.name + '.ts'
+        return os.path.join(self.relpath, self.name + '.ts')
+
     def parseModules(self) -> bool:
-        if not jsonParser.isModule(self.name): return False
+        if _isModule is False and not jsonParser.isModule(self.name): return False
         self.addModule(self.base)
         for v in self.vars:
             v.addModuleToClass(self)
@@ -248,34 +255,33 @@ class AsParser:
 
     def output(self, path:str) -> None:
         clsCnt = 0
+        path = os.path.realpath(path)
         for package, classes in self.packages.items():
             clsCnt += len(classes)
-            modules = []
-            classesBundle = []
+            modules:list[AsClass] = []
+            classesBundle:list[AsClass] = []
             for cls in classes:
                 if cls.parseModules():
                     modules.append(cls)
                 else:
                     classesBundle.append(cls)
             for module in modules:
-                with open(f'{os.path.join(path, module.name)}.ts', 'w', encoding='utf-8') as f:
+                p = os.path.realpath(os.path.join(path, module.getPath()))
+                parent = os.path.dirname(p)
+                if parent != path and not os.path.exists(parent): os.makedirs(parent)
+                with open(p, 'w', encoding='utf-8') as f:
                     module.writeTo(f, 0, True)
             if _verbose:
                 print(f'generated module count:{len(modules)}')
             if len(classesBundle) == 0:
                 continue
-            if _isModule is True:
+            with open(os.path.join(path, package.split(".")[-1]) + '.d.ts', 'w', encoding='utf-8') as f:
+                f.write(f'declare namespace {package}\n{{\n')
                 for cls in classesBundle:
-                    with open(f'{os.path.join(path, cls.name)}.ts', 'w', encoding='utf-8') as f:
-                        cls.writeTo(f, 0, True)
-            else:
-                with open(f'{os.path.join(path, package.split(".")[-1])}.d.ts', 'w', encoding='utf-8') as f:
-                    f.write(f'declare namespace {package}\n{{\n')
-                    for cls in classesBundle:
-                        cls.writeTo(f, 4, False)
-                    f.write('}')
-                    if _verbose:
-                        print(f'generated package:{package}, class count:{len(classesBundle)}')
+                    cls.writeTo(f, 4, False)
+                f.write('}')
+                if _verbose:
+                    print(f'generated package:{package}, class count:{len(classesBundle)}')
         if _verbose:
             print(f'generated package count:{len(self.packages)}, class total count:{clsCnt}')
 
