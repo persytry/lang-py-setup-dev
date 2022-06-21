@@ -1,8 +1,10 @@
 #!/bin/bash
 
+sedParam1=${1//\//\\\/}
+sedParam2=${2//\//\\\/}
 if [[ `uname` == "Linux" ]]; then
-    sed -i -e "s/$1/$2/g" `rg -l "$1"`
+    sed -i -e "s/$sedParam1/$sedParam2/g" `rg -l "$1"`
 else
     # mac下的sed与linux的-i选项略有不同,mac下的-i强制要求备份,如果是空字符串,则表示不备份
-    sed -i '' -e "s/$1/$2/g" `rg -l "$1"`
+    sed -i '' -e "s/$sedParam1/$sedParam2/g" `rg -l "$1"`
 fi
