@@ -195,9 +195,8 @@ unzip protoc-3.20.1-linux-x86_64.zip -d protoc
 sudo mv protoc/bin/protoc /usr/local/bin
 
 #https://github.com/syncthing/syncthing
-tar -xzf syncthing-linux-amd64-v1.20.2-rc.1.tar.gz
-sudo mv syncthing-linux-amd64-v1.20.2-rc.1/syncthing /usr/local/bin
-sudo chown $USER:$USER /usr/local/bin/syncthing
+tar -xzf syncthing-linux-amd64-v1.20.2.tar.gz
+sudo mv syncthing-linux-amd64-v1.20.2/syncthing /usr/local/bin
 
 #https://github.com/unlock-music/cli
 chmod a+x um-linux-amd64
