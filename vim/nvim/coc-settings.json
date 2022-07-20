@@ -24,6 +24,7 @@
     "python.jediEnabled": false,
     "pyright.enable": true,
     "pyright.trace.server": "verbose",
+    "python.analysis.useLibraryCodeForTypes": true,
     "typescript.format.placeOpenBraceOnNewLineForFunctions": true,
     "typescript.format.placeOpenBraceOnNewLineForControlBlocks": false,
     "javascript.format.placeOpenBraceOnNewLineForFunctions": true,
