@@ -491,6 +491,8 @@ let g:open_url_default_mappings = 0
 " rust-analyzer安装步骤: 1. :CocInstall coc-rust-analyzer; 2. rustup component add rust-src; 3. 安装针对 Rust 的 LSP（rust-analyzer）. [参考](https://www.starky.ltd/2021/05/30/vim-configuration-with-coc-support-rust-c-python-complete/)
 " 输入:CocList后,选择marketplace,可以查看所有插件
 " [coc-settings.json关于语言服务器(language-server)的范例](https://github.com/neoclide/coc.nvim/wiki/Language-servers)
+" coc-clangd, [follow Project setup to generate compile_commands.json for your project](https://clangd.llvm.org/installation.html#project-setup)
+" [在CMakeLists.txt中添加 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)](https://blog.csdn.net/qq_22660775/article/details/88690954)
 let g:coc_global_extensions = [
     \ 'coc-highlight', 'coc-vimlsp', 'coc-sh',
     \ 'coc-json', 'coc-marketplace', 'coc-clangd', 'coc-cmake',
@@ -1134,6 +1136,10 @@ nnoremap <silent><nowait> <leader>oa  :<C-u>CocListResume<CR>
 nnoremap <silent><nowait> <C-j> :<C-u>CocCommand document.jumpToNextSymbol<CR>
 " jump to previous symbol
 nnoremap <silent><nowait> <C-k> :<C-u>CocCommand document.jumpToPrevSymbol<CR>
+" 打开头文件或源文件, 用tab的方式
+nnoremap <silent><nowait> <leader>ot :<C-u>CocCommand clangd.switchSourceHeader<CR>
+" 打开头文件或源文件, 用vsplit的方式
+nnoremap <silent><nowait> <leader>ov :<C-u>CocCommand clangd.switchSourceHeader vsplit<CR>
 
 " C-t, C-]
 " :h tagfunc, [CocTagFunc jump in new tab or existed tab](https://github.com/neoclide/coc.nvim/issues/3823)
